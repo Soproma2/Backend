@@ -92,6 +92,47 @@
 
 
             //დავალება 6 (დაწერეთ პროგრამა სადაც მომხმარებელს შემოჰყავს რიცხვი, თუ ეს რიცხვი მეტია 5-ზე  და ნაკლებია 10-ზე,კონსოლში დაიბეჭდება შესაბამსი შეტყობინება (რიცხვი მეტია 5-ზე და ნაკლებია 10-ზე),წინააღმდეგ შემთხვევაში დაიბეჭდება(უცნობი რიცხვი))
+
+            //Console.Write("Enter number: ");
+            //int userNum = Convert.ToInt32(Console.ReadLine());
+            //if(userNum > 5 &&  userNum < 10)
+            //{
+            //    Console.WriteLine($"{userNum}>5 and {userNum}<10");
+            //}
+            //else
+            //{
+            //    Console.WriteLine(userNum);
+            //}
+
+
+
+            //დავალება 7 (დაწერეთ პროგრამა სადაც მომხმარებელს შემოჰყავს რიცხვი თუ ეს რიცხვი ტოლია 5-ის ან ტოლია 10-ის,კონსოლში დაიბეჭდება(რიცხვი უდრის 5-ს ან რიცხვი უდრის 10-ს,წინააღმდეგ შემთხვევაში დაიბეჭდება(უცნობი რიცხვი))
+
+            //Console.Write("Enter number: ");
+            //int UserNum = Convert.ToInt32(Console.ReadLine());
+            //if (UserNum == 5 || UserNum == 10)
+            //{
+            //    Console.WriteLine($"{UserNum}=5 or {UserNum}=10");
+            //}
+            //else
+            //{
+            //    Console.WriteLine(UserNum);
+            //}
+
+
+
+            //დავალება 8 (დაწერეთ პროგრამა სადაც მომხმარებელს შემოჰყავს რიცხვი,თუ ეს რიცხვი კენტია დაიბეჭდება (რიცხვი არის კენტი) თუ ლუწია დაიბეჭდება(რიცხვი არის ლუწი).შეგახსენებთ რიცხვები რომლებიც უნაშთოდ იყოფა 2-ზე არის ლუწი რიცხვები.)
+
+            //Console.Write("Enter number: ");
+            //int userNumber = Convert.ToInt32(Console.ReadLine());
+            //if (userNumber % 2 !=0)
+            //{
+            //    Console.WriteLine("Number is Odd");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Number is Even");
+            //}
         }
     }
 }
