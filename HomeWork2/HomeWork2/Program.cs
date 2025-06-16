@@ -6,51 +6,66 @@
         {
             //დავალება 1 (ლექციის განმავლობაში ნაჩვენები ოპერატორების გამოყენებით ჩაატარეთ ყველა მათემატიკური ოპერაცია შეკრიბეთ გამოაკელით გაამრავლეთ და გაყავით ორი რიცხვი.პროგრამის მუშაობის რეალიზაცია მოახდინეთ კონსოლში.)
 
-            // მინიჭების ოპერატორი
-            int x = 10;
-            Console.WriteLine(x);
+            //// მინიჭების ოპერატორი
+            //int x = 10;
+            //Console.WriteLine(x);
 
-            // შედარების ოპერატორები
-            Console.WriteLine(5 == 5); //true
-            Console.WriteLine(10>5); //true
-            Console.WriteLine(10>10); //false
-            Console.WriteLine(8<12); //true
-            Console.WriteLine(10>=7); //true
-            Console.WriteLine(10<=10); //true
-            Console.WriteLine(10<=8); //false
-            Console.WriteLine(3!=5); //true
+            //// შედარების ოპერატორები
+            //Console.WriteLine(5 == 5); //true
+            //Console.WriteLine(10 > 5); //true
+            //Console.WriteLine(10 > 10); //false
+            //Console.WriteLine(8 < 12); //true
+            //Console.WriteLine(10 >= 7); //true
+            //Console.WriteLine(10 <= 10); //true
+            //Console.WriteLine(10 <= 8); //false
+            //Console.WriteLine(3 != 5); //true
 
-            //არითმეტიკული
-            Console.WriteLine(11+14); //25
-            Console.WriteLine(15-12); //3
-            Console.WriteLine(35*20); //700
-            Console.WriteLine(42 / 6); //7
+            ////არითმეტიკული
+            //Console.WriteLine(11 + 14); //25
+            //Console.WriteLine(15 - 12); //3
+            //Console.WriteLine(35 * 20); //700
+            //Console.WriteLine(42 / 6); //7
 
-            int y = 0;
-            y += 2;
-            Console.WriteLine(y); //2
-            y -= 3;
-            Console.WriteLine(y); //-1
-            y *= -5;
-            Console.WriteLine(y); //5
-            y /= 5;
-            Console.WriteLine(y); //1
+            //int y = 0;
+            //y += 2;
+            //Console.WriteLine(y); //2
+            //y -= 3;
+            //Console.WriteLine(y); //-1
+            //y *= -5;
+            //Console.WriteLine(y); //5
+            //y /= 5;
+            //Console.WriteLine(y); //1
 
-            y = y++;
-            Console.WriteLine(y); //1
-            y = ++y;
-            Console.WriteLine(y); //2
-            y = y--;
-            Console.WriteLine(y); //2
-            y = --y;
-            Console.WriteLine(y); //1
+            //y = y++;
+            //Console.WriteLine(y); //1
+            //y = ++y;
+            //Console.WriteLine(y); //2
+            //y = y--;
+            //Console.WriteLine(y); //2
+            //y = --y;
+            //Console.WriteLine(y); //1
 
-            //დამხმარე ოპერატორები
-            Console.WriteLine(12>10 && 2>1); // true
-            Console.WriteLine(12<10 || 2>1); // true
+            ////დამხმარე ოპერატორები
+            //Console.WriteLine(12 > 10 && 2 > 1); // true
+            //Console.WriteLine(12 < 10 || 2 > 1); // true
 
 
 
+            //დავალება 2 (კონსოლიდან მომხმარებელს შემოაყვანინეთ ორი რიცხვი, ეს რიცხვები ერთმანეთს მიუმატეთ გამოაკელით გაამრავლეთ და გაყავით.პროგრამის მუშაობის რეალიზაცია მოახდინეთ კონსოლში.)
+
+            //Console.Write("Enter Fnumber: ");
+            //int num1 = Convert.ToInt32(Console.ReadLine());
+            //Console.Write("Enter Snumber: ");
+            //int num2 = Convert.ToInt32(Console.ReadLine());
+
+            //Console.WriteLine($"{num1}+{num2}={num1 + num2}");
+            //Console.WriteLine($"{num1}-{num2}={num1 - num2}");
+            //Console.WriteLine($"{num1}*{num2}={num1 * num2}");
+            //Console.WriteLine($"{num1}/{num2}={num1 / num2}");
+
+
+
+            //დავალება 3 (მოცემულია int ტიპის ცვლადი რომელიც ინახავს რაღაც რიცხვს.ლექციაში ნაჩვენები ოპერატორების გამოყენებით გაზარდეთ ამ ცვლდის მნიშვნელობა 3-ჯერ.)
         }
     }
 }
