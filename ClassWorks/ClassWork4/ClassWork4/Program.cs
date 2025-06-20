@@ -8,13 +8,6 @@
             {
                 while (true)
                 {
-                    Console.Write("Close application (x=yes or other character=no): ");
-                    char exitInput = Convert.ToChar(Console.ReadLine());
-                    if (exitInput=='x'||exitInput=='X')
-                    {
-                        Console.WriteLine("Application closed.");
-                        break;
-                    }
                     int fNum;
                     Console.Write("Enter your first number: ");
                     while (!int.TryParse(Console.ReadLine(), out fNum))
@@ -78,6 +71,14 @@
                                 }
 
                         }
+                    }
+
+                    Console.Write("Close application (x=yes or other character=no): ");
+                    char exitInput = Convert.ToChar(Console.ReadLine());
+                    if (exitInput == 'x' || exitInput == 'X')
+                    {
+                        Console.WriteLine("Application closed.");
+                        break;
                     }
                 }
             }
