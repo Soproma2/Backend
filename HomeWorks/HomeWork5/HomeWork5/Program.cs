@@ -85,7 +85,8 @@
                 {
 
                     Console.WriteLine($"Error: {ex.Message}");
-                    Console.WriteLine("Let's try again.\n");
+                    Console.WriteLine("Let's try again.");
+                    Console.WriteLine();
                     continue;
                 } 
             }
