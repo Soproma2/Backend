@@ -4,88 +4,90 @@
     {
         static void Main(string[] args)
         {
-            try
+            while (true)
             {
-                while (true)
+                try
                 {
-                    int fNum;
-                    Console.Write("Enter your first number: ");
-                    while (!int.TryParse(Console.ReadLine(), out fNum))
-                    {
-                        Console.Write("Invalid input! Please enter a valid integer:");
-                    }
-
-                    int sNum;
-                    Console.Write("Enter your second number: ");
-                    while (!int.TryParse(Console.ReadLine(), out sNum))
-                    {
-                        Console.Write("Invalid input! Please enter a valid integer:");
-                    }
-
-                    char op;
-                    Console.Write("Enter operator (+, -, *, /): ");
                     while (true)
                     {
-                        string input = Console.ReadLine();
-
-                        if (input.Length == 1 && "+-*/".Contains(input))
+                        int fNum;
+                        Console.Write("Enter your first number: ");
+                        while (!int.TryParse(Console.ReadLine(), out fNum))
                         {
-                            op = input[0];
-                            break;
+                            throw new Exception("Invalid input! Please enter a valid integer");
                         }
-                        else
+
+                        int sNum;
+                        Console.Write("Enter your second number: ");
+                        while (!int.TryParse(Console.ReadLine(), out sNum))
                         {
-                            Console.Write("Operator is incorrect! Please enter one of (+, -, *, /):");
+                            throw new Exception("Invalid input! Please enter a valid integer");
                         }
-                    }
 
-
-
-                    if (op == '+' || op == '-' || op == '*' || op == '/')
-                    {
-                        switch (op)
+                        char op;
+                        Console.Write("Enter operator (+, -, *, /): ");
+                        while (true)
                         {
-                            case '+':
-                                int result1 = fNum + sNum;
-                                Console.WriteLine($"{fNum} {op} {sNum} = {result1}");
+                            string input = Console.ReadLine();
+
+                            if (input.Length == 1 && "+-*/".Contains(input))
+                            {
+                                op = input[0];
                                 break;
-                            case '-':
-                                int result2 = fNum - sNum;
-                                Console.WriteLine($"{fNum} {op} {sNum} = {result2}");
-                                break;
-                            case '*':
-                                int result3 = fNum * sNum;
-                                Console.WriteLine($"{fNum} {op} {sNum} = {result3}");
-                                break;
-                            case '/':
-                                if (sNum != 0)
-                                {
+                            }
+                            else
+                            {
+                                throw new Exception("Operator is incorrect! Please enter one of (+, -, *, /)");
+                            }
+                        }
+
+
+
+                        if (op == '+' || op == '-' || op == '*' || op == '/')
+                        {
+                            switch (op)
+                            {
+                                case '+':
+                                    int result1 = fNum + sNum;
+                                    Console.WriteLine($"{fNum} {op} {sNum} = {result1}");
+                                    break;
+                                case '-':
+                                    int result2 = fNum - sNum;
+                                    Console.WriteLine($"{fNum} {op} {sNum} = {result2}");
+                                    break;
+                                case '*':
+                                    int result3 = fNum * sNum;
+                                    Console.WriteLine($"{fNum} {op} {sNum} = {result3}");
+                                    break;
+                                case '/':
+                                    if (sNum == 0)
+                                    {
+                                        throw new DivideByZeroException("Cannot divide by zero!");
+                                    }
                                     int result4 = fNum / sNum;
                                     Console.WriteLine($"{fNum} {op} {sNum} = {result4}");
                                     break;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Cannot divide by zero");
-                                    break;
-                                }
+                                default:
+                                    throw new Exception("Unknown operator!");
+                            }
+                        }
 
+                        Console.Write("Close application (x=yes or other character=no): ");
+                        char exitInput = Convert.ToChar(Console.ReadLine());
+                        if (exitInput == 'x' || exitInput == 'X')
+                        {
+                            Console.WriteLine("Application closed.");
+                            break;
                         }
                     }
-
-                    Console.Write("Close application (x=yes or other character=no): ");
-                    char exitInput = Convert.ToChar(Console.ReadLine());
-                    if (exitInput == 'x' || exitInput == 'X')
-                    {
-                        Console.WriteLine("Application closed.");
-                        break;
-                    }
                 }
-            }
-            catch (Exception ex)
-            {
+                catch (Exception ex)
+                {
 
-                Console.WriteLine(ex.Message);
+                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.WriteLine("Let's try again.\n");
+                    continue;
+                } 
             }
         }
     }
