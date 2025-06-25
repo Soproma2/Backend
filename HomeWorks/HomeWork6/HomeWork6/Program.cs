@@ -14,7 +14,7 @@ namespace HomeWork6
                 sum += ar[i];
             }
             Console.WriteLine(sum);
-
+            Console.WriteLine();
 
 
             //დავალება 2 (დაწერეთ კოდი რომელიც მოძებმის მასივის ზომას length - ის გამოყენების გარეშე)
@@ -24,19 +24,31 @@ namespace HomeWork6
                 length++;
             }
             Console.WriteLine(length);
-
+            Console.WriteLine();
 
 
             //დავალება 3 (დაწერეთ კოდი რომელიც დაბეჭდავს მასივს უკუღმა)
             for (int i = ar.Length-1; i >=0; i--)
             {
-                Console.WriteLine(ar[i]);
+                Console.Write(ar[i]+";");
             }
+            Console.WriteLine();
 
 
 
-            //დავალება 4 (დაწერეთ კოდი რომელიც მასივის ყველა ელემენტს გადააკოპირებს მერე მასივში)
+            //დავალება 4 (დაწერეთ კოდი რომელიც მასივის ყველა ელემენტს გადააკოპირებს მეორე მასივში)
+            int[] ar2 = new int[ar.Length];
+            for (int i = 0; i < ar.Length; i++)
+            {
+                ar2[i]=ar[i];
+            }
+            foreach(int num in ar2)
+            {
+                Console.Write(num+";");
+            }
+            Console.WriteLine();
 
+            //დავალება 5 (დაწერეთ კოდი რომელიც მოძებნის მასივის უნიკალურ ელემენტებს)
         }
     }
 }
