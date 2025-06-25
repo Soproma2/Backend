@@ -33,6 +33,7 @@ namespace HomeWork6
                 Console.Write(ar[i]+";");
             }
             Console.WriteLine();
+            Console.WriteLine();
 
 
 
@@ -47,8 +48,28 @@ namespace HomeWork6
                 Console.Write(num+";");
             }
             Console.WriteLine();
+            Console.WriteLine();
+            
 
             //დავალება 5 (დაწერეთ კოდი რომელიც მოძებნის მასივის უნიკალურ ელემენტებს)
+            for (int i = 0; i < ar.Length; i++)
+            {
+                bool unique = true;
+                for (int j = 0; j < ar.Length; j++)
+                {
+                    if (i!=j && ar[i] == ar[j])
+                    {
+                        unique = false;
+                        break; 
+                    }
+                }
+
+                if (unique)
+                {
+                    Console.Write(ar[i]+";");
+                }
+            }
+            Console.WriteLine();
         }
     }
 }
