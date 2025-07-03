@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Backend\\ClassWork\\ClassWork1\\ClassWork1.csproj": {}
+    "D:\\Backend\\Backend\\ClassWork\\ClassWork1\\ClassWork1.csproj": {}
   },
   "projects": {
-    "D:\\Backend\\ClassWork\\ClassWork1\\ClassWork1.csproj": {
+    "D:\\Backend\\Backend\\ClassWork\\ClassWork1\\ClassWork1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Backend\\ClassWork\\ClassWork1\\ClassWork1.csproj",
+        "projectUniqueName": "D:\\Backend\\Backend\\ClassWork\\ClassWork1\\ClassWork1.csproj",
         "projectName": "ClassWork1",
-        "projectPath": "D:\\Backend\\ClassWork\\ClassWork1\\ClassWork1.csproj",
+        "projectPath": "D:\\Backend\\Backend\\ClassWork\\ClassWork1\\ClassWork1.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\Backend\\ClassWork\\ClassWork1\\obj\\",
+        "outputPath": "D:\\Backend\\Backend\\ClassWork\\ClassWork1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
