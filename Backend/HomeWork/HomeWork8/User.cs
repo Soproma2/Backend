@@ -26,6 +26,7 @@ namespace HomeWork8
                     this.firstName = firstName;
                     this.lastName = lastName;
                     this.personalNumber = personalNumber;
+                    this.account = account;
                 }
             }
             catch(Exception ex)

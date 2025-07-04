@@ -27,7 +27,7 @@
             Console.WriteLine($"Personal Number: {user.personalNumber}");
             Console.WriteLine($"Account Number: {user.account.accNumber}");
             Console.WriteLine($"Currency: {user.account.currency}");
-            Console.WriteLine($"Balance: {user.account.balance}");
+            Console.WriteLine($"Balance: {user.account.balance} {user.account.currency}");
         }
     }
 }
