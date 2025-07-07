@@ -48,44 +48,24 @@ namespace HomeWork9.BankModels
 				}
 			}
 		}
-		
-		public decimal withdraw
+
+
+
+
+		public void withdraw(decimal amount)
 		{
-			get { return balance; }
-			set
+			if (balance < amount)
 			{
-                if (balance < value)
-                {
-                    throw new Exception("You don't have enough money!");
-                }
-                balance -= value;
-            }
+				throw new Exception("You don't have enough money!");
+			}
+			balance -= amount;
 		}
 
-		public decimal deposit
+		public void deposit(decimal amount)
 		{
-			get { return balance; }
-			set
-			{
-                balance += value;
-            }
+			balance += amount;
 		}
 
 
-        //public decimal withdraw(decimal amount)
-        //{
-        //    if (balance < amount)
-        //    {
-        //        throw new Exception("You don't have enough money!");
-        //    }
-        //    balance -= amount;
-        //}
-
-        //public decimal deposit(decimal amount)
-        //{
-        //    balance += amount;
-        //}
-
-
-    }
+	}
 }

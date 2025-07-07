@@ -27,12 +27,17 @@ namespace HomeWork9
                     Iban="8745987324958734856935",
                     Currency = "Gel",
                     Balance = 10000000,
-                    withdraw = 10.2M,
-                    deposit = 100.5M
                 }
                 
             };
 
+            Console.WriteLine(Nika.Account.Balance);
+
+
+            Nika.Account.withdraw(5.2M);
+            Console.WriteLine(Nika.Account.Balance);
+            Nika.Account.deposit(10.2M);
+            Console.WriteLine(Nika.Account.Balance);
             
 
             
