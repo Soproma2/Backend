@@ -15,7 +15,7 @@ namespace HomeWork9.BankModels
 			get { return iban; }
 			set
 			{
-				if(value.Length == 22)
+				if (value.Length == 22)
 				{
 					iban = value;
 				}
@@ -48,7 +48,44 @@ namespace HomeWork9.BankModels
 				}
 			}
 		}
+		
+		public decimal withdraw
+		{
+			get { return balance; }
+			set
+			{
+                if (balance < value)
+                {
+                    throw new Exception("You don't have enough money!");
+                }
+                balance -= value;
+            }
+		}
+
+		public decimal deposit
+		{
+			get { return balance; }
+			set
+			{
+                balance += value;
+            }
+		}
 
 
-	}
+        //public decimal withdraw(decimal amount)
+        //{
+        //    if (balance < amount)
+        //    {
+        //        throw new Exception("You don't have enough money!");
+        //    }
+        //    balance -= amount;
+        //}
+
+        //public decimal deposit(decimal amount)
+        //{
+        //    balance += amount;
+        //}
+
+
+    }
 }

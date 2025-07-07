@@ -1,4 +1,6 @@
-﻿namespace HomeWork9
+﻿using HomeWork9.BankModels;
+
+namespace HomeWork9
 {
     internal class Program
     {
@@ -15,6 +17,27 @@
             //• წინა გაკვეთილში მოაცემული კლასები გადააწყეთ property-ებად(ანუ გააკეთეთ ის რაც აგიხსენით გაკვეთილზე).
             //აგრეთვე Account კლასს დაუმატეთ ფუნქციონალი სადაც მომხმარებელი შეძლებს რომ ანგარიში გაანაღოს ან შეავსოს მისთვის სასურველი თანხით.
 
+            User Nika = new User()
+            {
+                FirstName = "Nikolozi",
+                LastName = "Sopromadze",
+                PersonalNumber = "26747580032",
+                Account = new Account()
+                {
+                    Iban="8745987324958734856935",
+                    Currency = "Gel",
+                    Balance = 10000000,
+                }
+                
+            };
+
+            
+
+            
+
+            
+
+            
 
         }
     }
