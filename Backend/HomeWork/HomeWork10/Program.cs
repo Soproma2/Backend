@@ -1,8 +1,10 @@
 ﻿using HomeWork10.Class1;
-using System.Drawing;
-using System.Xml.Linq;
 using HomeWork10.Class2;
 using HomeWork10.Class3;
+using HomeWork10.Class4;
+using HomeWork10.Class5;
+using System.Drawing;
+using System.Xml.Linq;
 
 namespace HomeWork10
 {
@@ -32,6 +34,7 @@ namespace HomeWork10
             //შექმენი კლასი Shape პარამეტრიანი კონსტრუქტორით(name).
             //შემდეგ შექმენი Rectangle კლასი, რომელიც გამოძახებს მშობლის კონსტრუქტორს base(name) - ით.
 
+            
             Rect rect1 = new Rect("Myrect", 20, 10);
             Console.WriteLine();
 
@@ -45,6 +48,7 @@ namespace HomeWork10
             //დავალება:
             //გამოიძახე Print() ორივე ტიპით(Printer და ColorPrinter) და დააკვირდი შედეგს.
 
+            
             Printer printer = new Printer();
             printer.print();
 
@@ -63,6 +67,41 @@ namespace HomeWork10
             //უნდა დაბეჭდოს:
             //Animal makes sound
             //Dog barks
-    }
+
+
+            Animal animal = new Animal();
+            animal.MakeSound();
+
+            Dog dog = new Dog();
+            dog.MakeSound();
+            Console.WriteLine();
+
+            //-------------------------------------------------------------------------------------------------------------------
+
+
+            //✅ სავარჯიშო 6: საკუთარი გამონაკლისის კლასი — "InvalidAgeException"
+            //ამოცანა:
+            //შექმენი ახალი კლასი InvalidAgeException, რომელიც მემკვიდრეობით მიიღებს Exception - ს.
+            //დაწერე მეთოდი RegisterUser(int age), რომელიც age< 18 შემთხვევაში აგდებს ამ გამონაკლისს.
+
+
+            try
+            {
+                Console.Write("Enter Your age: ");
+                int age = Convert.ToInt32(Console.ReadLine());
+                RegiserUser(age);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void RegiserUser(int age)
+        {
+            if (age < 18)
+            {
+                throw new InvalidAgeException();
+            }
+        }
     }
 }
