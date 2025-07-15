@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeWork12.Class;
+using System;
 
 namespace HomeWork12
 {
@@ -23,6 +24,19 @@ namespace HomeWork12
 
             //            მოიცავს სუფთა და გასაგებ ToString() გამოსახულებას.
 
+
+            try
+            {
+                ProductWeight product1 = new ProductWeight(100, "KG");
+                ProductWeight product2 = new ProductWeight(120, "KG");
+
+                Console.WriteLine(product1 + product2);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

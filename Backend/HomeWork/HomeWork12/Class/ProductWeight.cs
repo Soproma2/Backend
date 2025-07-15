@@ -26,59 +26,65 @@ namespace HomeWork12.Class
 
         public static ProductWeight operator +(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first,second);
             var sum = first.Value + second.Value;
             return new ProductWeight(sum, second.Unit);
         }
 
         public static ProductWeight operator -(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             var sum = first.Value - second.Value;
             return new ProductWeight(sum, second.Unit);
         }
 
         public static ProductWeight operator *(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             var sum = first.Value * second.Value;
             return new ProductWeight(sum, second.Unit);
         }
 
         public static ProductWeight operator /(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             var sum = first.Value / second.Value;
             return new ProductWeight(sum, second.Unit);
         }
 
         public static bool operator >(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             return first.Value > second.Value;
         }
 
         public static bool operator <(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             return first.Value < second.Value;
         }
 
         public static bool operator >=(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             return first.Value >= second.Value;
         }
 
         public static bool operator <=(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             return first.Value <= second.Value;
         }
 
         public static bool operator ==(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             return first.Value == second.Value;
         }
 
-        public static bool operator >(ProductWeight first, ProductWeight second)
-        {
-            return first.Value > second.Value;
-        }
         public static bool operator !=(ProductWeight first, ProductWeight second)
         {
+            ValidateSameUnit(first, second);
             return first.Value != second.Value;
         }
 
@@ -87,9 +93,26 @@ namespace HomeWork12.Class
 
 
 
-        public int CompareTo(ProductWeight? other)
+        public int CompareTo(ProductWeight other)
         {
-            throw new NotImplementedException();
+            ValidateSameUnit(other);
+            return Value.CompareTo(other.Value);
+        }
+
+        private static void ValidateSameUnit(ProductWeight Unit1, ProductWeight Unit2)
+        {
+            if (Unit1.Unit != Unit2.Unit)
+            {
+                throw new InvalidOperationException("The system can't handle different measurement units!");
+            }
+        }
+
+        private void ValidateSameUnit(ProductWeight other)
+        {
+            if (Unit != other.Unit)
+            {
+                throw new InvalidOperationException("The system can't handle different measurement units!");
+            }
         }
     }
 }
