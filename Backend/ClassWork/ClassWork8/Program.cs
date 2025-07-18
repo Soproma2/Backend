@@ -44,7 +44,7 @@ namespace ClassWork8
             Console.WriteLine("Top 10 Most Fuel-Efficient Cars:");
             foreach (var c in top10)
             {
-                Console.WriteLine($"{c.Make} {c.Model} | Combined: {c.Combined} MPG");
+                Console.WriteLine($"{c.Make}; {c.Model}; {c.Cylinder}; {c.Engine}; {c.Drive}; {c.Transmission}; {c.City} MPG; {c.Combined} MPG; {c.Highway}MPG;");
             }
 
 
