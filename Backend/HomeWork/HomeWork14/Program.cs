@@ -17,15 +17,23 @@ namespace HomeWork14
                 new Student { Name = "Tamar", Score = 99 }
             };
 
+            var top = Student.Custom_TopStudent(students, s => s.Score);
+            double avg = Student.Custom_Average(students, s => s.Score);
+            var grades = Student.Custom_ConvertToGrades(students, s =>
+            {
+                if (s.Score >= 90) return "A";
+                if (s.Score >= 75) return "B";
+                return "C";
+            });
+            Student.Custom_UpdateScores(students, s => s.Score += 5);
 
-            var student_score = Student.point();
-            var student_score1 = Student.point();
-            var student_score2 = Student.point();
-            var student_score3 = Student.point();
-            var student_score4 = Student.point();
-            var student_score5 = Student.point();
-            var student_score6 = Student.point();
+            Student.Custom_AddStudents(students, list =>
+            {
+                list.Add(new Student { Name = "Saba", Score = 82 });
+                list.Add(new Student { Name = "Mariam", Score = 97 });
+            });
 
+            Student.Custom_LogStudents(students, s => Console.WriteLine($"Student: {s.Name}, Score: {s.Score}"));
             //1 მაღალი ქულის მქონე სტუდენტის პოვნა
             //2 საშუალო ქულის გამოთვლა
             //3 გაცემული ქულების გარდაქმნა ახალ სკალაში(მაგ. 0–100 → A/B/C)
