@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HomeWork17
 {
-    internal class Class1
+    internal static class Class1
     {
         public static T Custom_Max<T>(this List<T> intList) where T : IComparable<T>
         {
