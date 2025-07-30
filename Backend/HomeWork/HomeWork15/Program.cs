@@ -14,6 +14,10 @@ namespace HomeWork15
             Class1.MyReverse(intlist, x => x % 2 == 0);
             Class1.MyAny(intlist, n => n > 0);
             Class1.MyAll(intlist, x => x % 2 != 0);
+            Class1.MyMax(intlist);
+            Class1.MyMin(intlist);
+            Class1.MyTake(intlist, 3);
+            Class1.MySkip(intlist, 2);
 
 
             

@@ -70,7 +70,7 @@ namespace HomeWork15
         {
             List <int> list = new();
 
-            for (int i = 0; i < source.Count; i++)
+            for (int i = source.Count - 1; i >= 0; i--)
             {
                 if (predicate(source[i]))
                 {
@@ -134,7 +134,7 @@ namespace HomeWork15
                 throw new ArgumentException("სია ცარიელია");
             }
 
-            int max = 0;
+            int max = source[0];
             for (int i = 0; i < source.Count; i++)
             {
                 if (source[i] > max)
@@ -157,6 +157,11 @@ namespace HomeWork15
 
         public static int MyMin(List<int> source)
         {
+            if (source.Count == 0)
+            {
+                throw new ArgumentException("სია ცარიელია");
+            }
+
             int min = source[0];
             for (int i = 1; i < source.Count; i++)
             {
@@ -180,7 +185,7 @@ namespace HomeWork15
         public static List<int> MyTake(List<int> source, int count)
         {
             List<int> list = new();
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < count && i < source.Count; i++)
             {
                 list.Add(source[i]);
             }
@@ -199,7 +204,7 @@ namespace HomeWork15
         public static List<int> MySkip(List<int> source, int count)
         {
             List<int> list = new();
-            for (int i = count; i < list.Count; i++)
+            for (int i = count; i < source.Count; i++)
             {
                 list.Add(source[i]);
             }
