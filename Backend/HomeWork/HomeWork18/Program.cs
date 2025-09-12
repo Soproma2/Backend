@@ -160,50 +160,50 @@
 
 
             //დავალება 3
-            // List<Employee> employees = new List<Employee>
-            // {
-            //     new Employee{ Id=1,  Name="Ana",    Department="IT",       Salary=3500, HireDate=new DateTime(2023,5,1)},
-            //     new Employee{ Id=2,  Name="Giorgi", Department="Finance",  Salary=2800, HireDate=new DateTime(2022,3,12)},
-            //     new Employee{ Id=3,  Name="Nino",   Department="HR",       Salary=3100, HireDate=new DateTime(2021,7,15)},
-            //     new Employee{ Id=4,  Name="Luka",   Department="IT",       Salary=4000, HireDate=new DateTime(2024,2,10)},
-            //     new Employee{ Id=5,  Name="Mariam", Department="Marketing",Salary=2500, HireDate=new DateTime(2020,1,25)},
-            //     new Employee{ Id=6,  Name="Dato",   Department="Sales",    Salary=3300, HireDate=new DateTime(2023,11,5)},
-            //     new Employee{ Id=7,  Name="Sopo",   Department="Finance",  Salary=2900, HireDate=new DateTime(2019,9,1)},
-            //     new Employee{ Id=8,  Name="Irakli", Department="IT",       Salary=5000, HireDate=new DateTime(2024,7,8)},
-            //     new Employee{ Id=9,  Name="Tiko",   Department="Sales",    Salary=2700, HireDate=new DateTime(2022,12,10)},
-            //     new Employee{ Id=10, Name="Levan",  Department="HR",       Salary=3200, HireDate=new DateTime(2023,4,20)},
-            //     new Employee{ Id=11, Name="Keti",   Department="Marketing",Salary=2950, HireDate=new DateTime(2021,5,30)},
-            //     new Employee{ Id=12, Name="Nika",   Department="Finance",  Salary=4100, HireDate=new DateTime(2024,3,1)},
-            //     new Employee{ Id=13, Name="Gvanca", Department="Sales",    Salary=3600, HireDate=new DateTime(2023,8,15)},
-            //     new Employee{ Id=14, Name="Lizi",   Department="IT",       Salary=2800, HireDate=new DateTime(2020,10,18)},
-            //     new Employee{ Id=15, Name="Zurab",  Department="HR",       Salary=4500, HireDate=new DateTime(2024,4,12)},
-            //     new Employee{ Id=16, Name="Nana",   Department="Marketing",Salary=3100, HireDate=new DateTime(2022,9,25)},
-            //     new Employee{ Id=17, Name="Vano",   Department="Finance",  Salary=2600, HireDate=new DateTime(2023,6,17)},
-            //     new Employee{ Id=18, Name="Misha",  Department="Sales",    Salary=3400, HireDate=new DateTime(2021,2,28)},
-            //     new Employee{ Id=19, Name="Salome", Department="IT",       Salary=3900, HireDate=new DateTime(2022,8,2)},
-            //     new Employee{ Id=20, Name="Eka",    Department="HR",       Salary=2700, HireDate=new DateTime(2018,12,11)},
-            // };
+            List<Employee> employees = new List<Employee>
+             {
+                 new Employee{ Id=1,  Name="Ana",    Department="IT",       Salary=3500, HireDate=new DateTime(2023,5,1)},
+                 new Employee{ Id=2,  Name="Giorgi", Department="Finance",  Salary=2800, HireDate=new DateTime(2022,3,12)},
+                 new Employee{ Id=3,  Name="Nino",   Department="HR",       Salary=3100, HireDate=new DateTime(2021,7,15)},
+                 new Employee{ Id=4,  Name="Luka",   Department="IT",       Salary=4000, HireDate=new DateTime(2024,2,10)},
+                 new Employee{ Id=5,  Name="Mariam", Department="Marketing",Salary=2500, HireDate=new DateTime(2020,1,25)},
+                 new Employee{ Id=6,  Name="Dato",   Department="Sales",    Salary=3300, HireDate=new DateTime(2023,11,5)},
+                 new Employee{ Id=7,  Name="Sopo",   Department="Finance",  Salary=2900, HireDate=new DateTime(2019,9,1)},
+                 new Employee{ Id=8,  Name="Irakli", Department="IT",       Salary=5000, HireDate=new DateTime(2024,7,8)},
+                 new Employee{ Id=9,  Name="Tiko",   Department="Sales",    Salary=2700, HireDate=new DateTime(2022,12,10)},
+                 new Employee{ Id=10, Name="Levan",  Department="HR",       Salary=3200, HireDate=new DateTime(2023,4,20)},
+                 new Employee{ Id=11, Name="Keti",   Department="Marketing",Salary=2950, HireDate=new DateTime(2021,5,30)},
+                 new Employee{ Id=12, Name="Nika",   Department="Finance",  Salary=4100, HireDate=new DateTime(2024,3,1)},
+                 new Employee{ Id=13, Name="Gvanca", Department="Sales",    Salary=3600, HireDate=new DateTime(2023,8,15)},
+                 new Employee{ Id=14, Name="Lizi",   Department="IT",       Salary=2800, HireDate=new DateTime(2020,10,18)},
+                 new Employee{ Id=15, Name="Zurab",  Department="HR",       Salary=4500, HireDate=new DateTime(2024,4,12)},
+                 new Employee{ Id=16, Name="Nana",   Department="Marketing",Salary=3100, HireDate=new DateTime(2022,9,25)},
+                 new Employee{ Id=17, Name="Vano",   Department="Finance",  Salary=2600, HireDate=new DateTime(2023,6,17)},
+                 new Employee{ Id=18, Name="Misha",  Department="Sales",    Salary=3400, HireDate=new DateTime(2021,2,28)},
+                 new Employee{ Id=19, Name="Salome", Department="IT",       Salary=3900, HireDate=new DateTime(2022,8,2)},
+                 new Employee{ Id=20, Name="Eka",    Department="HR",       Salary=2700, HireDate=new DateTime(2018,12,11)},
+             };
 
 
-            // foreach (var e in employees)
-            // {
-            //     if (e.Salary > 3000)
-            //         Console.WriteLine($"{e.Name}, {e.Department}, {e.Salary}");
-            // }
+            foreach (var e in employees)
+            {
+                if (e.Salary > 3000)
+                    Console.WriteLine($"{e.Name}, {e.Department}, {e.Salary}");
+            }
 
-            // //??????
+            //??????
 
-            // var avgSalary = employees
-            // .GroupBy(e => e.Department);//???? (Select)
+            var avgSalary = employees
+            .GroupBy(e => e.Department);//???? (Select)
 
-            // var newest = employees.OrderByDescending(e => e.HireDate).Take(5);
-            // foreach (var e in newest)
-            // {
-            //     Console.WriteLine($"{e.Name}, {e.Department}, {e.HireDate.ToShortDateString()}");
-            // }
+            var newest = employees.OrderByDescending(e => e.HireDate).Take(5);
+            foreach (var e in newest)
+            {
+                Console.WriteLine($"{e.Name}, {e.Department}, {e.HireDate.ToShortDateString()}");
+            }
 
-            // var topInDept = employees
-            //.GroupBy(e => e.Department);//????? (Select)
+            var topInDept = employees
+           .GroupBy(e => e.Department);//????? (Select)
         }
 
         public class Student
