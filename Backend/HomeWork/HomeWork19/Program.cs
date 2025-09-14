@@ -49,14 +49,41 @@
                 {
                     case "1":
                         Console.Clear();
-                        break;
+                        Console.WriteLine("Available products: ");
+                        foreach(var p in products)
+                        {
+                            Console.WriteLine($"{p.Id}. {p.Name} - {p.Category} - {p.Price}$");
+                        }
+
+                        Console.Write("Enter product ID: ");
+                        int addId = int.Parse(Console.ReadLine());
+                        Console.Write("Enter quantity: ");
+                        int qty = int.Parse(Console.ReadLine());
+                        var prodToAdd = products.FirstOrDefault(p=>p.Id == addId);
+                        if(prodToAdd != null)
+                        {
+                            cart.AddProduct(prodToAdd, qty);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Product not found");
+                        }
+                            break;
 
                     case "2":
                         Console.Clear();
+                        Console.Write("Enter product ID to remove: ");
+                        int removeId = int.Parse(Console.ReadLine());
+                        cart.RemoveProduct(removeId);
                         break;
 
                     case "3":
                         Console.Clear();
+                        Console.Write("Enter product ID to update: ");
+                        int updateId = int.Parse(Console.ReadLine());
+                        Console.Write("Enter new quantity: ");
+                        int newQty = int.Parse(Console.ReadLine());
+                        cart.UpdateQuantity(updateId, newQty);
                         break;
 
                     case "4":
@@ -76,6 +103,9 @@
 
                     case "7":
                         Console.Clear();
+                        Console.WriteLine("Enter procduct name to search: ");
+                        string search = Console.ReadLine();
+                        cart.SearchProducts(search);
                         break;
 
                     case "8":
@@ -171,9 +201,9 @@
 
             foreach (var item in cartItems)
             {
-                Console.WriteLine($"{item.Product.Name} - {item.Product.Category} - {item.Product.Price:C} x {item.Quantity} = {(item.Product.Price * item.Quantity)}₾");
-                Console.WriteLine($"Total: {GetTotalPrice()}₾");
-                Console.WriteLine($"Total with discount: {GetTotalPriceWithDiscount()}₾");
+                Console.WriteLine($"{item.Product.Name} - {item.Product.Category} - {item.Product.Price:C} x {item.Quantity} = {(item.Product.Price * item.Quantity)}$");
+                Console.WriteLine($"Total: {GetTotalPrice()}$");
+                Console.WriteLine($"Total with discount: {GetTotalPriceWithDiscount()}$");
             }
         }
 
@@ -197,7 +227,7 @@
             var item = cartItems.OrderByDescending(c=>c.Product.Price).FirstOrDefault();
             if (item != null)
             {
-                Console.WriteLine($"Most expensive product: {item.Product.Name} - {item.Product.Price}₾");
+                Console.WriteLine($"Most expensive product: {item.Product.Name} - {item.Product.Price}$");
             }
             else
             {
@@ -234,7 +264,7 @@
 
             foreach(var p in results)
             {
-                Console.WriteLine($"{p.Name} - {p.Category} - {p.Price}₾");
+                Console.WriteLine($"{p.Name} - {p.Category} - {p.Price}$");
             }
         }
 
