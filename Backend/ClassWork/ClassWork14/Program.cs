@@ -42,7 +42,9 @@
                 Console.WriteLine("1. Add product to cart");
                 Console.WriteLine("2. Remove product from cart");
                 Console.WriteLine("3. Update product quantity");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. View cart");
+                Console.WriteLine("5. Clear cart");
+                Console.WriteLine("6. Exit");
                 Console.Write("Choose an option: ");
 
                 string choice = Console.ReadLine();
@@ -88,6 +90,14 @@
                         cart.UpdateProductQuantity(updateId, newQty);
                         break;
                     case "4":
+                        Console.Clear();
+                        cart.ViewCart();
+                        break;
+                    case "5":
+                        Console.Clear();
+                        cart.clearCart();
+                        break;
+                    case "6":
                         return;
                     default:
                         Console.Clear();
@@ -159,6 +169,41 @@
                 }
             }
 
+            public void ViewCart()
+            {
+                if (!cartItems.Any())
+                {
+                    Console.WriteLine("Cart is empty");
+                    return;
+                }
+
+                foreach (var item in cartItems)
+                {
+                    Console.WriteLine($"{item.Product.Name} - {item.Product.Category} - {item.Product.Price:C} x {item.Quantity} = {(item.Product.Price * item.Quantity)}$");
+                }
+            }
+            public void clearCart()
+            {
+                cartItems.Clear();
+                WriteHistoryToFile("Items in cart have been deleted.");
+            }
+
+            //public void deleteById(string Ids)
+            //{
+            //    var item = cartItems.FirstOrDefault(p => p.Product.Id == Ids);
+            //    string[] IdsArr = Ids.Split(",");
+            //    if (item != null)
+            //    {
+            //        cartItems.Remove(item);
+            //        WriteHistoryToFile($"Removed '{item.Product.Name}'");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Product not found in cart");
+            //    }
+
+            //}
+
             public void WriteHistoryToFile(string message)
             {
                 using (StreamWriter sw = new StreamWriter(fileName, true))
@@ -166,6 +211,7 @@
                     sw.WriteLine($"{DateTime.Now}: {message}");
                 }
             }
+
         }
     }
 }
