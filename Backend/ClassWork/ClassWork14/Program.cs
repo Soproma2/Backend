@@ -37,57 +37,63 @@
             };
             ShoppingCart cart = new ShoppingCart();
 
-            Console.WriteLine("1. Add product to cart");
-            Console.WriteLine("2. Remove product from cart");
-            Console.WriteLine("3. Update product quantity");
-            Console.Write("Choose an option: ");
-
-            string choice = Console.ReadLine();
-
-            switch (choice)
+            while (true)
             {
-                case "1":
-                    Console.Clear();
-                    Console.WriteLine("Available products: ");
-                    foreach (var p in products)
-                    {
-                        Console.WriteLine($"{p.Id}. {p.Name} - {p.Category} - {p.Price}$");
-                    }
+                Console.WriteLine("1. Add product to cart");
+                Console.WriteLine("2. Remove product from cart");
+                Console.WriteLine("3. Update product quantity");
+                Console.WriteLine("4. Exit");
+                Console.Write("Choose an option: ");
 
-                    Console.Write("Enter product ID: ");
-                    int addId = int.Parse(Console.ReadLine());
-                    Console.Write("Enter quantity: ");
-                    int qty = int.Parse(Console.ReadLine());
-                    var prodToAdd = products.FirstOrDefault(p => p.Id == addId);
-                    if (prodToAdd != null)
-                    {
-                        cart.AddNewProduct(prodToAdd, qty);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Product not found");
-                    }
-                    break;
+                string choice = Console.ReadLine();
 
-                case "2":
-                    Console.Clear();
-                    Console.Write("Enter product ID to remove: ");
-                    int removeId = int.Parse(Console.ReadLine());
-                    cart.DeleteProduct(removeId);
-                    break;
+                switch (choice)
+                {
+                    case "1":
+                        Console.Clear();
+                        Console.WriteLine("Available products: ");
+                        foreach (var p in products)
+                        {
+                            Console.WriteLine($"{p.Id}. {p.Name} - {p.Category} - {p.Price}$");
+                        }
 
-                case "3":
-                    Console.Clear();
-                    Console.Write("Enter product ID to update: ");
-                    int updateId = int.Parse(Console.ReadLine());
-                    Console.Write("Enter new quantity: ");
-                    int newQty = int.Parse(Console.ReadLine());
-                    cart.UpdateProductQuantity(updateId, newQty);
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("Invalid choice!");
-                    break;
+                        Console.Write("Enter product ID: ");
+                        int addId = int.Parse(Console.ReadLine());
+                        Console.Write("Enter quantity: ");
+                        int qty = int.Parse(Console.ReadLine());
+                        var prodToAdd = products.FirstOrDefault(p => p.Id == addId);
+                        if (prodToAdd != null)
+                        {
+                            cart.AddNewProduct(prodToAdd, qty);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Product not found");
+                        }
+                        break;
+
+                    case "2":
+                        Console.Clear();
+                        Console.Write("Enter product ID to remove: ");
+                        int removeId = int.Parse(Console.ReadLine());
+                        cart.DeleteProduct(removeId);
+                        break;
+
+                    case "3":
+                        Console.Clear();
+                        Console.Write("Enter product ID to update: ");
+                        int updateId = int.Parse(Console.ReadLine());
+                        Console.Write("Enter new quantity: ");
+                        int newQty = int.Parse(Console.ReadLine());
+                        cart.UpdateProductQuantity(updateId, newQty);
+                        break;
+                    case "4":
+                        return;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Invalid choice!");
+                        break;
+                }
             }
         }
 
