@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using HomeWork22.Services;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HomeWork22
@@ -19,18 +20,21 @@ namespace HomeWork22
             //   ვნახულობდე რა წერია users.txt - ში.
 
 
-            //დავალება 2 - შოპის სისიტემა
 
-            //1.შექმენით მარტივი რეგისტრაცია სახელით და ელ.ფოსტით.
-            //2.შექმენით პროდუცტების ლისტი და გააკეთეთ ყიდვის ფუნქცინოალი.
-            //3.ყიდვის დროს უნდა შეიქმნას ფაილი რომელიც იქნება მომხმარებლის სახელით
-            //   მაგალითად: gio.txt, ani.txt და ასე შემდეგ.
-            //4.ფაილში უნდა ეწეროს იმ პროდუქტების ინფორმაცია რაც ამ ადამიანმა
-            //   შეიძინა.
-            //5  სურვილის შემთხვევაში(თუ მოასწრებთ) ააწყეთ მენუს სისტემა,
-            //   სადაც იქნება როგორც რეგისტრაცია ასევე გასვლა და ახალი მომხმარებლით
-            //   რეგისტრაციის გავლა რათა კონსოლის გამორთვის გარეშე შეძლოს სხვადასხვა
-            //   მომხმარებლის დარეგისტრირება და პროდუქტების შეძენა.
+            while (true)
+            {
+                Console.WriteLine("--MENU--");
+                Console.WriteLine("1.Register");
+                Console.WriteLine("2.Show users");
+                Console.WriteLine("0.Exit");
+                Console.Write("Enter choice: ");
+                string? choice = Console.ReadLine();
+
+                if (choice == "1") Auth.RegisterUser();
+                else if (choice == "2") Auth.ShowUsers();
+                else if (choice == "0") break;
+                else Console.WriteLine("Invalid choice!");
+            }
         }
     }
 }
