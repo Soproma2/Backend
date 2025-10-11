@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce Shopping Cart Sy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork22", "HomeWork22\HomeWork22.csproj", "{35CA53E9-17A8-4519-B536-20A7B9B7F80F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork23", "HomeWork23\HomeWork23.csproj", "{03C5D49D-9043-4DA0-A976-D88193196A45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{35CA53E9-17A8-4519-B536-20A7B9B7F80F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35CA53E9-17A8-4519-B536-20A7B9B7F80F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35CA53E9-17A8-4519-B536-20A7B9B7F80F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C5D49D-9043-4DA0-A976-D88193196A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C5D49D-9043-4DA0-A976-D88193196A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C5D49D-9043-4DA0-A976-D88193196A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C5D49D-9043-4DA0-A976-D88193196A45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
