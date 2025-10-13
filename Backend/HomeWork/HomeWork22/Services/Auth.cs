@@ -42,7 +42,7 @@ namespace HomeWork22.Services
             using (FileStream fs = new FileStream(UsersFile, FileMode.Append))
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                sw.WriteLine($"Name:{name} - Email:{email} - Password{password}");
+                sw.WriteLine($"Name:{name} - Email:{email} - Password:{password}");
             }
             Console.WriteLine("Registered successfully!");
         }
