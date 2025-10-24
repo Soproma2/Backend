@@ -88,17 +88,16 @@ namespace HomeWork23.Services
         }
         private void SavePurchaseToFile(User user, Product product)
         {
-            string folderPath = Path.Combine("Data", "USerFiles");
+            string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "UserFiles");
             Directory.CreateDirectory(folderPath);
 
-            string filePath = Path.Combine(folderPath, $"{user.Name}.txt");
-            string text = $"{DateTime.Now}: {product.Name} - {product.Price} $";
+            string safeName = string.Concat(user.Name.Split(Path.GetInvalidFileNameChars()));
+            string filePath = Path.Combine(folderPath, $"{safeName}.txt");
 
-            using (FileStream fs = new FileStream(filePath, FileMode.Append, FileAccess.Write))
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(text);
-                fs.Write(bytes, 0, bytes.Length);
-            }
+            string text = $"{DateTime.Now:dd/MM/yyyy HH:mm:ss}: {product.Name} - {product.Price}$ {Environment.NewLine}";
+
+
+            File.AppendAllText(filePath, text);
         }
     }
 }
