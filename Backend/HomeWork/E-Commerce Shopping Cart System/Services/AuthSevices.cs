@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Services
@@ -9,6 +10,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
     internal class AuthSevices
     {
         string filePath = "users.txt";
+        static string currentUser = null;
         public void Register()
         {
             Console.WriteLine("----- Register New User -----");
@@ -53,11 +55,60 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public void Login()
         {
 
+            if (currentUser != null)
+            {
+                Console.WriteLine($"User {currentUser} is already logged in!");
+                return;
+            }
+            Console.WriteLine("----- User Login -----");
+            Console.Write("Enter email: ");
+            string email = Console.ReadLine();
+
+            Console.Write("Enter Password: ");
+            string password = Console.ReadLine();
+
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("No users registered yet!");
+                return;
+            }
+
+            bool found = false;
+
+            using (FileStream readStream = new FileStream(filePath, FileMode.Open,FileAccess.Read))
+            using (StreamReader reader = new StreamReader(readStream))
+            {
+                string line;
+                while((line = reader.ReadLine()) != null)
+                {
+                    string[] data = line.Split(',');
+                    if(data.Length >= 3 && data[1] == email && data[2] == password)
+                    {
+                        currentUser = data[0];
+                        Console.WriteLine($"Welcome back, {data[0]}!");
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!found)
+            {
+                Console.WriteLine("Invalid email or password!");
+            }
+
         }
 
         public void Logout()
         {
+            if (currentUser == null)
+            {
+                Console.WriteLine("No user is currently logged in.");
+                return;
+            }
 
+            Console.WriteLine($"Goodbye, {currentUser}");
+            currentUser = null;
         }
     }
 }
