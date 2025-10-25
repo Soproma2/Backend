@@ -6,14 +6,24 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Services
 {
-    internal class UserServices
+    internal class AdminServices
     {
-        public void ViewProfile()
+        public void AddProduct()
         {
 
         }
 
-        public void AddBalance()
+        public void UpdateProduct()
+        {
+
+        }
+
+        public void DeleteProduct()
+        {
+
+        }
+
+        public void ViewAllOrders()
         {
 
         }

@@ -8,5 +8,19 @@ namespace E_Commerce_Shopping_Cart_System.Services
 {
     internal class AuthSevices
     {
+        public void Register()
+        {
+
+        }
+
+        public void Login()
+        {
+
+        }
+
+        public void Logout()
+        {
+
+        }
     }
 }

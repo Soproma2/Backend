@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_Commerce_Shopping_Cart_System.Menu
+namespace E_Commerce_Shopping_Cart_System.Menus
 {
-    internal class AuthMenu
+    internal class ProductMenu
     {
     }
 }

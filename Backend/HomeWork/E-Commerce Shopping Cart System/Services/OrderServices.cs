@@ -8,5 +8,19 @@ namespace E_Commerce_Shopping_Cart_System.Services
 {
     internal class OrderServices
     {
+        public void Checkout()
+        {
+
+        }
+
+        public void ViewOrderHistory()
+        {
+
+        }
+
+        public void CancelOrder()
+        {
+
+        }
     }
 }

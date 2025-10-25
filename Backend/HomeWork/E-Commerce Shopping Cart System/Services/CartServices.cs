@@ -8,5 +8,21 @@ namespace E_Commerce_Shopping_Cart_System.Services
 {
     internal class CartServices
     {
+        public void AddToCart()
+        {
+
+        }
+        public void RemoveFromCart()
+        {
+
+        }
+        public void ViewCart()
+        {
+
+        }
+        public void UpdateCartQuantity()
+        {
+
+        }
     }
 }

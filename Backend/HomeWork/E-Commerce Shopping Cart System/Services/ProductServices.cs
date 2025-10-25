@@ -8,5 +8,22 @@ namespace E_Commerce_Shopping_Cart_System.Services
 {
     internal class ProductServices
     {
+        public void ViewAllProducts()
+        {
+
+        }
+        public void SearchProducts()
+        {
+
+        }
+        public void FilterByCategory()
+        {
+
+        }
+
+        public void ViewProductDetails()
+        {
+
+        }
     }
 }
