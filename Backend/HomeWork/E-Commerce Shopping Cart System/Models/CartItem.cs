@@ -1,5 +1,4 @@
 ﻿using E_Commerce_Shopping_Cart_System.Core;
-using E_Commerce_Shopping_Cart_System.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Models
 {
-    internal class Order : BaseEntity
+    internal class CartItem : BaseEntity
     {
         public int Quantity { get; set; }
-        public OrderStatus Status { get; set; } = OrderStatus.PENDING;
         public User User { get; set; }
         public Product Product { get; set; }
     }
