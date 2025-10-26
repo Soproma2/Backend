@@ -11,7 +11,7 @@ namespace E_Commerce_Shopping_Cart_System.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Price { get; set; }
+        public double Price { get; set; }
         public int Stock { get; set; }
         public string Category { get; set; }
     }
