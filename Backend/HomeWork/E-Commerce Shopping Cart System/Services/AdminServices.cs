@@ -12,6 +12,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
     {
         static string admin = "Niko";
         string filePath = "Products.json";
+        static string ordersFile = "orders.json";
         public void AddProduct()
         {
             Product product = new Product();
@@ -121,12 +122,70 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public void DeleteProduct()
         {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("No product file found!");
+                return;
+            }
 
+            string json = File.ReadAllText(filePath);
+            List<Product> products = JsonSerializer.Deserialize<List<Product>>(json);
+
+            if (products == null || products.Count == 0)
+            {
+                Console.WriteLine("No products found!");
+                return;
+            }
+
+            Console.Write("Enter product name to delete: ");
+            string nameToDelete = Console.ReadLine();
+
+            Product product = products.Find(p=>p.Name.Equals(nameToDelete,StringComparison.OrdinalIgnoreCase));
+
+            if (product == null)
+            {
+                Console.WriteLine("Product not found!");
+                return;
+            }
+
+            products.Remove(product);
+
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string updatedJson = JsonSerializer.Serialize(products,options);
+            File.WriteAllText(filePath,updatedJson);
+
+            Console.WriteLine($"Product '{product.Name}' deleted successfully!");
         }
 
         public void ViewAllOrders()
         {
+            if (!File.Exists(ordersFile))
+            {
+                Console.WriteLine("Oreder file not found!");
+                return;
+            }
 
+            string json = File.ReadAllText(ordersFile);
+            List<Order> orders = JsonSerializer.Deserialize<List<Order>>(json);
+
+            if(orders == null || orders.Count == 0)
+            {
+                Console.WriteLine("No orders found.");
+                return;
+            }
+
+            Console.WriteLine("----- All Orders -----");
+            foreach (Order order in orders)
+            {
+                Console.WriteLine($"Order ID: {order.Id}");
+                Console.WriteLine($"User: {order.User?.Username ?? "Unknown"}");
+                Console.WriteLine($"Product: {order.Product?.Name ?? "N/A"}");
+                Console.WriteLine($"Quantity: {order.Quantity}");
+                Console.WriteLine($"Price per unit: {order.Product?.Price} ₾");
+                Console.WriteLine($"Created: {order.CreatedAt}");
+                Console.WriteLine($"Status: {order.Status}");
+                Console.WriteLine(new string('-', 45));
+            }
         }
     }
 }
