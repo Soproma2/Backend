@@ -36,7 +36,6 @@ namespace E_Commerce_Shopping_Cart_System.Services
                 Username = username,
                 Email = email,
                 Password = password,
-                CreatedAt = DateTime.Now
             });
 
             JsonHelper.SaveData(path, Users);
