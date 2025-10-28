@@ -1,4 +1,6 @@
-﻿using System;
+﻿using E_Commerce_Shopping_Cart_System.Models;
+using E_Commerce_Shopping_Cart_System.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +11,8 @@ namespace E_Commerce_Shopping_Cart_System.Services
 {
     internal class AuthSevices
     {
-        string filePath = "users.txt";
-        static string currentUser = null;
+        public static string path = "Data/Users.json";
+        public static List<User> Users = JsonHelper.LoadData<User>(path);
         public void Register()
         {
             Console.WriteLine("----- Register New User -----");
@@ -23,43 +25,28 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.WriteLine("Enter password: ");
             string password = Console.ReadLine();
 
-            if (File.Exists(filePath))
+            if(Users.Any(u => u.Username == username || u.Email == email))
             {
-                using (FileStream readStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                using (StreamReader reader = new StreamReader(readStream))
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        string[] data = line.Split(',');
-                        if (data.Length > 1 && data[1] == email)
-                        {
-                            Console.WriteLine("This email is already registered!");
-                            return;
-                        }
-                    }              
-                }
+                Console.WriteLine("User already exists!");
+                return;
             }
 
-            string newUser = $"{username},{email},{password}{Environment.NewLine}";
-            byte[] databytes = Encoding.UTF8.GetBytes(newUser);
-
-            using (FileStream writeStream = new FileStream(filePath, FileMode.Append, FileAccess.Write))
+            Users.Add(new User
             {
-                writeStream.Write(databytes,0, databytes.Length);
-            }
+                Username = username,
+                Email = email,
+                Password = password,
+                CreatedAt = DateTime.Now
+            });
 
+            JsonHelper.SaveData(path, Users);
             Console.WriteLine("Registration successful!");
         }
 
-        public void Login()
+        public static User Login()
         {
 
-            if (currentUser != null)
-            {
-                Console.WriteLine($"User {currentUser} is already logged in!");
-                return;
-            }
+           
             Console.WriteLine("----- User Login -----");
             Console.Write("Enter email: ");
             string email = Console.ReadLine();
@@ -67,48 +54,19 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.Write("Enter Password: ");
             string password = Console.ReadLine();
 
-            if (!File.Exists(filePath))
+            var user = Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            if (user == null)
             {
-                Console.WriteLine("No users registered yet!");
-                return;
+                Console.WriteLine("Invalid credentials!");
+                return null;
             }
-
-            bool found = false;
-
-            using (FileStream readStream = new FileStream(filePath, FileMode.Open,FileAccess.Read))
-            using (StreamReader reader = new StreamReader(readStream))
-            {
-                string line;
-                while((line = reader.ReadLine()) != null)
-                {
-                    string[] data = line.Split(',');
-                    if(data.Length >= 3 && data[1] == email && data[2] == password)
-                    {
-                        currentUser = data[0];
-                        Console.WriteLine($"Welcome back, {data[0]}!");
-                        found = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!found)
-            {
-                Console.WriteLine("Invalid email or password!");
-            }
-
+            Console.WriteLine($"Welcome {user.Username}!");
+            return user;
         }
 
-        public void Logout()
-        {
-            if (currentUser == null)
-            {
-                Console.WriteLine("No user is currently logged in.");
-                return;
-            }
-
-            Console.WriteLine($"Goodbye, {currentUser}");
-            currentUser = null;
-        }
+        //public void Logout()
+        //{
+        //    return;
+        //}
     }
 }
