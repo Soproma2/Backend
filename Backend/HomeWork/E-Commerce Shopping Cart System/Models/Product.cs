@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Models
 {
-    internal class Product :BaseEntity
+    public class Product :BaseEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }

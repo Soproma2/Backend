@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Models
 {
-    internal class Order : BaseEntity
+    public class Order : BaseEntity
     {
         public int Quantity { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.PENDING;

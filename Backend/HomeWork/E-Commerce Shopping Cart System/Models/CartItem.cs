@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Models
 {
-    internal class CartItem : BaseEntity
+    public class CartItem : BaseEntity
     {
         public int Quantity { get; set; }
         public User User { get; set; }

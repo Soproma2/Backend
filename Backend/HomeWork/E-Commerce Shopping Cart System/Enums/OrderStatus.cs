@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Enums
 {
-    internal enum OrderStatus
+    public enum OrderStatus
     {
         PENDING,
         DELIVERED,
