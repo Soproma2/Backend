@@ -22,5 +22,10 @@ namespace E_Commerce_Shopping_Cart_System.Services
         {
 
         }
+
+        public void ViewAllOrders()
+        {
+
+        }
     }
 }

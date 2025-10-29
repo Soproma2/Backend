@@ -12,7 +12,6 @@ namespace E_Commerce_Shopping_Cart_System.Utils
     {
         public static List<T> LoadData<T>(string filePath)
         {
-            // თუ ფაილი არ არსებობს — აბრუნებს ცარიელ სიას
             if (!File.Exists(filePath))
                 return new List<T>();
 
