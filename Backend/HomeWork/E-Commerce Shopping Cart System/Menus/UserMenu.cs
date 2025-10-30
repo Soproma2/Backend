@@ -15,7 +15,6 @@ namespace E_Commerce_Shopping_Cart_System.Menus
         {
             while (true)
             {
-                Console.Clear();
                 Console.WriteLine($"\nWelcome {user.Username} - Balance: {user.Balance}$");
                 Console.WriteLine("1. View Products");
                 Console.WriteLine("2. Search Products");

@@ -14,13 +14,13 @@ namespace E_Commerce_Shopping_Cart_System.Menus
         {
             while (true)
             {
-                Console.Clear();
                 Console.WriteLine($"\nAdmin Panel - Welcome {user.Username}");
                 Console.WriteLine("1. Add Product");
                 Console.WriteLine("2. Update Product");
                 Console.WriteLine("3. Delete Product");
                 Console.WriteLine("4. View All Orders");
-                Console.WriteLine("5. Logout");
+                Console.WriteLine("5. View All Product");
+                Console.WriteLine("6. Logout");
                 Console.Write("Choose option: ");
                 string option = Console.ReadLine();
 
@@ -30,7 +30,8 @@ namespace E_Commerce_Shopping_Cart_System.Menus
                     case "2": ProductServices.UpdateProduct(); break;
                     case "3": ProductServices.DeleteProduct(); break;
                     case "4": OrderServices.ViewAllOrders(); break;
-                    case "5": return;
+                    case "5": ProductServices.ViewAllProducts(); break;
+                    case "6": return;
                     default: break;
                 }
             }

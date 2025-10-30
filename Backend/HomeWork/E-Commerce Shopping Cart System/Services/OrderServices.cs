@@ -76,7 +76,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         {
             Console.Write("Enter Order ID to cancel: ");
             if (!int.TryParse(Console.ReadLine(), out int oId)) { Console.WriteLine("Invalid ID!"); return; }
-            var order = Orders.FirstOrDefault(o => o.Id == Convert.ToString(oId) && o.User.Id == user.Id);
+            var order = Orders.FirstOrDefault(o => o.Id == oId && o.User.Id == user.Id);
             if (order == null) { Console.WriteLine("Order not found!"); return; }
             if (order.Status != OrderStatus.PENDING) { Console.WriteLine("Cannot cancel!"); return; }
 

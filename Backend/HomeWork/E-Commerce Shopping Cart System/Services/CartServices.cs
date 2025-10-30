@@ -17,14 +17,14 @@ namespace E_Commerce_Shopping_Cart_System.Services
         {
             Console.Write("Enter Product Id to add: ");
             if (!int.TryParse(Console.ReadLine(), out int pid)) { Console.WriteLine("Invalid Id!"); return; }
-            var product = ProductServices.Products.FirstOrDefault(p => p.Id == Convert.ToString(pid));
+            var product = ProductServices.Products.FirstOrDefault(p => p.Id == pid);
             if (product == null) { Console.WriteLine("Product not found!"); return; }
 
             Console.Write("Enter quantity: ");
             if(!int.TryParse(Console.ReadLine(), out int qty)) { Console.WriteLine("Invalid quantity!"); return; }
             if (qty > product.Stock) { Console.WriteLine("Not enough stock!"); return; }
 
-            var cart = CartItems.FirstOrDefault(c => c.User.Id == user.Id && c.Product.Id == Convert.ToString(pid));
+            var cart = CartItems.FirstOrDefault(c => c.User.Id == user.Id && c.Product.Id == pid);
             if (cart != null) cart.Quantity += qty;
             else
             {
@@ -42,7 +42,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         {
             Console.Write("Enter Product ID to remove: ");
             if (!int.TryParse(Console.ReadLine(), out int pid)) { Console.WriteLine("Invalid ID!"); return; }
-            var cart = CartItems.FirstOrDefault(c => c.User.Id == user.Id && c.Product.Id == Convert.ToString(pid));
+            var cart = CartItems.FirstOrDefault(c => c.User.Id == user.Id && c.Product.Id == pid);
             if (cart == null) { Console.WriteLine("Not in cart!"); return; }
             CartItems.Remove(cart);
             JsonHelper.SaveData(path, CartItems);
@@ -69,7 +69,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         {
             Console.Write("Enter Product Id to update: ");
             if (!int.TryParse(Console.ReadLine(), out int pid)) { Console.WriteLine("Invalid ID!"); return; }
-            var cart = CartItems.FirstOrDefault(c => c.User.Id == user.Id && c.Product.Id == Convert.ToString(pid));
+            var cart = CartItems.FirstOrDefault(c => c.User.Id == user.Id && c.Product.Id == pid);
             if (cart == null) { Console.WriteLine("Not in cart!"); return; }
             Console.Write("Enter new quantity: ");
             if (!int.TryParse(Console.ReadLine(), out int qty)) { Console.WriteLine("Invalid quantity!"); return; }

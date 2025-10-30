@@ -14,5 +14,10 @@ namespace E_Commerce_Shopping_Cart_System.Models
         public double Price { get; set; }
         public int Stock { get; set; }
         public string Category { get; set; }
+
+        public Product()
+        {
+            GenerateId(); 
+        }
     }
 }

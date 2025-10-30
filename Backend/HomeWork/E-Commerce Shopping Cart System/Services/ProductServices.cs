@@ -14,6 +14,8 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static List<Product> Products = JsonHelper.LoadData<Product>(path);
         public static void ViewAllProducts()
         {
+            Console.WriteLine("\n--------Products-------");
+            if (Products.Count == 0) { Console.WriteLine("Products are not available."); }
             foreach(var  product in Products)
             {
                 Console.WriteLine($"{product.Id}. {product.Name} - {product.Price}$ - Stock: {product.Stock}");
@@ -41,7 +43,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.Write("Enter Product ID: ");
             if(int.TryParse(Console.ReadLine(), out int id))
             {
-                var p = Products.FirstOrDefault(x=>x.Id == Convert.ToString(id));
+                var p = Products.FirstOrDefault(x=>x.Id == id);
                 if (p == null) Console.WriteLine("Product not found!");
                 else
                 {
@@ -70,7 +72,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.Write("Enter price: ");
             double Price = double.Parse(Console.ReadLine());
 
-            Console.WriteLine("Enter stock quantitiy: ");
+            Console.Write("Enter stock quantitiy: ");
             int Stock = int.Parse(Console.ReadLine());
 
             Console.Write("Enter category: ");
@@ -91,10 +93,11 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void UpdateProduct()
         {
+            ViewAllProducts();
             Console.Write("Enter Product ID to edit: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var p = Products.FirstOrDefault(x => x.Id == Convert.ToString(id));
+                var p = Products.FirstOrDefault(x => x.Id == id);
                 if (p == null) { Console.WriteLine("Product not found!"); return; }
                 ;
 
@@ -125,10 +128,11 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void DeleteProduct()
         {
+            ViewAllProducts();
             Console.Write("Enter Product ID to delete: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var p = Products.FirstOrDefault(x => x.Id == Convert.ToString(id));
+                var p = Products.FirstOrDefault(x => x.Id == id);
                 if (p == null) { Console.WriteLine("Product not found!"); return; }
                 ;
                 Products.Remove(p);
