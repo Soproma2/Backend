@@ -11,6 +11,7 @@ namespace E_Commerce_Shopping_Cart_System.Models
     public class Order : BaseEntity
     {
         public int Quantity { get; set; }
+        public double TotalPrice { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.PENDING;
         public User User { get; set; }
         public Product Product { get; set; }
