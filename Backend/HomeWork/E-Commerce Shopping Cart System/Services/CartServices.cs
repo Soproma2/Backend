@@ -15,6 +15,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static List<CartItem> CartItems = JsonHelper.LoadData<CartItem>(path);
         public static void AddToCart(User user)
         {
+            ProductServices.ViewAllProducts();
             Console.Write("Enter Product Id to add: ");
             if (!int.TryParse(Console.ReadLine(), out int pid)) { Console.WriteLine("Invalid Id!"); return; }
             var product = ProductServices.Products.FirstOrDefault(p => p.ProductId == pid);
@@ -36,6 +37,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         }
         public static void RemoveFromCart(User user)
         {
+            ViewCart(user);
             Console.Write("Enter Product ID to remove: ");
             if (!int.TryParse(Console.ReadLine(), out int pid)) { Console.WriteLine("Invalid ID!"); return; }
             var cart = CartItems.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == pid);
@@ -63,6 +65,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         }
         public static void UpdateCartQuantity(User user)
         {
+            ViewCart(user);
             Console.Write("Enter Product Id to update: ");
             if (!int.TryParse(Console.ReadLine(), out int pid)) { Console.WriteLine("Invalid ID!"); return; }
             var cart = CartItems.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == pid);

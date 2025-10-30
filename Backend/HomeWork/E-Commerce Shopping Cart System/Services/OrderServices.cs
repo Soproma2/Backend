@@ -55,17 +55,18 @@ namespace E_Commerce_Shopping_Cart_System.Services
             if (userOrders.Count == 0) { Console.WriteLine("No orders!"); return; }
             foreach (var o in userOrders)
             {
-                Console.WriteLine($"Order #{o.OrderId} - {o.OrderDate} - Total: {o.TotalPrice}₾ - Status: {o.Status}");
+                Console.WriteLine($"Order #{o.OrderId} - {o.OrderDate} - Total: {o.TotalPrice}$ - Status: {o.Status}");
                 foreach (var item in o.Items)
                 {
                     var p = ProductServices.Products.FirstOrDefault(x => x.ProductId == item.ProductId);
-                    if (p != null) Console.WriteLine($"  {p.Name} x {item.Quantity} = {item.Price * item.Quantity}₾");
+                    if (p != null) Console.WriteLine($"  {p.Name} x {item.Quantity} = {item.Price * item.Quantity}$");
                 }
             }
         }
 
         public static void CancelOrder(User user)
         {
+            ViewOrderHistory(user);
             Console.Write("Enter Order ID to cancel: ");
             if (!int.TryParse(Console.ReadLine(), out int oId)) { Console.WriteLine("Invalid ID!"); return; }
             var order = Orders.FirstOrDefault(o => o.OrderId == oId && o.UserId == user.UserId);
@@ -84,7 +85,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             foreach (var o in Orders)
             {
                 var u = UserServices.Users.FirstOrDefault(x => x.UserId == o.UserId);
-                Console.WriteLine($"Order #{o.OrderId} by {u?.Username} - {o.TotalPrice}₾ - {o.Status}");
+                Console.WriteLine($"Order #{o.OrderId} by {u?.Username} - {o.TotalPrice}$ - {o.Status}");
             }
         }
     }
