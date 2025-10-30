@@ -1,4 +1,5 @@
 ﻿using E_Commerce_Shopping_Cart_System.Models;
+using E_Commerce_Shopping_Cart_System.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,16 @@ namespace E_Commerce_Shopping_Cart_System.Menus
                 Console.WriteLine("5. Logout");
                 Console.Write("Choose option: ");
                 string option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "1": ProductServices.AddProduct(); break;
+                    case "2": ProductServices.UpdateProduct(); break;
+                    case "3": ProductServices.DeleteProduct(); break;
+                    case "4": OrderServices.ViewAllOrders(); break;
+                    case "5": AuthSevices.Logout(); break;
+                    default: break;
+                }
             }
         }
     }
