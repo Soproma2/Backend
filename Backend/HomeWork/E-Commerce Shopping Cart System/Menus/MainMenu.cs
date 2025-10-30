@@ -13,7 +13,6 @@ namespace E_Commerce_Shopping_Cart_System.Menus
     {
         public static void Show()
         {
-            Console.Clear();
             Console.WriteLine("\n1. Login");
             Console.WriteLine("2. Register");
             Console.WriteLine("3. Exit");

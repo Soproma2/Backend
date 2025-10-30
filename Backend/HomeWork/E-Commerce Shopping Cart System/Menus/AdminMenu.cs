@@ -14,6 +14,7 @@ namespace E_Commerce_Shopping_Cart_System.Menus
         {
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine($"\nAdmin Panel - Welcome {user.Username}");
                 Console.WriteLine("1. Add Product");
                 Console.WriteLine("2. Update Product");

@@ -67,13 +67,13 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.Write("Enter description: ");
             string Description = Console.ReadLine();
 
-            Console.WriteLine("Enter price: ");
+            Console.Write("Enter price: ");
             double Price = double.Parse(Console.ReadLine());
 
-            Console.WriteLine("Enetr stock quantitiy:");
+            Console.WriteLine("Enter stock quantitiy: ");
             int Stock = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter category:");
+            Console.Write("Enter category: ");
             string Category = Console.ReadLine();
 
             Products.Add(new Product
