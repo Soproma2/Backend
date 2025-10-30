@@ -60,7 +60,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void AddProduct()
         {
-            Console.WriteLine("----- Add New Product -----");
+            Console.WriteLine("\n----- Add New Product -----");
             Console.Write("Enter product Name: ");
             string Name = Console.ReadLine();
 

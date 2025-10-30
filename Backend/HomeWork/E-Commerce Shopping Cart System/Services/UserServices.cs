@@ -16,7 +16,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
        
         public static void ViewProfile(User user)
         {
-            Console.WriteLine("----- User Profile -----");
+            Console.WriteLine("\n----- User Profile -----");
             Console.WriteLine($"Username: {user.Username}");
             Console.WriteLine($"Email: {user.Email}");
             Console.WriteLine($"Balance: {user.Balance} $");
