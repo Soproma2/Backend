@@ -15,14 +15,15 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static List<User> Users = JsonHelper.LoadData<User>(path);
         public static void Register()
         {
-            Console.WriteLine("----- Register New User -----");
+            Console.Clear();
+            Console.WriteLine("\n----- Register New User -----");
             Console.Write("Enter username: ");
             string username = Console.ReadLine();
 
             Console.Write("Enter email: ");
             string email = Console.ReadLine();
 
-            Console.WriteLine("Enter password: ");
+            Console.Write("Enter password: ");
             string password = Console.ReadLine();
 
             if(Users.Any(u => u.Username == username || u.Email == email))
@@ -44,9 +45,9 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static User Login()
         {
-
+            Console.Clear();
            
-            Console.WriteLine("----- User Login -----");
+            Console.WriteLine("\n----- User Login -----");
             Console.Write("Enter email: ");
             string email = Console.ReadLine();
 
