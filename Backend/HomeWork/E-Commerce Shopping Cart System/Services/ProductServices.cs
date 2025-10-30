@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Services
 {
-    internal class ProductServices
+    public static class ProductServices
     {
         public static string path = "Data/Products.json";
         public static List<Product> Products = JsonHelper.LoadData<Product>(path);
@@ -27,7 +27,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             if (result.Count == 0) Console.WriteLine("No products found!");
             else foreach (var product in result) Console.WriteLine($"{product.Id}. {product.Name} - {product.Price}$");
         }
-        public void FilterByCategory()
+        public static void FilterByCategory()
         {
             Console.Write("Enter category: ");
             string cat = Console.ReadLine().ToLower();
@@ -36,7 +36,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             else foreach (var product in result) Console.WriteLine($"{product.Id}. {product.Name} - {product.Price}$");
         }
 
-        public void ViewProductDetails()
+        public static void ViewProductDetails()
         {
             Console.Write("Enter Product ID: ");
             if(int.TryParse(Console.ReadLine(), out int id))
@@ -123,7 +123,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             }
         }
 
-        public void DeleteProduct()
+        public static void DeleteProduct()
         {
             Console.Write("Enter Product ID to delete: ");
             if (int.TryParse(Console.ReadLine(), out int id))

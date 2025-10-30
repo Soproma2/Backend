@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Menus
 {
-    public class UserMenu
+    public static class UserMenu
     {
         public static void Show(User user)
         {

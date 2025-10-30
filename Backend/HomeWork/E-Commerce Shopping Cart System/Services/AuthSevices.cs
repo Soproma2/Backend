@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Services
 {
-    internal class AuthSevices
+    public static class AuthSevices
     {
         public static string path = "Data/Users.json";
         public static List<User> Users = JsonHelper.LoadData<User>(path);
-        public void Register()
+        public static void Register()
         {
             Console.WriteLine("----- Register New User -----");
             Console.Write("Enter username: ");
@@ -63,9 +63,9 @@ namespace E_Commerce_Shopping_Cart_System.Services
             return user;
         }
 
-        //public void Logout()
-        //{
-        //    return;
-        //}
+        public static void Logout()
+        {
+            return;
+        }
     }
 }

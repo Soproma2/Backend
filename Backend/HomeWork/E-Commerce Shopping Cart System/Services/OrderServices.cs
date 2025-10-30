@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Services
 {
-    internal class OrderServices
+    public static class OrderServices
     {
-        public void Checkout()
+        public static void Checkout()
         {
 
         }
 
-        public void ViewOrderHistory()
+        public static void ViewOrderHistory()
         {
 
         }
 
-        public void CancelOrder()
+        public static void CancelOrder()
         {
 
         }
 
-        public void ViewAllOrders()
+        public static void ViewAllOrders()
         {
 
         }

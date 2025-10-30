@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_Shopping_Cart_System.Services
 {
-    internal class UserServices
+    public static class UserServices
     {
         public static string path = "Data/Users.json";
         public static List<User> Users = JsonHelper.LoadData<User>(path);

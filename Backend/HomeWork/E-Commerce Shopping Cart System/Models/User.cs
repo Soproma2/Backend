@@ -13,7 +13,7 @@ namespace E_Commerce_Shopping_Cart_System.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public UserRole Role { get; set; }
+        public UserRole Role { get; set; } = UserRole.USER;
         public double Balance { get; set; }
 
         public List<CartItem> CartItems { get; set; }
