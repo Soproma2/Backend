@@ -72,14 +72,28 @@ namespace E_Commerce_Shopping_Cart_System.Services
             }
         }
 
-        public static void CancelOrder()
+        public static void CancelOrder(User user)
         {
+            Console.Write("Enter Order ID to cancel: ");
+            if (!int.TryParse(Console.ReadLine(), out int oId)) { Console.WriteLine("Invalid ID!"); return; }
+            var order = Orders.FirstOrDefault(o => o.Id == Convert.ToString(oId) && o.User.Id == user.Id);
+            if (order == null) { Console.WriteLine("Order not found!"); return; }
+            if (order.Status != OrderStatus.PENDING) { Console.WriteLine("Cannot cancel!"); return; }
 
+            order.Status = OrderStatus.CANCELLED;
+            user.Balance += order.TotalPrice;
+            JsonHelper.SaveData(path, Orders);
+            JsonHelper.SaveData(UserServices.path, UserServices.Users);
+            Console.WriteLine("Order cancelled!");
         }
 
         public static void ViewAllOrders()
         {
-
+            foreach (var o in Orders)
+            {
+                var u = UserServices.Users.FirstOrDefault(x => x.Id == o.User.Id);
+                Console.WriteLine($"Order #{o.Id} by {u?.Username} - {o.TotalPrice}₾ - {o.Status}");
+            }
         }
     }
 }
