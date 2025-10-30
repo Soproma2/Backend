@@ -29,7 +29,7 @@ namespace E_Commerce_Shopping_Cart_System.Menus
                     case "2": ProductServices.UpdateProduct(); break;
                     case "3": ProductServices.DeleteProduct(); break;
                     case "4": OrderServices.ViewAllOrders(); break;
-                    case "5": AuthSevices.Logout(); break;
+                    case "5": return;
                     default: break;
                 }
             }

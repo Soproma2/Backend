@@ -63,10 +63,5 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.WriteLine($"Welcome {user.Username}!");
             return user;
         }
-
-        public static void Logout()
-        {
-            return;
-        }
     }
 }

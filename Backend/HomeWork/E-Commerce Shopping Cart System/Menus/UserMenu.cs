@@ -48,7 +48,7 @@ namespace E_Commerce_Shopping_Cart_System.Menus
                     case "11": OrderServices.CancelOrder(user); break;
                     case "12": UserServices.AddBalance(user); break;
                     case "13": UserServices.ViewProfile(user); break;
-                    case "14": AuthSevices.Logout(); break;
+                    case "14": return;
                     default: Console.WriteLine("Invalid option!"); break;
                 }
             }
