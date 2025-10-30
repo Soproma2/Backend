@@ -18,7 +18,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             if (Products.Count == 0) { Console.WriteLine("Products are not available."); }
             foreach(var  product in Products)
             {
-                Console.WriteLine($"{product.Id}. {product.Name} - {product.Price}$ - Stock: {product.Stock}");
+                Console.WriteLine($"{product.ProductId}. {product.Name} - {product.Price}$ - Stock: {product.Stock}");
             }
         }
         public static void SearchProducts()
@@ -27,7 +27,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             string keyword = Console.ReadLine();
             var result = Products.Where(p=>p.Name.ToLower().Contains(keyword)).ToList();
             if (result.Count == 0) Console.WriteLine("No products found!");
-            else foreach (var product in result) Console.WriteLine($"{product.Id}. {product.Name} - {product.Price}$");
+            else foreach (var product in result) Console.WriteLine($"{product.ProductId}. {product.Name} - {product.Price}$");
         }
         public static void FilterByCategory()
         {
@@ -35,7 +35,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             string cat = Console.ReadLine().ToLower();
             var result = Products.Where(p=>p.Category.ToLower().Contains(cat)).ToList();
             if (result.Count == 0) Console.WriteLine("No products in this category!");
-            else foreach (var product in result) Console.WriteLine($"{product.Id}. {product.Name} - {product.Price}$");
+            else foreach (var product in result) Console.WriteLine($"{product.ProductId}. {product.Name} - {product.Price}$");
         }
 
         public static void ViewProductDetails()
@@ -43,7 +43,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.Write("Enter Product ID: ");
             if(int.TryParse(Console.ReadLine(), out int id))
             {
-                var p = Products.FirstOrDefault(x=>x.Id == id);
+                var p = Products.FirstOrDefault(x=>x.ProductId == id);
                 if (p == null) Console.WriteLine("Product not found!");
                 else
                 {
@@ -64,27 +64,30 @@ namespace E_Commerce_Shopping_Cart_System.Services
         {
             Console.WriteLine("\n----- Add New Product -----");
             Console.Write("Enter product Name: ");
-            string Name = Console.ReadLine();
+            string name = Console.ReadLine();
 
             Console.Write("Enter description: ");
-            string Description = Console.ReadLine();
+            string desc = Console.ReadLine();
 
             Console.Write("Enter price: ");
-            double Price = double.Parse(Console.ReadLine());
+            double price = double.Parse(Console.ReadLine());
 
             Console.Write("Enter stock quantitiy: ");
-            int Stock = int.Parse(Console.ReadLine());
+            int stock = int.Parse(Console.ReadLine());
 
             Console.Write("Enter category: ");
-            string Category = Console.ReadLine();
+            string cat = Console.ReadLine();
 
+            int id = Products.Count > 0 ? Products.Max(p => p.ProductId) + 1 : 1;
             Products.Add(new Product
             {
-                Name = Name,
-                Description = Description,
-                Price = Price,
-                Stock = Stock,
-                Category = Category
+                ProductId = id,
+                Name = name,
+                Description = desc,
+                Price = price,
+                Stock = stock,
+                Category = cat,
+                CreatedDate = DateTime.Now
             });
 
             JsonHelper.SaveData(path, Products);
@@ -97,7 +100,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.Write("Enter Product ID to edit: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var p = Products.FirstOrDefault(x => x.Id == id);
+                var p = Products.FirstOrDefault(x => x.ProductId == id);
                 if (p == null) { Console.WriteLine("Product not found!"); return; }
                 ;
 
@@ -132,7 +135,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.Write("Enter Product ID to delete: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var p = Products.FirstOrDefault(x => x.Id == id);
+                var p = Products.FirstOrDefault(x => x.ProductId == id);
                 if (p == null) { Console.WriteLine("Product not found!"); return; }
                 ;
                 Products.Remove(p);

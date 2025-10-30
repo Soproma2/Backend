@@ -20,7 +20,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.WriteLine($"Username: {user.Username}");
             Console.WriteLine($"Email: {user.Email}");
             Console.WriteLine($"Balance: {user.Balance} $");
-            Console.WriteLine($"Registered: {user.CreatedAt}");
+            Console.WriteLine($"Registered: {user.CreatedDate}");
             Console.WriteLine();
         }
 

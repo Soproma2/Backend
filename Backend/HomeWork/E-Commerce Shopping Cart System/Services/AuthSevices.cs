@@ -32,11 +32,14 @@ namespace E_Commerce_Shopping_Cart_System.Services
                 return;
             }
 
+            int id = Users.Count > 0 ? Users.Max(u => u.UserId) + 1 : 1;
             Users.Add(new User
             {
+                UserId = id,
                 Username = username,
                 Email = email,
                 Password = password,
+                CreatedDate = DateTime.Now
             });
 
             JsonHelper.SaveData(path, Users);

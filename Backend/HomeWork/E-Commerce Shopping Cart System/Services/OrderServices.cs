@@ -15,13 +15,13 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static List<Order> Orders = JsonHelper.LoadData<Order>(path);
         public static void Checkout(User user)
         {
-            var cart = CartServices.CartItems.Where(c => c.User.Id == user.Id).ToList();
+            var cart = CartServices.CartItems.Where(c => c.UserId == user.UserId).ToList();
             if (cart.Count == 0) { Console.WriteLine("Cart empty!"); return; }
 
             double total = 0;
             foreach (var c in cart)
             {
-                var p = ProductServices.Products.FirstOrDefault(x => x.Id == c.Product.Id);
+                var p = ProductServices.Products.FirstOrDefault(x => x.ProductId == c.ProductId);
                 if (p != null) total += p.Price * c.Quantity;
             }
 
@@ -29,45 +29,37 @@ namespace E_Commerce_Shopping_Cart_System.Services
             user.Balance -= total;
             JsonHelper.SaveData(UserServices.path, UserServices.Users);
 
-            var order = new Order { User = user, TotalPrice = total };
-            foreach(var c in cart)
+            int oid = Orders.Count > 0 ? Orders.Max(o => o.OrderId) + 1 : 1;
+            var order = new Order { OrderId = oid, UserId = user.UserId, OrderDate = DateTime.Now, TotalPrice = total };
+            foreach (var c in cart)
             {
-                var p = ProductServices.Products.FirstOrDefault(x => x.Id == c.Product.Id);
-                if(p != null)
+                var p = ProductServices.Products.FirstOrDefault(x => x.ProductId == c.ProductId);
+                if (p != null)
                 {
-                    order.Product = p;
-                    order.Quantity = c.Quantity;
-                    order.Status = OrderStatus.PENDING;
-                    Orders.Add(new Order
-                    {
-                        User = user,
-                        Product = p,
-                        Quantity = c.Quantity,
-                        TotalPrice = p.Price * c.Quantity,
-                        Status = OrderStatus.PENDING,
-                    });
+                    order.Items.Add(new OrderItem { ProductId = p.ProductId, Quantity = c.Quantity, Price = p.Price });
+                    p.Stock -= c.Quantity;
                 }
             }
             Orders.Add(order);
             JsonHelper.SaveData(path, Orders);
             JsonHelper.SaveData(ProductServices.path, ProductServices.Products);
 
-            CartServices.CartItems.RemoveAll(c => c.User.Id == user.Id);
+            CartServices.CartItems.RemoveAll(c => c.UserId == user.UserId);
             JsonHelper.SaveData(CartServices.path, CartServices.CartItems);
             Console.WriteLine("Checkout successful!");
         }
 
         public static void ViewOrderHistory(User user)
         {
-            var userOrders = Orders.Where(o => o.User.Id == user.Id).ToList();
+            var userOrders = Orders.Where(o => o.UserId == user.UserId).ToList();
             if (userOrders.Count == 0) { Console.WriteLine("No orders!"); return; }
             foreach (var o in userOrders)
             {
-                Console.WriteLine($"Order #{o.Id} - {o.CreatedAt} - Total: {o.TotalPrice}₾ - Status: {o.Status}");
-                var p = o.Product;
-                if (p != null)
+                Console.WriteLine($"Order #{o.OrderId} - {o.OrderDate} - Total: {o.TotalPrice}₾ - Status: {o.Status}");
+                foreach (var item in o.Items)
                 {
-                    Console.WriteLine($"  {p.Name} x {o.Quantity} = {p.Price * o.Quantity}₾");
+                    var p = ProductServices.Products.FirstOrDefault(x => x.ProductId == item.ProductId);
+                    if (p != null) Console.WriteLine($"  {p.Name} x {item.Quantity} = {item.Price * item.Quantity}₾");
                 }
             }
         }
@@ -76,7 +68,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         {
             Console.Write("Enter Order ID to cancel: ");
             if (!int.TryParse(Console.ReadLine(), out int oId)) { Console.WriteLine("Invalid ID!"); return; }
-            var order = Orders.FirstOrDefault(o => o.Id == oId && o.User.Id == user.Id);
+            var order = Orders.FirstOrDefault(o => o.OrderId == oId && o.UserId == user.UserId);
             if (order == null) { Console.WriteLine("Order not found!"); return; }
             if (order.Status != OrderStatus.PENDING) { Console.WriteLine("Cannot cancel!"); return; }
 
@@ -91,8 +83,8 @@ namespace E_Commerce_Shopping_Cart_System.Services
         {
             foreach (var o in Orders)
             {
-                var u = UserServices.Users.FirstOrDefault(x => x.Id == o.User.Id);
-                Console.WriteLine($"Order #{o.Id} by {u?.Username} - {o.TotalPrice}₾ - {o.Status}");
+                var u = UserServices.Users.FirstOrDefault(x => x.UserId == o.UserId);
+                Console.WriteLine($"Order #{o.OrderId} by {u?.Username} - {o.TotalPrice}₾ - {o.Status}");
             }
         }
     }
