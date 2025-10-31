@@ -70,7 +70,6 @@ namespace E_Commerce_Shopping_Cart_System.Services
             Console.WriteLine("Registration successful!");
         }
 
-
         public static User Login()
         {
             Console.Clear();
