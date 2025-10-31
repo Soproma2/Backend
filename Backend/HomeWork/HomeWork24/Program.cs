@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
         
 var baza = new Baza();
 
-// Ensure database is created
+
 baza.Database.EnsureCreated();
 
 while (true){

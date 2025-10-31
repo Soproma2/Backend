@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace HomeWork16
 {
-    internal class Class1
+    // Changed from 'internal class Class1' to 'public static class Class1'
+    public static class Class1
     {
         public static T Custom_FirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
