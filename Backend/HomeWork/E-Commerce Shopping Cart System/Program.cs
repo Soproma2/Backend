@@ -7,7 +7,7 @@ namespace E_Commerce_Shopping_Cart_System
         static void Main(string[] args)
         {
             Console.WriteLine("═══════════════════════════════════════");
-            Console.WriteLine("🛒 Shopping Cart System");
+            Console.WriteLine("Shopping Cart System");
             Console.WriteLine("═══════════════════════════════════════");
             while (true)
             {
