@@ -76,10 +76,19 @@ namespace E_Commerce_Shopping_Cart_System.Services
             if (order == null) { Console.WriteLine("Order not found!"); return; }
             if (order.Status != OrderStatus.PENDING) { Console.WriteLine("Cannot cancel!"); return; }
 
+            foreach (var item in order.Items)
+            {
+                var product = ProductServices.Products.FirstOrDefault(p => p.ProductId == item.ProductId);
+                if (product != null)
+                {
+                    product.Stock += item.Quantity;
+                }
+            }
             order.Status = OrderStatus.CANCELLED;
             user.Balance += order.TotalPrice;
             JsonHelper.SaveData(path, Orders);
             JsonHelper.SaveData(UserServices.path, UserServices.Users);
+            JsonHelper.SaveData(ProductServices.path, ProductServices.Products);
             Console.WriteLine("Order cancelled!");
         }
 

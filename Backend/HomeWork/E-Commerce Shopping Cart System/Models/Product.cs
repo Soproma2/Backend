@@ -15,6 +15,5 @@ namespace E_Commerce_Shopping_Cart_System.Models
         public int Stock { get; set; }
         public string Category { get; set; }
         public DateTime CreatedDate { get; set; }
-
     }
 }

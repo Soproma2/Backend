@@ -61,7 +61,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
                 {
                     double price = c.Quantity * p.Price;
                     total += price;
-                    Console.WriteLine($"{p.Name} x {c.Quantity} = {price}$");
+                    Console.WriteLine($"{c.CartId}. {p.Name} x {c.Quantity} = {price}$");
                 }
             }
             Console.WriteLine($"Total: {total}$");
