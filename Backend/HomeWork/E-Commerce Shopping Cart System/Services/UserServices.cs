@@ -26,6 +26,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void AddBalance(User user)
         {
+            Console.WriteLine("\n-------Add Balance-------");
             Console.Write("Enter amount to add: ");
             if (double.TryParse(Console.ReadLine(), out double amount))
             {

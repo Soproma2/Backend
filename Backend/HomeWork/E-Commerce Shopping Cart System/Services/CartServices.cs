@@ -69,6 +69,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static void UpdateCartQuantity(User user)
         {
             ViewCart(user);
+            Console.WriteLine("\n-------Update Cart Quantity-------");
             Console.Write("Enter Product Id to update: ");
             if (!int.TryParse(Console.ReadLine(), out int pid)) { Console.WriteLine("Invalid ID!"); return; }
             var cart = CartItems.FirstOrDefault(c => c.UserId == user.UserId && c.ProductId == pid);

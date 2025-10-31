@@ -15,6 +15,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static List<Order> Orders = JsonHelper.LoadData<Order>(path);
         public static void Checkout(User user)
         {
+            Console.WriteLine("\n-------Checkout-------");
             var cart = CartServices.CartItems.Where(c => c.UserId == user.UserId).ToList();
             if (cart.Count == 0) { Console.WriteLine("Cart empty!"); return; }
 
@@ -51,6 +52,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void ViewOrderHistory(User user)
         {
+            Console.WriteLine("\n-------Orders-------");
             var userOrders = Orders.Where(o => o.UserId == user.UserId).ToList();
             if (userOrders.Count == 0) { Console.WriteLine("No orders!"); return; }
             foreach (var o in userOrders)
@@ -67,6 +69,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static void CancelOrder(User user)
         {
             ViewOrderHistory(user);
+            Console.WriteLine("\n-------Cancel Order-------");
             Console.Write("Enter Order ID to cancel: ");
             if (!int.TryParse(Console.ReadLine(), out int oId)) { Console.WriteLine("Invalid ID!"); return; }
             var order = Orders.FirstOrDefault(o => o.OrderId == oId && o.UserId == user.UserId);
@@ -92,9 +95,8 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void MarkOrderDelivered()
         {
-            Console.WriteLine("===== ALL ORDERS =====");
             ViewAllOrders();
-
+            Console.WriteLine("\n-------Mark Order Delivered-------");
             Console.Write("\nEnter Order ID to mark as DELIVERED: ");
             if (!int.TryParse(Console.ReadLine(), out int orderId))
             {
@@ -128,9 +130,8 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void AdminCancelOrder()
         {
-            Console.WriteLine("===== ALL ORDERS =====");
             ViewAllOrders();
-
+            Console.WriteLine("\n-------Cancel Order-------");
             Console.Write("\nEnter Order ID to CANCEL: ");
             if (!int.TryParse(Console.ReadLine(), out int orderId))
             {
