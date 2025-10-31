@@ -7,7 +7,6 @@ Baza baza = new Baza();
 while (true)
 {
     Console.WriteLine("\n--- TODO Application ---");
-
     Console.WriteLine("1. Add Todo");
     Console.WriteLine("2. View Todos");
     Console.WriteLine("3. Mark Todo as Completed");
