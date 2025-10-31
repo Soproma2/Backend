@@ -23,6 +23,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         }
         public static void SearchProducts()
         {
+            Console.WriteLine("\n-------Search Products--------");
             Console.Write("Search by name: ");
             string keyword = Console.ReadLine();
             var result = Products.Where(p=>p.Name.ToLower().Contains(keyword)).ToList();
@@ -31,6 +32,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         }
         public static void FilterByCategory()
         {
+            Console.WriteLine("\n-------Filter By Category--------");
             Console.Write("Enter category: ");
             string cat = Console.ReadLine().ToLower();
             var result = Products.Where(p=>p.Category.ToLower().Contains(cat)).ToList();
@@ -40,6 +42,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void ViewProductDetails()
         {
+            Console.WriteLine("\n-------Product Details--------");
             Console.Write("Enter Product ID: ");
             if(int.TryParse(Console.ReadLine(), out int id))
             {
@@ -97,6 +100,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static void UpdateProduct()
         {
             ViewAllProducts();
+            Console.WriteLine("\n-------Update Product--------");
             Console.Write("Enter Product ID to edit: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
@@ -132,6 +136,7 @@ namespace E_Commerce_Shopping_Cart_System.Services
         public static void DeleteProduct()
         {
             ViewAllProducts();
+            Console.WriteLine("\n-------Delete Product--------");
             Console.Write("Enter Product ID to delete: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {

@@ -82,11 +82,92 @@ namespace E_Commerce_Shopping_Cart_System.Services
 
         public static void ViewAllOrders()
         {
+            Console.WriteLine("\n===== ALL ORDERS =====");
             foreach (var o in Orders)
             {
                 var u = UserServices.Users.FirstOrDefault(x => x.UserId == o.UserId);
                 Console.WriteLine($"Order #{o.OrderId} by {u?.Username} - {o.TotalPrice}$ - {o.Status}");
             }
+        }
+
+        public static void MarkOrderDelivered()
+        {
+            Console.WriteLine("===== ALL ORDERS =====");
+            ViewAllOrders();
+
+            Console.Write("\nEnter Order ID to mark as DELIVERED: ");
+            if (!int.TryParse(Console.ReadLine(), out int orderId))
+            {
+                Console.WriteLine("Invalid ID!");
+                return;
+            }
+
+            var order = Orders.FirstOrDefault(o => o.OrderId == orderId);
+            if (order == null)
+            {
+                Console.WriteLine("Order not found!");
+                return;
+            }
+
+            if (order.Status == OrderStatus.CANCELLED)
+            {
+                Console.WriteLine("Cannot deliver a cancelled order!");
+                return;
+            }
+
+            if (order.Status == OrderStatus.DELIVERED)
+            {
+                Console.WriteLine("Order already delivered!");
+                return;
+            }
+
+            order.Status = OrderStatus.DELIVERED;
+            JsonHelper.SaveData(path, Orders);
+            Console.WriteLine($"Order #{orderId} marked as DELIVERED successfully.");
+        }
+
+        public static void AdminCancelOrder()
+        {
+            Console.WriteLine("===== ALL ORDERS =====");
+            ViewAllOrders();
+
+            Console.Write("\nEnter Order ID to CANCEL: ");
+            if (!int.TryParse(Console.ReadLine(), out int orderId))
+            {
+                Console.WriteLine("Invalid ID!");
+                return;
+            }
+
+            var order = Orders.FirstOrDefault(o => o.OrderId == orderId);
+            if (order == null)
+            {
+                Console.WriteLine("Order not found!");
+                return;
+            }
+
+            if (order.Status == OrderStatus.CANCELLED)
+            {
+                Console.WriteLine("Order already cancelled!");
+                return;
+            }
+
+            if (order.Status == OrderStatus.DELIVERED)
+            {
+                Console.WriteLine("Cannot cancel a delivered order!");
+                return;
+            }
+
+            order.Status = OrderStatus.CANCELLED;
+
+            var user = UserServices.Users.FirstOrDefault(x => x.UserId == order.UserId);
+            if (user != null)
+            {
+                user.Balance += order.TotalPrice;
+                JsonHelper.SaveData(UserServices.path, UserServices.Users);
+            }
+
+            JsonHelper.SaveData(path, Orders);
+            Console.WriteLine($"Order #{orderId} cancelled by admin.");
         }
     }
 }
