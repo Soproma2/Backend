@@ -23,7 +23,7 @@ namespace HomeWork27.Models
 
         public override string ToString()
         {
-            return $"{FirstName} {LastName} - Age: {Age} - Course: ({Course}) - GPA: {GPA} - Enrollment date: {EnrollmentDate}";
+            return $"{Id}. {FirstName} {LastName} - Age: {Age} - Course: ({Course}) - GPA: {GPA} - Enrollment date: {EnrollmentDate} - {IsActive}";
         }
     }
 }
