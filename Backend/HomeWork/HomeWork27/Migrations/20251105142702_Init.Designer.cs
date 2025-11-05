@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeWork27.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20251101203643_Add_students")]
-    partial class Add_students
+    [Migration("20251105142702_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

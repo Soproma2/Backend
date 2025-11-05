@@ -14,7 +14,6 @@ namespace HomeWork27.Models
         public string LastName { get; set; }
         public int Age { get; set; }
         public string Email { get; set; }
-        public string StudentNumber { get; set; }
         public string Course { get; set; }
         public DateTime EnrollmentDate { get; set; } = DateTime.Now;
         public double GPA { get; set; }
@@ -24,7 +23,7 @@ namespace HomeWork27.Models
 
         public override string ToString()
         {
-            return $"{StudentNumber} - {FirstName} {LastName} - Age: {Age} - Course: ({Course}) - GPA: {GPA} - Enrollment date: {EnrollmentDate}";
+            return $"{FirstName} {LastName} - Age: {Age} - Course: ({Course}) - GPA: {GPA} - Enrollment date: {EnrollmentDate}";
         }
     }
 }
