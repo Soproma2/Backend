@@ -3,4 +3,4 @@
 DirectorService _ds = new DirectorService();
 
 //_ds.RegisterDir();
-_ds.ShowDir();
+//_ds.ShowDir();
