@@ -64,6 +64,7 @@ namespace HomeWork33.Services
             }
 
             course.Students.Add(student);
+            _db.SaveChanges();
             Console.WriteLine($"Student Registered Succesfully! Course name: {course.Title}");
         }
 
