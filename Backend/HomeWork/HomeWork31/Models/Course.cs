@@ -11,6 +11,5 @@ namespace HomeWork31.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public List<Student> Students { get; set; } = new List<Student>();
-        public int StudentId { get; set; }
     }
 }

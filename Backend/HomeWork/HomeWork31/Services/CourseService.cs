@@ -52,7 +52,7 @@ namespace HomeWork31.Services
             Console.WriteLine("Enter Course Id: ");
             int courseId = int.Parse(Console.ReadLine());
 
-            var student = _db.Students.Include(c=>c.Courses).FirstOrDefault(s=>s.Id == studentId);
+            var student = _db.Students.FirstOrDefault(s=>s.Id == studentId);
             if(student == null)
             {
                 Console.WriteLine("Student not found!");
