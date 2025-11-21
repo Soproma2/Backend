@@ -13,6 +13,8 @@ namespace HomeWork34.Models
         public string PhoneNumber { get; set; }
         public string Country { get; set; }
 
+        public Student student { get; set; }
+
         public int StudentId { get; set; }
     }
 }
