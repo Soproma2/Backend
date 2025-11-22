@@ -1,10 +1,9 @@
 ﻿using HomeWork36.Data;
 using HomeWork36.Services;
 
-DataContext _db = new DataContext();
+
 AuthService _authService = new AuthService();
-SMTPService _smtpService = new SMTPService();
-MotivationService motivationService = new MotivationService(_db, _smtpService);
+MotivationService motivationService = new MotivationService();
 while (true)
 {
     try

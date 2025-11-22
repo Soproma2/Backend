@@ -9,14 +9,8 @@ namespace HomeWork36.Services
 {
     internal class MotivationService
     {
-        private readonly DataContext _db;
-        private readonly SMTPService _emailService;
-
-        public MotivationService(DataContext db, SMTPService emailService)
-        {
-            _db = db;
-            _emailService = emailService;
-        }
+        private readonly DataContext _db = new DataContext();
+        private readonly SMTPService _emailService = new SMTPService();
 
         public void SendMotivationToAll(string message)
         {
