@@ -1,5 +1,7 @@
-﻿using HomeWork35.Services;
+﻿using HomeWork35.Data;
+using HomeWork35.Services;
 
+DataContext _db = new DataContext();
 UserProductService service = new UserProductService();
 
 while (true)

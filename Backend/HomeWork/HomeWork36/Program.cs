@@ -1,7 +1,7 @@
 ﻿using HomeWork36.Data;
 using HomeWork36.Services;
 
-
+DataContext _db = new DataContext();
 AuthService _authService = new AuthService();
 MotivationService motivationService = new MotivationService();
 while (true)
