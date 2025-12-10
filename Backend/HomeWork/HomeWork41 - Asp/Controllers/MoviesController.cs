@@ -2,6 +2,8 @@
 using HomeWork41___Asp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using HomeWork41___Asp.DTOs;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace HomeWork41___Asp.Controllers
 {
@@ -19,7 +21,7 @@ namespace HomeWork41___Asp.Controllers
             return Ok(data);
         }
 
-        [HttpGet("{movieId}")]
+        [HttpGet("details/{movieId}")]
         [ProducesResponseType(typeof(Movie), StatusCodes.Status400BadRequest)]
         public ActionResult<Movie> GetMoviesById(int movieId)
         {
@@ -29,7 +31,7 @@ namespace HomeWork41___Asp.Controllers
         }
 
 
-        [HttpGet("{author")]
+        [HttpGet("{author}")]
         public IActionResult GetMoviesByAuthor(string author)
         {
             var data = _db.Movies.FirstOrDefault(e => e.Author == author);
@@ -37,7 +39,7 @@ namespace HomeWork41___Asp.Controllers
             return Ok(data);
         }
 
-        [HttpGet("{rating}")]
+        [HttpGet("movies/{rating}")]
         public IActionResult GetMoviesByRating(double rating)
         {
             var data = _db.Movies.FirstOrDefault(e => e.Rating == rating);
@@ -46,7 +48,7 @@ namespace HomeWork41___Asp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateMovie(DTOs.MoviesDto req)
+        public IActionResult CreateMovie(CreateDtoMovie req)
         {
             Movie movie = new Movie()
             {
@@ -58,17 +60,37 @@ namespace HomeWork41___Asp.Controllers
                 PublishedAt = req.PublishedAt
             };
             _db.Movies.Add(movie);
+            _db.SaveChanges();
             return Ok(movie);
         }
 
-        [HttpPut("{MovieId}")]
-        public IActionResult UpdateMoviesById(int MovieId, DTOs.MoviesDto req)
+        [HttpPut("Update/{MovieId}")]
+        public IActionResult UpdateMoviesById(int MovieId, UpdateDtoMovies req)
         {
             var data = _db.Movies.Find(MovieId);
+            if (data == null) return NotFound();
 
-            data.Id = MovieId;
-            if (req.Title != null) data.Title == req.Title;
 
+            if (!string.IsNullOrWhiteSpace(req.Title)) data.Title = req.Title;
+            if (!string.IsNullOrWhiteSpace(req.Description)) data.Description = req.Description;
+            if (req.PublishedAt.HasValue) data.PublishedAt = req.PublishedAt.Value;
+            if (!string.IsNullOrWhiteSpace(req.Author)) data.Author = req.Author;
+            if (req.Duration.HasValue) data.Duration = req.Duration.Value;
+            if (req.Rating.HasValue) data.Rating = req.Rating.Value;
+
+            _db.SaveChanges();
+            return Ok(data);
+        }
+
+        [HttpDelete("{MovieId}")]
+        public IActionResult DeleteMoviesById(int MovieId)
+        {
+            var data = _db.Movies.Find(MovieId);
+            if (data == null) return NotFound();
+
+            _db.Movies.Remove(data);
+            _db.SaveChanges();
+            return Ok(data);
         }
     }
 }

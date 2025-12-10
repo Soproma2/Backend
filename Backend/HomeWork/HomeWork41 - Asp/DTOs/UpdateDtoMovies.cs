@@ -1,6 +1,6 @@
 ﻿namespace HomeWork41___Asp.DTOs
 {
-    public class MoviesDto
+    public class UpdateDtoMovies
     {
         public string? Title { get; set; }
         public string? Description { get; set; }
