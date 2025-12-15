@@ -20,5 +20,32 @@ namespace HomeWork43___Asp.Services.BookServices
             _db.books.Add(book);
             _db.SaveChanges();
         }
+
+        public void Delete(int bookId)
+        {
+            var book = _db.books.Find(bookId);
+
+            _db.books.Remove(book);
+            _db.SaveChanges();
+        }
+
+        public List<Book> Get()
+        {
+            var books = _db.books.ToList();
+            return books;
+        }
+
+        public string Update(int bookId,UpdateDto req)
+        {
+            var book = _db.books.Find(bookId);
+            if (book == null) return "Book Not Found!";
+
+            if(!string.IsNullOrWhiteSpace(req.Title)) book.Title = req.Title;
+            if (!string.IsNullOrWhiteSpace(req.Description)) book.Description = req.Description;
+            if (!string.IsNullOrWhiteSpace(req.Author)) book.Author = req.Author;
+
+            _db.SaveChanges();
+            return "Book Updated Successfully";
+        }
     }
 }
