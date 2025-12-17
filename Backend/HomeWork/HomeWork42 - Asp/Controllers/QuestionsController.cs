@@ -61,11 +61,11 @@ namespace HomeWork42___Asp.Controllers
                 return NotFound();
             }
 
-            if(!string.IsNullOrWhiteSpace(question.QuestionText)) question.QuestionText = req.QuestionText;
-            if (!string.IsNullOrWhiteSpace(question.OptionA)) question.OptionA = req.OptionA;
-            if (!string.IsNullOrWhiteSpace(question.OptionB)) question.OptionB = req.OptionB;
-            if (!string.IsNullOrWhiteSpace(question.OptionC)) question.OptionC = req.OptionC;
-            if (!string.IsNullOrWhiteSpace(question.CorrectAnswer)) question.CorrectAnswer = req.CorrectAnswer;
+            if (!string.IsNullOrWhiteSpace(req.QuestionText)) question.QuestionText = req.QuestionText!;
+            if (!string.IsNullOrWhiteSpace(req.OptionA)) question.OptionA = req.OptionA!;
+            if (!string.IsNullOrWhiteSpace(req.OptionB)) question.OptionB = req.OptionB!;
+            if (!string.IsNullOrWhiteSpace(req.OptionC)) question.OptionC = req.OptionC!;
+            if (!string.IsNullOrWhiteSpace(req.CorrectAnswer)) question.CorrectAnswer = req.CorrectAnswer!;
 
             _db.SaveChanges();
             return Ok(question);
