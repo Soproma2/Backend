@@ -11,6 +11,28 @@ namespace HomeWork_45___Asp.Controllers
         private readonly IProductService _bs;
         public ProductsController(IProductService bs) => _bs = bs;
 
+        [HttpPost]
+        public IActionResult Create()
+        {
+            return Ok();
+        }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Update()
+        {
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete()
+        {
+            return Ok();
+        }
     }
 }
