@@ -1,4 +1,5 @@
-﻿using HomeWork_45___Asp.Services.Product;
+﻿using HomeWork_45___Asp.DTOs.Requests;
+using HomeWork_45___Asp.Services.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,27 +13,31 @@ namespace HomeWork_45___Asp.Controllers
         public ProductsController(IProductService bs) => _bs = bs;
 
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Create(CreateProductDto req)
         {
-            return Ok();
+            var result = _bs.CreateProduct(req);
+            return Ok(result);
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            var result = _bs.GetProduct();
+            return Ok(result);
         }
 
-        [HttpPut]
-        public IActionResult Update()
+        [HttpPut("Product/{id}")]
+        public IActionResult Update(int id, UpdateProductDto req)
         {
-            return Ok();
+            var result = _bs.UpdateProduct(id, req);
+            return Ok(result);
         }
 
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("product/{id}")]
+        public IActionResult Delete(int id)
         {
-            return Ok();
+            var result = _bs.DeleteProduct(id);
+            return Ok(result);
         }
     }
 }
