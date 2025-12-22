@@ -1,0 +1,6 @@
+@HomeWork_46___Asp_HostAddress = http://localhost:5051
+
+GET {{HomeWork_46___Asp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
