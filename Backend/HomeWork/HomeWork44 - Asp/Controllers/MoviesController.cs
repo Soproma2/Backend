@@ -37,5 +37,19 @@ namespace HomeWork44___Asp.Controllers
         }
 
 
+        [HttpPut("movie/{id}")]
+        public IActionResult UpdateMovie(int id,UpdateRequest req)
+        {
+            var movie = _ms.UpdateMovie(id, req);
+            return Ok(movie);
+        }
+
+        [HttpDelete("movie/{id}")]
+        public IActionResult DeleteById(int id)
+        {
+            var movie = _ms.DeleteMovie(id);
+            return Ok(movie);
+        }
+
     }
 }
