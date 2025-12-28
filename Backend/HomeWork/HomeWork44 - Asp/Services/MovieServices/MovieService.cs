@@ -25,6 +25,7 @@ namespace HomeWork44___Asp.Services.MovieServices
             return new MovieResponse()
             {
                 Id = movie.Id,
+                Title = movie.Title,
                 Description = movie.Description,
                 CreatedDate = movie.CreatedDate,
                 Duration = movie.Duration
@@ -41,6 +42,7 @@ namespace HomeWork44___Asp.Services.MovieServices
             return new MovieResponse()
             {
                 Id = movie.Id,
+                Title = movie.Title,
                 Description = movie.Description,
                 CreatedDate = movie.CreatedDate,
                 Duration = movie.Duration
@@ -71,6 +73,7 @@ namespace HomeWork44___Asp.Services.MovieServices
             return new MovieResponse()
             {
                 Id = id,
+                Title = movie.Title,
                 Description = movie.Description,
                 CreatedDate = movie.CreatedDate,
                 Duration = movie.Duration
@@ -95,6 +98,7 @@ namespace HomeWork44___Asp.Services.MovieServices
             return new MovieResponse()
             {
                 Id = movie.Id,
+                Title = movie.Title,
                 Description = movie.Description,
                 CreatedDate = movie.CreatedDate,
                 Duration = movie.Duration
