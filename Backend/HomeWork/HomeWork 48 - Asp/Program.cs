@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(o=>o.UseSqlServer(@""));
+builder.Services.AddDbContext<DataContext>(o=>o.UseSqlServer(@"Data Source=(localdb)\ProjectModels;Initial Catalog=Cars;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30"));
 builder.Services.AddScoped<ICarsService, CarsService>();
 
 var app = builder.Build();
