@@ -1,4 +1,4 @@
-﻿\namespace HomeWork_48___Asp.DTOs.Requests
+﻿namespace HomeWork_48___Asp.DTOs.Requests
 {
     public class CarUpdateReq
     {
