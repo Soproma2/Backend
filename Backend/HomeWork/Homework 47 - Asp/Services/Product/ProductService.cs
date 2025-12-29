@@ -19,7 +19,7 @@ namespace Homework_47___Asp.Services.Product
 
         public List<ProductResponse> GetProducts()
         {
-            return _db.Products
+            var res = _db.Products
                 .Select(e => new ProductResponse
                 {
                     Id = e.Id,
@@ -30,6 +30,8 @@ namespace Homework_47___Asp.Services.Product
                     Stock = e.Stock
                 })
                 .ToList();
+            if (res == null) return null;
+            return res;
         }
 
         public ProductResponse GetProductById(int id)
@@ -50,7 +52,7 @@ namespace Homework_47___Asp.Services.Product
 
         public List<ProductResponse> GetProductByCategory(string name)
         {
-            return _db.Products
+            var res = _db.Products
                 .Where(p => p.Category == name)
                 .Select(e => new ProductResponse
                 {
@@ -62,6 +64,8 @@ namespace Homework_47___Asp.Services.Product
                     Stock = e.Stock
                 })
                 .ToList();
+            if (res == null) return null;
+            return res;
         }
 
         public ProductResponse AddProduct(CreateRequest req)
