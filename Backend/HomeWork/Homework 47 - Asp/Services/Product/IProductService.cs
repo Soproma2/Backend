@@ -9,6 +9,7 @@ namespace Homework_47___Asp.Services.Product
         List<ProductResponse>? GetProducts();
         ProductResponse? GetProductById(int id);
         List<ProductResponse>? GetProductByCategory(string category);
+        List<ProductResponse>? GetFilterByPrice();
         ProductResponse AddProduct(CreateRequest req);
         ProductResponse Discount(int id, int percentage);
         ProductResponse AddStock(int  id, int quantity);

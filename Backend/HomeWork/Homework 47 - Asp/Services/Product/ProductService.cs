@@ -140,5 +140,23 @@ namespace Homework_47___Asp.Services.Product
                 Stock = product.Stock
             };
         }
+
+        public List<ProductResponse>? GetFilterByPrice()
+        {
+            var products = _db.Products
+                .OrderBy(p => p.Price)
+                .Select(p => new ProductResponse
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Category = p.Category,
+                    Price = p.Price,
+                    Stock = p.Stock
+                })
+                .ToList();
+
+            return products;
+        }
     }
 }

@@ -36,6 +36,13 @@ namespace Homework_47___Asp.Controllers
             return Ok(products);
         }
 
+        [HttpGet("filter-by-price")]
+        public IActionResult GetProductsByPrice()
+        {
+            var products = _productService.GetFilterByPrice();
+            return Ok(products);
+        }
+
         [HttpPost]
         public IActionResult AddProduct(CreateRequest req)
         {
