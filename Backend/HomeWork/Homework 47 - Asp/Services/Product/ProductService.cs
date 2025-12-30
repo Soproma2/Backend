@@ -17,7 +17,7 @@ namespace Homework_47___Asp.Services.Product
             _db = db;
         }
 
-        public List<ProductResponse> GetProducts()
+        public List<ProductResponse>? GetProducts()
         {
             var res = _db.Products
                 .Select(e => new ProductResponse
@@ -34,7 +34,7 @@ namespace Homework_47___Asp.Services.Product
             return res;
         }
 
-        public ProductResponse GetProductById(int id)
+        public ProductResponse? GetProductById(int id)
         {
             var e = _db.Products.Find(id);
             if (e == null) return null!;
@@ -50,10 +50,14 @@ namespace Homework_47___Asp.Services.Product
             };
         }
 
-        public List<ProductResponse> GetProductByCategory(string name)
+        public List<ProductResponse>? GetProductByCategory(string category)
         {
-            var res = _db.Products
-                .Where(p => p.Category == name)
+            if (string.IsNullOrWhiteSpace(category))
+                return new();
+
+            var normalized = category.Trim().ToLower();
+
+            return _db.Products.Where(p => p.Category != null && p.Category.Trim().ToLower() == normalized)
                 .Select(e => new ProductResponse
                 {
                     Id = e.Id,
@@ -64,9 +68,8 @@ namespace Homework_47___Asp.Services.Product
                     Stock = e.Stock
                 })
                 .ToList();
-            if (res == null) return null;
-            return res;
         }
+
 
         public ProductResponse AddProduct(CreateRequest req)
         {
@@ -100,7 +103,7 @@ namespace Homework_47___Asp.Services.Product
             if (product == null) return null;
             if (percentage < 0 || percentage > 100)
                 throw new ArgumentException("Invalid discount percentage");
-            
+
             product.Price = product.Price - (product.Price * percentage / 100);
 
             _db.SaveChanges();

@@ -22,14 +22,14 @@ namespace Homework_47___Asp.Controllers
             return Ok(products);
         }
 
-        [HttpGet("product/{Id}")]
-        public IActionResult GetProductById(int Id)
+        [HttpGet("product/{id:int}")]
+        public IActionResult GetProductById(int id)
         {
-            var product = _productService.GetProductById(Id);
+            var product = _productService.GetProductById(id);
             return Ok(product);
         }
 
-        [HttpGet("product/{Category}")]
+        [HttpGet("product/{category}")]
         public IActionResult GetProductByCategory(string category)
         {
             var products = _productService.GetProductByCategory(category);
