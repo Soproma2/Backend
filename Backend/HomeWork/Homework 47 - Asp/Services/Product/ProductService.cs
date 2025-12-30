@@ -95,12 +95,47 @@ namespace Homework_47___Asp.Services.Product
 
         public ProductResponse Discount(int id, int percentage)
         {
-            throw new NotImplementedException();
+            var product = _db.Products.Find(id);
+
+            if (product == null) return null;
+            if (percentage < 0 || percentage > 100)
+                throw new ArgumentException("Invalid discount percentage");
+            
+            product.Price = product.Price - (product.Price * percentage / 100);
+
+            _db.SaveChanges();
+
+            return new ProductResponse()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Category = product.Category,
+                Price = product.Price,
+                Stock = product.Stock
+            };
         }
 
         public ProductResponse AddStock(int id, int quantity)
         {
-            throw new NotImplementedException();
+            var product = _db.Products.Find(id);
+            if (product == null) return null;
+
+            if (quantity < 0 || quantity > 100) throw new ArgumentException("Invalid quantity");
+
+            product.Stock += quantity;
+
+            _db.SaveChanges();
+
+            return new ProductResponse()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Category = product.Category,
+                Price = product.Price,
+                Stock = product.Stock
+            };
         }
     }
 }

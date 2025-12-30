@@ -42,5 +42,20 @@ namespace Homework_47___Asp.Controllers
             var product = _productService.AddProduct(req);
             return Ok(product);
         }
+
+        [HttpPost("product/{id}/dicount")]
+        public IActionResult Discount(int id, int percentage)
+        {
+            var discount = _productService.Discount(id,percentage);
+            return Ok(discount);
+        }
+
+        [HttpPost("product/{id}/addstock")]
+        public IActionResult AddStock(int id, int quantity)
+        {
+            var stock = _productService.AddStock(id,quantity);
+            return Ok(stock);
+        }
+
     }
 }
