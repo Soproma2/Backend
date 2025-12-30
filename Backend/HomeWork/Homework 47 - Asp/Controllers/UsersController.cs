@@ -28,5 +28,12 @@ namespace Homework_47___Asp.Controllers
             var user = _us.RegisterUser(req);
             return Ok(user);
         }
+
+        [HttpPost]
+        public IActionResult Login(UserCreateReq req)
+        {
+            var user = _us.LoginUser(req);
+            return Ok(user);
+        }
     }
 }

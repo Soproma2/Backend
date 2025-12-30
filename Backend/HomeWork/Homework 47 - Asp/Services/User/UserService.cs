@@ -21,6 +21,22 @@ namespace Homework_47___Asp.Services.User
             return res;
         }
 
+        public UserResponse LoginUser(UserCreateReq req)
+        {
+            var user = _db.Users.FirstOrDefault(e=>e.Email==req.Email);
+            var ISVALID = BCrypt.Net.BCrypt.Verify(req.Password, user.Password);
+            if (!ISVALID)
+            {
+                return null;
+            }
+            return new UserResponse()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email
+            };
+        }
+
         public UserResponse RegisterUser(UserCreateReq req)
         {
             Models.User user = new Models.User()

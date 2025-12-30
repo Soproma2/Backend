@@ -92,5 +92,15 @@ namespace Homework_47___Asp.Services.Product
                 Stock = product.Stock
             };
         }
+
+        public ProductResponse Discount(int id, int percentage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ProductResponse AddStock(int id, int quantity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace Homework_47___Asp.Services.User
     {
         List<UserResponse>? GetUsers();
         UserResponse RegisterUser(UserCreateReq req);
+        UserResponse LoginUser(UserCreateReq req);
     }
 }
