@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity_Project.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Entity_Project.Models
 {
-    internal class OrderItem
+    internal class OrderItem : BaseEntity
     {
+        public int Quantity { get; set; }
+        public double Price { get; set; }
     }
 }
