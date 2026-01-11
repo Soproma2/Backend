@@ -31,6 +31,15 @@ namespace HomeWork_49__Asp.Services.AuthServ
                 };
             }
 
+            if(!req.Email.Contains("@") && !req.Email.Contains("."))
+            {
+                return new ApiResponse<string>()
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Message = "Email need @ and ."
+                };
+            }
+
             if(_db.Users.Any(e=>e.Email == req.Email))
             {
                 return new ApiResponse<string>()
@@ -96,6 +105,7 @@ namespace HomeWork_49__Asp.Services.AuthServ
                 Message = "User loged in successfully.",
                 Value = new UserResponse()
                 {
+                    Id = user.Id,
                     Name = user.Name,
                     Email = user.Email,
                 }
