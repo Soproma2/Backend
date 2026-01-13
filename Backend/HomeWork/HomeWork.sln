@@ -115,6 +115,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 49 -Asp", "HomeWor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_Project", "Entity_Project\Entity_Project.csproj", "{6D1C80F3-D85C-4FBA-96EC-1B785590E11C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMedia - Asp-50", "SocialMedia - Asp-50\SocialMedia - Asp-50.csproj", "{D1C7727F-5C27-4050-80F6-4DF853A4E893}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -341,6 +343,10 @@ Global
 		{6D1C80F3-D85C-4FBA-96EC-1B785590E11C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D1C80F3-D85C-4FBA-96EC-1B785590E11C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D1C80F3-D85C-4FBA-96EC-1B785590E11C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C7727F-5C27-4050-80F6-4DF853A4E893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C7727F-5C27-4050-80F6-4DF853A4E893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C7727F-5C27-4050-80F6-4DF853A4E893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C7727F-5C27-4050-80F6-4DF853A4E893}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
