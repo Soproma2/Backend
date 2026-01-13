@@ -17,5 +17,7 @@ namespace Entity_Project.Models
         public double Balance { get; set; }
 
         public Profile? Profile { get; set; }
+        public List<Order> Orders { get; set; } = new List<Order>();
+        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 }

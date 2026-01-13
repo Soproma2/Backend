@@ -11,6 +11,7 @@ namespace Entity_Project.Models
     internal class Order : BaseEntity
     {
         public int UserId { get; set; }
+        public User User { get; set; }
         public double TotalPrice { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.PENDING;
         public List<OrderItem> Items { get; set; } = new List<OrderItem>();
