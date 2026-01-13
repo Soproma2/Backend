@@ -10,6 +10,7 @@ namespace Entity_Project.Services.Auth
     internal interface IAuthService
     {
         void Register();
-        Models.User? Login();
+        void Login();
+        void Logout();
     }
 }
