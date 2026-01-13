@@ -8,5 +8,8 @@ namespace Entity_Project.Services.User
 {
     internal interface IUserService
     {
+        void ViewProfile(Models.User user);
+        void AddBalance(Models.User user);
+        void UpdateProfile(Models.User user);
     }
 }

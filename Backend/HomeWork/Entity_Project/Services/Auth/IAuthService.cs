@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity_Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Entity_Project.Services.Auth
 {
     internal interface IAuthService
     {
+        void Register();
+        Models.User? Login();
     }
 }

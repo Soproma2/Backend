@@ -8,5 +8,13 @@ namespace Entity_Project.Services.Product
 {
     internal interface IProductService
     {
+        void ViewAllProducts();
+        void SearchProducts();
+        void FilterByCategory();
+        void ViewProductDetails();
+        void AddProduct();
+        void UpdateProduct();
+        void DeleteProduct();
+        void ViewCategories();
     }
 }
