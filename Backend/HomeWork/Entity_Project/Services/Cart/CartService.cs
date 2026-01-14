@@ -81,20 +81,64 @@ namespace Entity_Project.Services.Cart
             Console.WriteLine($"Grand Total: {grandTotal}$");
         }
 
-        public void ClearCart(Models.User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveFromCart(Models.User user)
-        {
-            throw new NotImplementedException();
-        }
-
         public void UpdateCartQuantity(Models.User user)
         {
-            throw new NotImplementedException();
+            Console.Write("Enter Product ID from cart to update: ");
+            if (!int.TryParse(Console.ReadLine(), out int productId))
+                throw new Exception("Invalid Product ID!");
+
+            var cartItem = _db.CartItems
+                .Include(c => c.Product)
+                .FirstOrDefault(c=>c.UserId == user.Id && c.ProductId == productId);
+
+            if (cartItem == null) throw new Exception("Item not found in your cart!");
+
+            Console.Write($"Enter new quantity (Available stock: {cartItem.Product.Stock}): ");
+            if (!int.TryParse(Console.ReadLine(), out int newQuantity))
+                throw new Exception("Invalid Product ID!");
+
+            if(newQuantity <= 0)
+            {
+                _db.CartItems.Remove(cartItem);
+                Console.WriteLine("Item removed from cart.");
+            }
+            else
+            {
+                if(newQuantity > cartItem.Product.Stock)
+                {
+                    throw new Exception("Not enough stock!");
+                }
+
+                cartItem.Quantity = newQuantity;
+                Console.WriteLine("Quantity updated.");
+            }
+            _db.SaveChanges();
         }
+        public void RemoveFromCart(Models.User user)
+        {
+            Console.Write("Enter Product Id to remove from cart: ");
+            if (!int.TryParse(Console.ReadLine(), out int productId))
+                throw new Exception("Invalid Product ID!");
+
+            var cartItem = _db.CartItems
+                .FirstOrDefault(c=>c.UserId == user.Id && c.ProductId == productId);
+
+            if (cartItem == null) throw new Exception("Item not found in cart!");
+
+            _db.CartItems.Remove(cartItem);
+            _db.SaveChanges();
+            Console.WriteLine("Product removed from cart.");
+        }
+
+        public void ClearCart(Models.User user)
+        {
+            var userCartItems = _db.CartItems.Where(c => c.UserId == user.Id);
+            _db.CartItems.RemoveRange(userCartItems);
+            _db.SaveChanges();
+            Console.WriteLine("Cart cleared.");
+        }
+
+
 
     }
 }
