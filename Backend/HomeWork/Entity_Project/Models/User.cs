@@ -15,6 +15,8 @@ namespace Entity_Project.Models
         public string Password { get; set; }
         public UserRole Role { get; set; } = UserRole.USER;
         public double Balance { get; set; }
+        public string? VerificationCode { get; set; }
+        public bool IsEmailConfirmed { get; set; } = false;
 
         public Profile? Profile { get; set; }
         public List<Order> Orders { get; set; } = new List<Order>();

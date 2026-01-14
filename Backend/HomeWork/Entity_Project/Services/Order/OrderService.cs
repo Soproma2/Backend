@@ -148,7 +148,7 @@ namespace Entity_Project.Services.Order
             if (!int.TryParse(Console.ReadLine(), out int orderId))
                 throw new Exception("Invalid Order ID!");
 
-            var order = _db.Orders.Find(id);
+            var order = _db.Orders.Find(orderId);
             if (order == null) throw new Exception("Order not found!");
 
             order.Status = OrderStatus.CANCELLED;

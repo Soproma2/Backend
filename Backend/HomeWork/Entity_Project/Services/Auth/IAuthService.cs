@@ -10,6 +10,7 @@ namespace Entity_Project.Services.Auth
     internal interface IAuthService
     {
         void Register();
+        void VerifyEmail();
         void Login();
         void Logout();
     }

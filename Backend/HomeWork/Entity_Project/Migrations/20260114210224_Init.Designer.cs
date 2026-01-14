@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity_Project.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260113110325_Init")]
+    [Migration("20260114210224_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -214,6 +214,9 @@ namespace Entity_Project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -226,6 +229,9 @@ namespace Entity_Project.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VerificationCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

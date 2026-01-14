@@ -1,6 +1,5 @@
 ﻿using Entity_Project.Data;
 using Entity_Project.Enums;
-using Entity_Project.Migrations;
 using Entity_Project.Services.Auth;
 using System;
 using System.Collections.Generic;
