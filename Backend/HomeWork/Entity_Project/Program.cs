@@ -1,8 +1,5 @@
-﻿using Entity_Project.Data;
-using Entity_Project.Menus;
+﻿using Entity_Project.Menus;
 
-static void Main(string[] args)
-{
     Console.WriteLine("═══════════════════════════════════════");
     Console.WriteLine("Shopping Cart System");
     Console.WriteLine("═══════════════════════════════════════");
@@ -10,4 +7,3 @@ static void Main(string[] args)
     {
         MainMenu.Show();
     }
-}

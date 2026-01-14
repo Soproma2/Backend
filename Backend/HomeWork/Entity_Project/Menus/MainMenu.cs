@@ -21,7 +21,7 @@ namespace Entity_Project.Menus
                 Console.WriteLine("1. Login");
                 Console.WriteLine("2. Register");
                 Console.WriteLine("3. Verify Email");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("4. Exit");
                 Console.Write("\nChoose option: ");
 
                 string option = Console.ReadLine();
