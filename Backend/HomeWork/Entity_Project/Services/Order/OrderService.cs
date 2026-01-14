@@ -1,4 +1,6 @@
 ﻿using Entity_Project.Data;
+using Entity_Project.Enums;
+using Entity_Project.Services.Auth;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,9 +30,9 @@ namespace Entity_Project.Services.Order
             if (dbUser.Balance < totalPrice)
                 throw new Exception($"Insufficient balance! Needed: {totalPrice}$, Available: {dbUser.Balance}$");
 
-            foreach ( var item in cartItems)
+            foreach (var item in cartItems)
             {
-                if(item.Product.Stock < item.Quantity)
+                if (item.Product.Stock < item.Quantity)
                     throw new Exception($"Product {item.Product.Name}. Insufficient quantity in stock | Stock: {item.Product.Stock}");
             }
 
@@ -50,7 +52,7 @@ namespace Entity_Project.Services.Order
             dbUser.Balance -= totalPrice;
             user.Balance = dbUser.Balance;
 
-            foreach ( var item in cartItems)
+            foreach (var item in cartItems)
             {
                 item.Product.Stock -= item.Quantity;
             }
@@ -61,32 +63,123 @@ namespace Entity_Project.Services.Order
         }
         public void ViewOrderHistory(Models.User user)
         {
-            throw new NotImplementedException();
+            var orders = _db.Orders
+                .Where(o => o.UserId == user.Id)
+                .ToList();
+
+            if (!orders.Any())
+            {
+                Console.WriteLine("You have no orders yet.");
+                return;
+            }
+
+            Console.WriteLine("/n=== Your Order History ===");
+            foreach (var o in orders)
+            {
+                Console.WriteLine($"Order ID: {o.Id} | Date: {o.CreateAt:yyyy-MM-dd} | Total: {o.TotalPrice}$ | Status: {o.Status}");
+            }
         }
+
         public void CancelOrder(Models.User user)
         {
-            throw new NotImplementedException();
+            Console.Write("Enter Order ID to cancel: ");
+            if (!int.TryParse(Console.ReadLine(), out int orderId))
+                throw new Exception("Invalid Order ID!");
+
+            var order = _db.Orders
+                .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+                .FirstOrDefault(o => o.Id == orderId && o.UserId == user.Id);
+
+            if (order == null) throw new Exception("Order not found!");
+            if (order.Status != OrderStatus.PENDING) throw new Exception("Only PENDING orders can be cancelled!");
+
+            order.Status = OrderStatus.CANCELLED;
+
+            var dbUser = _db.Users.Find(user.Id);
+            if (dbUser != null)
+            {
+                dbUser.Balance += order.TotalPrice;
+                user.Balance = dbUser.Balance; 
+            }
+
+            foreach (var item in order.Items)
+            {
+                if (item.Product != null)
+                {
+                    item.Product.Stock += item.Quantity;
+                }
+            }
+            _db.SaveChanges();
+            Console.WriteLine("Order cancelled and funds returned.");
+        }
+        public void ViewAllOrders()
+        {
+            if (AuthService.CurrentUser?.Role != UserRole.ADMIN) throw new Exception("Access Denied!");
+
+            var orders = _db.Orders.Include(o => o.User).ToList();
+            Console.WriteLine("\n=== All Orders (Admin) ===");
+            foreach ( var o in orders)
+            {
+                Console.WriteLine($"ID: {o.Id} | User: {o.User?.Username} | Total: {o.TotalPrice}$ | Status: {o.Status}");
+            }
+        }
+        public void MarkOrderDelivered()
+        {
+            if (AuthService.CurrentUser?.Role != UserRole.ADMIN) throw new Exception("Access Denied!");
+           
+            Console.Write("Enter Order ID to mark as Delivered: ");
+            if (!int.TryParse(Console.ReadLine(), out int orderId))
+                throw new Exception("Invalid Order ID!");
+
+            var order = _db.Orders.Find(orderId);
+            if (order == null) throw new Exception("Order not found!");
+
+            order.Status = OrderStatus.DELIVERED;
+            _db.SaveChanges();
+            Console.WriteLine("Order marked as Delivered.");
         }
 
         public void AdminCancelOrder()
         {
-            throw new NotImplementedException();
+            if (AuthService.CurrentUser?.Role != UserRole.ADMIN) throw new Exception("Access Denied!");
+
+            Console.Write("Enter Order ID to cancel: ");
+            if (!int.TryParse(Console.ReadLine(), out int orderId))
+                throw new Exception("Invalid Order ID!");
+
+            var order = _db.Orders.Find(id);
+            if (order == null) throw new Exception("Order not found!");
+
+            order.Status = OrderStatus.CANCELLED;
+            _db.SaveChanges();
+            Console.WriteLine("Order cancelled by admin.");
         }
 
 
-        public void MarkOrderDelivered()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void ViewAllOrders()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void ViewOrderDetails(int orderId)
+        public void ViewOrderDetails()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter Order ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int orderId))
+                throw new Exception("Invalid Order ID!");
+
+            var order = _db.Orders
+                .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+                .FirstOrDefault(o => o.Id == orderId);
+
+            if (order == null) throw new Exception("Order not found!");
+
+            Console.WriteLine($"\n--- Order Details (ID: {order.Id}) ---");
+            Console.WriteLine($"Status: {order.Status}");
+            Console.WriteLine($"Items:");
+            foreach (var item in order.Items)
+            {
+                Console.WriteLine($"- {item.Product?.Name} | Qty: {item.Quantity} | Price: {item.Price}$");
+            }
+            Console.WriteLine($"Total Price: {order.TotalPrice}$");
         }
 
     }

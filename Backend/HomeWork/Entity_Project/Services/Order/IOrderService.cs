@@ -15,6 +15,6 @@ namespace Entity_Project.Services.Order
         void ViewAllOrders();
         void MarkOrderDelivered();
         void AdminCancelOrder();
-        void ViewOrderDetails(int orderId);
+        void ViewOrderDetails();
     }
 }
