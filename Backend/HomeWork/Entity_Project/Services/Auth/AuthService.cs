@@ -30,6 +30,8 @@ namespace Entity_Project.Services.Auth
             string email = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(email))
                 throw new Exception("Email is required!");
+            if (!email.Contains("@") || !email.Contains("."))
+                throw new Exception("Invalid email format!");
             if (_db.Users.Any(u => u.Email == email))
                 throw new Exception("Email already exists!");
 
