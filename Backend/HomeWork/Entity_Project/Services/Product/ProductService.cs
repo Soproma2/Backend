@@ -15,7 +15,7 @@ namespace Entity_Project.Services.Product
         public void ViewAllProducts()
         {
             var products = _db.Products.ToList();
-            Console.WriteLine("/n=== Product List ===");
+            Console.WriteLine("\n=== Product List ===");
             foreach(var p in products)
             {
                 Console.WriteLine($"ID: {p.Id} | {p.Name} | Description: {p.Description} | Category: {p.Category} | Price: {p.Price}$ | Stock: {p.Stock}");
@@ -133,7 +133,7 @@ namespace Entity_Project.Services.Product
         {
             ViewCategories();
 
-            Console.Write("/nEnter category name to filter: ");
+            Console.Write("\nEnter category name to filter: ");
             string categoryInput = Console.ReadLine();
             if (categoryInput == null) throw new Exception("Category is required!");
 

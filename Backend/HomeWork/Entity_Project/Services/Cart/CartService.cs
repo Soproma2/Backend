@@ -63,11 +63,11 @@ namespace Entity_Project.Services.Cart
 
             if (!cartItems.Any())
             {
-                Console.WriteLine("/nYour cart is empty.");
+                Console.WriteLine("\nYour cart is empty.");
                 return;
             }
 
-            Console.WriteLine("/n=== Your Shopping Cart ===");
+            Console.WriteLine("\n=== Your Shopping Cart ===");
             double grandTotal = 0;
 
             foreach (var item in cartItems)

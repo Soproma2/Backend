@@ -73,7 +73,7 @@ namespace Entity_Project.Services.Order
                 return;
             }
 
-            Console.WriteLine("/n=== Your Order History ===");
+            Console.WriteLine("\n=== Your Order History ===");
             foreach (var o in orders)
             {
                 Console.WriteLine($"Order ID: {o.Id} | Date: {o.CreateAt:yyyy-MM-dd} | Total: {o.TotalPrice}$ | Status: {o.Status}");
