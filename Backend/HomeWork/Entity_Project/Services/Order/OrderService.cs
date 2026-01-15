@@ -27,7 +27,7 @@ namespace Entity_Project.Services.Order
             double totalPrice = cartItems.Sum(item => item.Product.Price * item.Quantity);
 
             var dbUser = _db.Users.Find(user.Id);
-            if (user.Balance < totalPrice)
+            if (dbUser.Balance < totalPrice)
                 throw new Exception($"Insufficient balance! Needed: {totalPrice}$, Available: {user.Balance}$");
 
             foreach (var item in cartItems)
