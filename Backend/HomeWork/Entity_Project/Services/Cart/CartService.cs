@@ -22,23 +22,31 @@ namespace Entity_Project.Services.Cart
 
             var product = _db.Products.Find(productId);
             if (product == null) throw new Exception("Product not found!");
+            if (product.Stock <= 0)
+            {
+                throw new Exception($"Product '{product.Name}' is currently out of stock!");
+            }
 
             Console.Write($"Enter quantity (Available: {product.Stock}): ");
             if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
-                throw new Exception("Invalid quantity!");
+                throw new Exception("Invalid quantity! Quantity must be greater than 0.");
 
             if (quantity > product.Stock)
-                throw new Exception("Not eanogh stock available!");
+                throw new Exception("Not enough stock available!");
 
-            var existingCarItem = _db.CartItems
+            var existingCartItem = _db.CartItems
+                .Include(c => c.Product)
                 .FirstOrDefault(c=>c.UserId == user.Id && c.ProductId == productId);
 
-            if(existingCarItem != null)
+            if(existingCartItem != null)
             {
-                if (existingCarItem.Quantity + quantity > product.Stock)
-                    throw new Exception("Adding this quantity exceeds available stock!");
+                int newTotalQuantity = existingCartItem.Quantity + quantity;
 
-                existingCarItem.Quantity += quantity;
+                if (newTotalQuantity > product.Stock)
+                    throw new Exception($"Adding this quantity exceeds available stock! You already have {existingCartItem.Quantity} units in cart. Maximum you can add: {product.Stock - existingCartItem.Quantity}");
+
+                existingCartItem.Quantity = newTotalQuantity;
+                Console.WriteLine($"Updated quantity in cart. New total: {newTotalQuantity} units");
             }
             else
             {
@@ -49,6 +57,7 @@ namespace Entity_Project.Services.Cart
                     Quantity = quantity
                 };
                 _db.CartItems.Add(cartItem);
+                Console.WriteLine($"Added {quantity} unit(s) of '{product.Name}' to cart.");
             }
 
             _db.SaveChanges();
@@ -56,6 +65,8 @@ namespace Entity_Project.Services.Cart
         }
         public void ViewCart(Models.User user)
         {
+            if (user == null)
+                throw new Exception("You must be logged in!");
             var cartItems = _db.CartItems
                 .Include(c => c.Product)
                 .Where(c => c.UserId == user.Id)
@@ -72,6 +83,11 @@ namespace Entity_Project.Services.Cart
 
             foreach (var item in cartItems)
             {
+                if (item.Product == null)
+                {
+                    Console.WriteLine($"Warning: Product ID {item.ProductId} not found (removed)");
+                    continue;
+                }
                 double total = item.Product.Price * item.Quantity;
                 grandTotal += total;
                 Console.WriteLine($"ID: {item.ProductId} | {item.Product.Name} | Qty: {item.Quantity} | Price: {item.Product.Price}$ | Total: {total}$");
@@ -79,10 +95,19 @@ namespace Entity_Project.Services.Cart
 
             Console.WriteLine("------------------------");
             Console.WriteLine($"Grand Total: {grandTotal}$");
+            Console.WriteLine($"Your Balance: {user.Balance}$");
+
+            if (grandTotal > user.Balance)
+            {
+                Console.WriteLine($"Insufficient funds! You need {(grandTotal - user.Balance)}$ more.");
+            }
         }
 
         public void UpdateCartQuantity(Models.User user)
         {
+            if (user == null)
+                throw new Exception("You must be logged in!");
+
             Console.Write("Enter Product ID from cart to update: ");
             if (!int.TryParse(Console.ReadLine(), out int productId))
                 throw new Exception("Invalid Product ID!");
@@ -92,30 +117,36 @@ namespace Entity_Project.Services.Cart
                 .FirstOrDefault(c=>c.UserId == user.Id && c.ProductId == productId);
 
             if (cartItem == null) throw new Exception("Item not found in your cart!");
+            if (cartItem.Product == null)
+                throw new Exception("Product not found in database!");
 
-            Console.Write($"Enter new quantity (Available stock: {cartItem.Product.Stock}): ");
+            Console.Write($"Current quantity: {cartItem.Quantity}. Enter new quantity (Available stock: {cartItem.Product.Stock}): ");
             if (!int.TryParse(Console.ReadLine(), out int newQuantity))
-                throw new Exception("Invalid Product ID!");
+                throw new Exception("Invalid quantity format!");
 
-            if(newQuantity <= 0)
+            if (newQuantity < 0)
+                throw new Exception("Quantity cannot be negative!");
+
+            if (newQuantity == 0)
             {
                 _db.CartItems.Remove(cartItem);
+                _db.SaveChanges();
                 Console.WriteLine("Item removed from cart.");
+                return;
             }
-            else
-            {
-                if(newQuantity > cartItem.Product.Stock)
-                {
-                    throw new Exception("Not enough stock!");
-                }
+           
+             if(newQuantity > cartItem.Product.Stock)
+                throw new Exception($"Not enough stock! Only {cartItem.Product.Stock} units available.");
 
-                cartItem.Quantity = newQuantity;
-                Console.WriteLine("Quantity updated.");
-            }
+            cartItem.Quantity = newQuantity;
             _db.SaveChanges();
+            Console.WriteLine("Quantity updated.");
         }
         public void RemoveFromCart(Models.User user)
         {
+            if (user == null)
+                throw new Exception("You must be logged in!");
+            
             Console.Write("Enter Product Id to remove from cart: ");
             if (!int.TryParse(Console.ReadLine(), out int productId))
                 throw new Exception("Invalid Product ID!");
@@ -123,7 +154,7 @@ namespace Entity_Project.Services.Cart
             var cartItem = _db.CartItems
                 .FirstOrDefault(c=>c.UserId == user.Id && c.ProductId == productId);
 
-            if (cartItem == null) throw new Exception("Item not found in cart!");
+            if (cartItem == null) throw new Exception("Item not found in your cart!");
 
             _db.CartItems.Remove(cartItem);
             _db.SaveChanges();
@@ -132,10 +163,30 @@ namespace Entity_Project.Services.Cart
 
         public void ClearCart(Models.User user)
         {
-            var userCartItems = _db.CartItems.Where(c => c.UserId == user.Id);
+            if (user == null)
+                throw new Exception("You must be logged in!");
+
+            var userCartItems = _db.CartItems
+                .Where(c => c.UserId == user.Id)
+                .ToList();
+
+            if (!userCartItems.Any())
+            {
+                Console.WriteLine("Your cart is already empty.");
+                return;
+            }
+
+            Console.Write($"Are you sure you want to clear all {userCartItems.Count} item(s) from your cart? (y/n): ");
+            string confirmation = Console.ReadLine()?.Trim().ToLower();
+
+            if (confirmation != "yes")
+            {
+                Console.WriteLine("Cart clear cancelled.");
+                return;
+            }
             _db.CartItems.RemoveRange(userCartItems);
             _db.SaveChanges();
-            Console.WriteLine("Cart cleared.");
+            Console.WriteLine("Cart cleared successfully.");
         }
 
 

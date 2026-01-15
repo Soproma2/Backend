@@ -27,7 +27,7 @@ namespace Entity_Project.Services.User
 
         public void AddBalance(Models.User user)
         {
-            if (user == null) throw new Exception("Unauthorized!");
+            if (user == null) throw new Exception("Unauthorized! You must be logged in.");
 
             Console.Write("Enter amount to add: ");
 
@@ -51,8 +51,14 @@ namespace Entity_Project.Services.User
 
         public void UpdateProfile(Models.User user)
         {
+            if (user == null)
+                throw new Exception("You must be logged in!");
+
             var profile = _db.Profiles.Find(user.Id);
             if (profile == null) throw new Exception("Profile not found!");
+
+            Console.WriteLine("\n=== Update Profile ===");
+            Console.WriteLine("(Leave blank to keep current value)");
 
             Console.Write($"Enter Full Name [{profile.FullName}]: ");
             string? fullName = Console.ReadLine();

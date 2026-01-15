@@ -39,6 +39,8 @@ namespace Entity_Project.Services.Auth
             string password = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(password))
                 throw new Exception("Password is required!");
+            if (password.Length < 6)
+                throw new Exception("Password must be at least 6 characters long!");
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
 
             Random rand = new Random();

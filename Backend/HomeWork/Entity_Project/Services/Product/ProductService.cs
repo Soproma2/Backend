@@ -1,6 +1,7 @@
 ﻿using Entity_Project.Data;
 using Entity_Project.Enums;
 using Entity_Project.Services.Auth;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace Entity_Project.Services.Product
         public void ViewAllProducts()
         {
             var products = _db.Products.ToList();
+            if (!products.Any())
+            {
+                Console.WriteLine("\n=== Product List ===");
+                Console.WriteLine("No products available.");
+                return;
+            }
             Console.WriteLine("\n=== Product List ===");
             foreach(var p in products)
             {
@@ -28,11 +35,13 @@ namespace Entity_Project.Services.Product
                 throw new Exception("Access Denied: Only Admins can add products!");
             }
 
+            Console.WriteLine("\n=== Add New Product ===");
+
             Console.Write("Enter Product Name: ");
             string name = Console.ReadLine();
 
             if (string.IsNullOrEmpty(name))
-                throw new Exception("Name is required!");
+                throw new Exception("Product name is required!");
 
             Console.Write("Enter Product Description: ");
             string description = Console.ReadLine();
@@ -43,8 +52,8 @@ namespace Entity_Project.Services.Product
             Console.Write("Enter Price: ");
             double price = double.Parse(Console.ReadLine());
 
-            if (price == 0)
-                throw new Exception("Value is required!");
+            if (price <= 0)
+                throw new Exception("Price must be greater than 0!");
 
             Console.Write("Enter Category: ");
             string category = Console.ReadLine();
@@ -53,7 +62,8 @@ namespace Entity_Project.Services.Product
                 throw new Exception("Category is required!");
 
             Console.Write("Enter Stock Quantity: ");
-            int stock = int.Parse(Console.ReadLine());
+            if (!int.TryParse(Console.ReadLine(), out int stock))
+                throw new Exception("Invalid stock quantity!");
 
             if (stock <= 0)
                 throw new Exception("Stock must be greater than 0!");
@@ -69,7 +79,7 @@ namespace Entity_Project.Services.Product
 
             _db.Products.Add(product);
             _db.SaveChanges();
-            Console.WriteLine("Product added successfully!");
+            Console.WriteLine($"Product '{name}' added successfully");
 
 
         }
@@ -77,45 +87,75 @@ namespace Entity_Project.Services.Product
         {
             Console.Write("Search for: ");
             string term = Console.ReadLine().ToLower();
-            if (string.IsNullOrWhiteSpace(term)) throw new Exception("Product name is required!");
+            if (string.IsNullOrWhiteSpace(term)) throw new Exception("Search term is required!");
 
             var results = _db.Products
-                .Where(p => p.Name.ToLower().Contains(term))
+                .Where(p => p.Name.ToLower().Contains(term) ||
+                           p.Description.ToLower().Contains(term) ||
+                           p.Category.ToLower().Contains(term))
                 .ToList();
 
             if (!results.Any())
             {
-                Console.WriteLine("No Prodcts found.");
+                Console.WriteLine("No Products found.");
                 return;
             }
 
-            foreach(var p in results)
-                Console.WriteLine($"{p.Name} - {p.Price}$");
+            Console.WriteLine($"\n=== Search Results for '{term}' ===");
+
+            foreach (var p in results)
+                Console.WriteLine($"ID: {p.Id} | {p.Name} | Category: {p.Category} | Price: {p.Price}$ | Stock: {p.Stock}");
         }
 
         public void DeleteProduct()
         {
             if (AuthService.CurrentUser?.Role != UserRole.ADMIN)
-                throw new Exception("Access Denied!");
+                throw new Exception("Access Denied! Only Admins can delete products.");
 
             Console.Write("Enter Product ID to delete: ");
 
             if (!int.TryParse(Console.ReadLine(), out int id))
                 throw new Exception("Invalid Product ID!");
 
-            var product = _db.Products.Find(id);
+            var product = _db.Products
+                .Include(p => p.CartItems)
+                .Include(p => p.OrderItems)
+                .FirstOrDefault(p => p.Id == id);
             if (product == null) throw new Exception("Product not found!");
+
+            if (product.CartItems != null && product.CartItems.Any())
+            {
+                Console.WriteLine($"Warning: This product is in {product.CartItems.Count} shopping cart(s).");
+                Console.Write("Do you still want to delete? (yes/no): ");
+                string confirmation = Console.ReadLine()?.Trim().ToLower();
+
+                if (confirmation != "yes")
+                {
+                    Console.WriteLine("Deletion cancelled.");
+                    return;
+                }
+
+                _db.CartItems.RemoveRange(product.CartItems);
+            }
+
+            if (product.OrderItems != null && product.OrderItems.Any())
+            {
+                Console.WriteLine($"Warning: This product is in {product.OrderItems.Count} order(s).");
+                Console.WriteLine("Cannot delete product that has been ordered. Consider marking it as out of stock instead.");
+                return;
+            }
 
             _db.Products.Remove(product);
             _db.SaveChanges();
-            Console.WriteLine("Product deleted.");
+            Console.WriteLine($"Product '{product.Name}' deleted successfully.");
         }
 
         public void ViewCategories()
         {
             var allCategories = _db.Products
-                .GroupBy(p=> p.Category)
-                .Select(p=> p.Key)
+                .GroupBy(p => p.Category)
+                .Select(g => new { Category = g.Key, Count = g.Count() })
+                .OrderBy(x => x.Category)
                 .ToList();
 
             if (!allCategories.Any())
@@ -124,9 +164,10 @@ namespace Entity_Project.Services.Product
                 return;
             }
 
+            Console.WriteLine("\n=== Available Categories ===");
             foreach (var category in allCategories)
             {
-                Console.WriteLine($"- {category}");
+                Console.WriteLine($"- {category.Category} ({category.Count} products)");
             }
         }
 
@@ -136,7 +177,8 @@ namespace Entity_Project.Services.Product
 
             Console.Write("\nEnter category name to filter: ");
             string categoryInput = Console.ReadLine();
-            if (categoryInput == null) throw new Exception("Category is required!");
+            if (string.IsNullOrWhiteSpace(categoryInput))
+                throw new Exception("Category is required!");
 
             var products = _db.Products
                 .Where(p => p.Category.ToLower() == categoryInput.ToLower())
@@ -203,12 +245,31 @@ namespace Entity_Project.Services.Product
             if (!string.IsNullOrWhiteSpace(category)) product.Category = category;
 
             Console.Write($"New Price [{product.Price}]: ");
-            string price = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(price)) product.Price = double.Parse(price);
+            string priceInput = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(priceInput))
+            {
+                if (!double.TryParse(priceInput, out double price))
+                    throw new Exception("Invalid price format!");
+
+                if (price <= 0)
+                    throw new Exception("Price must be greater than 0!");
+
+                product.Price = price;
+            }
 
             Console.Write($"New Stock [{product.Stock}]: ");
             string stockInput = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(stockInput)) product.Stock = int.Parse(stockInput);
+            if (!string.IsNullOrWhiteSpace(stockInput))
+            {
+                if (!int.TryParse(stockInput, out int stock))
+                    throw new Exception("Invalid stock format!");
+
+                if (stock < 0)
+                    throw new Exception("Stock cannot be negative!");
+
+                product.Stock = stock;
+            }
+
 
             _db.SaveChanges();
             Console.WriteLine("Product updated successfully!");
