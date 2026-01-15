@@ -22,7 +22,7 @@ namespace Entity_Project.Services.User
 
             Console.WriteLine($"Full Name: {user.Profile?.FullName ?? "Not set"}");
             Console.WriteLine($"Address: {user.Profile?.Address ?? "Not set"}");
-            Console.WriteLine($"Address: {user.Profile?.PhoneNumber ?? "Not set"}");
+            Console.WriteLine($"Phone: {user.Profile?.PhoneNumber ?? "Not set"}");
         }
 
         public void AddBalance(Models.User user)

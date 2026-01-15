@@ -30,7 +30,7 @@ namespace Entity_Project.Services.Auth
             string email = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(email))
                 throw new Exception("Email is required!");
-            if (_db.Users.Any(u => u.Username == email))
+            if (_db.Users.Any(u => u.Email == email))
                 throw new Exception("Email already exists!");
 
             Console.Write("Enter password: ");
