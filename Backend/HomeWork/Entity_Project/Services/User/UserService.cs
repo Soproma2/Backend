@@ -34,6 +34,7 @@ namespace Entity_Project.Services.User
             if (double.TryParse(Console.ReadLine(), out double amount) && amount > 0)
             {
                 var dbUser = _db.Users.Find(user.Id);
+                if (dbUser == null) throw new Exception("User not found!");
                 dbUser.Balance += amount;
                 _db.SaveChanges();
 
