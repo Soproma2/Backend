@@ -23,7 +23,7 @@ namespace Entity_Project.Services.Cart
             var product = _db.Products.Find(productId);
             if (product == null) throw new Exception("Product not found!");
 
-            Console.Write($"Enter quantity (Available: {product.Stock})");
+            Console.Write($"Enter quantity (Available: {product.Stock}): ");
             if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
                 throw new Exception("Invalid quantity!");
 

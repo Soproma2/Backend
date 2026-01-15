@@ -77,6 +77,7 @@ namespace Entity_Project.Services.Product
         {
             Console.Write("Search for: ");
             string term = Console.ReadLine().ToLower();
+            if (!string.IsNullOrWhiteSpace(term)) throw new Exception("Product name is required!");
 
             var results = _db.Products
                 .Where(p => p.Name.ToLower().Contains(term))

@@ -36,13 +36,14 @@ namespace Entity_Project.Menus
                 Console.WriteLine("5.  View My Cart");
                 Console.WriteLine("6.  Add to Cart");
                 Console.WriteLine("7.  Remove from Cart");
-                Console.WriteLine("8.  Update Cart Quantity");
-                Console.WriteLine("9.  Checkout (Place Order)");
-                Console.WriteLine("10. View Order History");
-                Console.WriteLine("11. Cancel Order");
-                Console.WriteLine("12. Add Balance");
-                Console.WriteLine("13. My Profile (View & Update)");
-                Console.WriteLine("14. Logout");
+                Console.WriteLine("8.  Clear cart");
+                Console.WriteLine("9.  Update Cart Quantity");
+                Console.WriteLine("10. Checkout (Place Order)");
+                Console.WriteLine("11. View Order History");
+                Console.WriteLine("12. Cancel Order");
+                Console.WriteLine("13. Add Balance");
+                Console.WriteLine("14. My Profile (View & Update)");
+                Console.WriteLine("15. Logout");
 
                 Console.Write("\nChoose option: ");
                 string option = Console.ReadLine();
@@ -73,27 +74,30 @@ namespace Entity_Project.Menus
                             _cartService.RemoveFromCart(user);
                             break;
                         case "8":
-                            _cartService.UpdateCartQuantity(user);
+                            _cartService.ClearCart(user);
                             break;
                         case "9":
-                            _orderService.Checkout(user);
+                            _cartService.UpdateCartQuantity(user);
                             break;
                         case "10":
-                            _orderService.ViewOrderHistory(user);
+                            _orderService.Checkout(user);
                             break;
                         case "11":
-                            _orderService.CancelOrder(user);
+                            _orderService.ViewOrderHistory(user);
                             break;
                         case "12":
-                            _userService.AddBalance(user);
+                            _orderService.CancelOrder(user);
                             break;
                         case "13":
+                            _userService.AddBalance(user);
+                            break;
+                        case "14":
                             _userService.ViewProfile(user);
                             Console.WriteLine("\nDo you want to update your profile? (y/n)");
                             if (Console.ReadLine()?.ToLower() == "y")
                                 _userService.UpdateProfile(user);
                             break;
-                        case "14":
+                        case "15":
                             _authService.Logout();
                             Console.WriteLine("Successfully logged out.");
                             return;

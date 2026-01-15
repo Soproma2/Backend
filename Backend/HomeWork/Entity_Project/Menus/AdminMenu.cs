@@ -24,7 +24,7 @@ namespace Entity_Project.Menus
                 Console.WriteLine("3. Delete Product");
                 Console.WriteLine("4. View All Orders");
                 Console.WriteLine("5. Mark Order as Delivered");
-                Console.WriteLine("6. Cancel Order (Admin)");
+                Console.WriteLine("6. Cancel Order");
                 Console.WriteLine("7. View All Products");
                 Console.WriteLine("8. Logout");
                 Console.Write("\nChoose option: ");
