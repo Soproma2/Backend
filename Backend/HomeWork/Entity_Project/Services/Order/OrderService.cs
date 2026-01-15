@@ -99,11 +99,9 @@ namespace Entity_Project.Services.Order
             order.Status = OrderStatus.CANCELLED;
 
             var dbUser = _db.Users.Find(user.Id);
-            if (dbUser != null)
-            {
-                dbUser.Balance += order.TotalPrice;
-                user.Balance = dbUser.Balance; 
-            }
+            if (dbUser == null) throw new Exception("User not found!");
+            dbUser.Balance += order.TotalPrice;
+            user.Balance = dbUser.Balance;
 
             foreach (var item in order.Items)
             {
@@ -121,7 +119,7 @@ namespace Entity_Project.Services.Order
 
             var orders = _db.Orders.Include(o => o.User).ToList();
             Console.WriteLine("\n=== All Orders (Admin) ===");
-            foreach ( var o in orders)
+            foreach (var o in orders)
             {
                 Console.WriteLine($"ID: {o.Id} | User: {o.User?.Username} | Total: {o.TotalPrice}$ | Status: {o.Status}");
             }
@@ -129,7 +127,7 @@ namespace Entity_Project.Services.Order
         public void MarkOrderDelivered()
         {
             if (AuthService.CurrentUser?.Role != UserRole.ADMIN) throw new Exception("Access Denied!");
-           
+
             Console.Write("Enter Order ID to mark as Delivered: ");
             if (!int.TryParse(Console.ReadLine(), out int orderId))
                 throw new Exception("Invalid Order ID!");
@@ -150,10 +148,22 @@ namespace Entity_Project.Services.Order
             if (!int.TryParse(Console.ReadLine(), out int orderId))
                 throw new Exception("Invalid Order ID!");
 
-            var order = _db.Orders.Find(orderId);
+            var order = _db.Orders
+                        .Include(o => o.Items)
+                        .ThenInclude(i => i.Product)
+                        .FirstOrDefault(o => o.Id == orderId);
             if (order == null) throw new Exception("Order not found!");
 
             order.Status = OrderStatus.CANCELLED;
+
+            var user = _db.Users.Find(order.UserId);
+            if (user != null) user.Balance += order.TotalPrice;
+
+            foreach (var item in order.Items)
+            {
+                if (item.Product != null)
+                    item.Product.Stock += item.Quantity;
+            }
             _db.SaveChanges();
             Console.WriteLine("Order cancelled by admin.");
         }

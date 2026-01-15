@@ -56,7 +56,7 @@ namespace Entity_Project.Services.Product
             int stock = int.Parse(Console.ReadLine());
 
             if (stock <= 0)
-                throw new Exception("Description is required!");
+                throw new Exception("Stock must be greater than 0!");
 
             Models.Product product = new Models.Product()
             {
@@ -77,7 +77,7 @@ namespace Entity_Project.Services.Product
         {
             Console.Write("Search for: ");
             string term = Console.ReadLine().ToLower();
-            if (!string.IsNullOrWhiteSpace(term)) throw new Exception("Product name is required!");
+            if (string.IsNullOrWhiteSpace(term)) throw new Exception("Product name is required!");
 
             var results = _db.Products
                 .Where(p => p.Name.ToLower().Contains(term))

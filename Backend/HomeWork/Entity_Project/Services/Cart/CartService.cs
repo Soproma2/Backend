@@ -28,7 +28,7 @@ namespace Entity_Project.Services.Cart
                 throw new Exception("Invalid quantity!");
 
             if (quantity > product.Stock)
-                throw new Exception("not eanogh stock available!");
+                throw new Exception("Not eanogh stock available!");
 
             var existingCarItem = _db.CartItems
                 .FirstOrDefault(c=>c.UserId == user.Id && c.ProductId == productId);
