@@ -38,8 +38,13 @@ namespace Entity_Project.Services.User
                 dbUser.Balance += amount;
                 _db.SaveChanges();
 
-
                 user.Balance = dbUser.Balance;
+
+                
+                if (AuthService.CurrentUser != null && AuthService.CurrentUser.Id == dbUser.Id)
+                {
+                    AuthService.CurrentUser.Balance = dbUser.Balance;
+                }
 
                 Console.WriteLine($"Balance updated! New balance: {user.Balance}$");
             }

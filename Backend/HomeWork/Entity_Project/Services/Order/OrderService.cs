@@ -37,11 +37,17 @@ namespace Entity_Project.Services.Order
                 totalPrice += itemTotal;
             }
 
+            
+            var dbUserFresh = _db.Users.AsNoTracking().FirstOrDefault(u => u.Id == user.Id);
+            if (dbUserFresh == null)
+                throw new Exception("User not found!");
+            if (dbUserFresh.Balance < totalPrice)
+                throw new Exception($"Insufficient balance! Needed: {totalPrice}$, Available: {dbUserFresh.Balance}$");
+
+            
             var dbUser = _db.Users.Find(user.Id);
             if (dbUser == null)
                 throw new Exception("User not found!");
-            if (dbUser.Balance < totalPrice)
-                throw new Exception($"Insufficient balance! Needed: {totalPrice}$, Available: {dbUser.Balance}$");
 
             foreach (var item in cartItems)
             {
