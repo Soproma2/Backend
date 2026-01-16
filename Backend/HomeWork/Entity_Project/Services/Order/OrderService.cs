@@ -195,7 +195,7 @@ namespace Entity_Project.Services.Order
             Console.WriteLine("\n=== All Orders ===");
             foreach (var o in orders)
             {
-                Console.WriteLine($"ID: {o.Id} | User: {o.User?.Username} | Date: {o.CreateAt:yyyy-MM-dd HH:mm} | Total: {o.TotalPrice}$ | Status: {o.Status}");
+                Console.WriteLine($"ID: {o.Id} | User: {o.User?.Username} | Date: {o.CreateAt:yyyy-MM-dd} | Total: {o.TotalPrice}$ | Status: {o.Status}");
             }
         }
         public void MarkOrderDelivered()
@@ -325,7 +325,7 @@ namespace Entity_Project.Services.Order
 
             Console.WriteLine($"\n--- Order Details (ID: {order.Id}) ---");
             Console.WriteLine($"Customer:    {order.User?.Username ?? "Unknown"}");
-            Console.WriteLine($"Order Date:  {order.CreateAt:yyyy-MM-dd HH:mm:ss}");
+            Console.WriteLine($"Order Date:  {order.CreateAt:yyyy-MM-dd}");
             Console.WriteLine($"Status: {order.Status}");
             Console.WriteLine($"--- Items ---");
 
