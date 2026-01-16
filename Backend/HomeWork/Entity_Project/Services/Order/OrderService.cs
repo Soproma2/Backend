@@ -85,7 +85,7 @@ namespace Entity_Project.Services.Order
                 prod.Stock -= item.Quantity;
             }
 
-            // Remove tracked cart items by ids
+            
             var cartItemIds = cartItemsFresh.Select(c => c.Id).ToList();
             var trackedCartItemsToRemove = _db.CartItems.Where(c => cartItemIds.Contains(c.Id)).ToList();
             _db.CartItems.RemoveRange(trackedCartItemsToRemove);

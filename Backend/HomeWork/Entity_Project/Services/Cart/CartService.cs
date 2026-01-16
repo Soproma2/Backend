@@ -20,7 +20,7 @@ namespace Entity_Project.Services.Cart
             if (!int.TryParse(Console.ReadLine(), out int productId))
                 throw new Exception("Invalid Product ID!");
 
-            // Read latest product state from DB to avoid stale tracked entity
+            
             var product = _db.Products.AsNoTracking().FirstOrDefault(p => p.Id == productId);
             if (product == null) throw new Exception("Product not found!");
             if (product.Stock <= 0)
@@ -127,7 +127,7 @@ namespace Entity_Project.Services.Cart
             if (cartItem.Product == null)
                 throw new Exception("Product not found in database!");
 
-            // Get freshest product stock
+            
             var currentProduct = _db.Products.AsNoTracking().FirstOrDefault(p => p.Id == productId);
             int availableStock = currentProduct?.Stock ?? cartItem.Product?.Stock ?? 0;
             Console.Write($"Current quantity: {cartItem.Quantity}. Enter new quantity (Available stock: {availableStock}): ");
