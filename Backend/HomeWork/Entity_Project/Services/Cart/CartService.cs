@@ -85,7 +85,7 @@ namespace Entity_Project.Services.Cart
             {
                 if (item.Product == null)
                 {
-                    Console.WriteLine($"Warning: Product ID {item.ProductId} not found (removed)");
+                    Console.WriteLine($"Product ID {item.ProductId} not found (removed)");
                     continue;
                 }
                 double total = item.Product.Price * item.Quantity;
@@ -179,7 +179,7 @@ namespace Entity_Project.Services.Cart
             Console.Write($"Are you sure you want to clear all {userCartItems.Count} item(s) from your cart? (y/n): ");
             string confirmation = Console.ReadLine()?.Trim().ToLower();
 
-            if (confirmation != "yes")
+            if (confirmation != "y")
             {
                 Console.WriteLine("Cart clear cancelled.");
                 return;
