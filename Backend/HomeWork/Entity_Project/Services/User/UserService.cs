@@ -86,6 +86,17 @@ namespace Entity_Project.Services.User
                 user.Profile.PhoneNumber = profile.PhoneNumber;
             }
 
+            
+            if (AuthService.CurrentUser != null && AuthService.CurrentUser.Id == user.Id)
+            {
+                if (AuthService.CurrentUser.Profile == null)
+                    AuthService.CurrentUser.Profile = new Models.Profile();
+
+                AuthService.CurrentUser.Profile.FullName = profile.FullName;
+                AuthService.CurrentUser.Profile.Address = profile.Address;
+                AuthService.CurrentUser.Profile.PhoneNumber = profile.PhoneNumber;
+            }
+
             Console.WriteLine("Profile updated successfully!");
         }
 

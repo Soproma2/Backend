@@ -20,7 +20,8 @@ namespace Entity_Project.Services.Cart
             if (!int.TryParse(Console.ReadLine(), out int productId))
                 throw new Exception("Invalid Product ID!");
 
-            var product = _db.Products.Find(productId);
+            // Read latest product state from DB to avoid stale tracked entity
+            var product = _db.Products.AsNoTracking().FirstOrDefault(p => p.Id == productId);
             if (product == null) throw new Exception("Product not found!");
             if (product.Stock <= 0)
             {
@@ -67,7 +68,8 @@ namespace Entity_Project.Services.Cart
         {
             if (user == null)
                 throw new Exception("You must be logged in!");
-            var cartItems = _db.CartItems
+            
+            var cartItems = _db.CartItems.AsNoTracking()
                 .Include(c => c.Product)
                 .Where(c => c.UserId == user.Id)
                 .ToList();
@@ -95,11 +97,16 @@ namespace Entity_Project.Services.Cart
 
             Console.WriteLine("------------------------");
             Console.WriteLine($"Grand Total: {grandTotal}$");
-            Console.WriteLine($"Your Balance: {user.Balance}$");
 
-            if (grandTotal > user.Balance)
+           
+            var dbUser = _db.Users.AsNoTracking().FirstOrDefault(u => u.Id == user.Id);
+            double displayedBalance = dbUser?.Balance ?? user.Balance;
+
+            Console.WriteLine($"Your Balance: {displayedBalance}$");
+
+            if (grandTotal > displayedBalance)
             {
-                Console.WriteLine($"Insufficient funds! You need {(grandTotal - user.Balance)}$ more.");
+                Console.WriteLine($"Insufficient funds! You need {(grandTotal - displayedBalance)}$ more.");
             }
         }
 
@@ -120,7 +127,10 @@ namespace Entity_Project.Services.Cart
             if (cartItem.Product == null)
                 throw new Exception("Product not found in database!");
 
-            Console.Write($"Current quantity: {cartItem.Quantity}. Enter new quantity (Available stock: {cartItem.Product.Stock}): ");
+            // Get freshest product stock
+            var currentProduct = _db.Products.AsNoTracking().FirstOrDefault(p => p.Id == productId);
+            int availableStock = currentProduct?.Stock ?? cartItem.Product?.Stock ?? 0;
+            Console.Write($"Current quantity: {cartItem.Quantity}. Enter new quantity (Available stock: {availableStock}): ");
             if (!int.TryParse(Console.ReadLine(), out int newQuantity))
                 throw new Exception("Invalid quantity format!");
 
@@ -135,8 +145,8 @@ namespace Entity_Project.Services.Cart
                 return;
             }
            
-             if(newQuantity > cartItem.Product.Stock)
-                throw new Exception($"Not enough stock! Only {cartItem.Product.Stock} units available.");
+             if(newQuantity > availableStock)
+                throw new Exception($"Not enough stock! Only {availableStock} units available.");
 
             cartItem.Quantity = newQuantity;
             _db.SaveChanges();

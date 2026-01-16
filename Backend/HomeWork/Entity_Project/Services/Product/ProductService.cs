@@ -15,7 +15,7 @@ namespace Entity_Project.Services.Product
         private readonly DataContext _db = new DataContext();
         public void ViewAllProducts()
         {
-            var products = _db.Products.ToList();
+            var products = _db.Products.AsNoTracking().ToList();
             if (!products.Any())
             {
                 Console.WriteLine("\n=== Product List ===");
@@ -89,7 +89,7 @@ namespace Entity_Project.Services.Product
             string term = Console.ReadLine().ToLower();
             if (string.IsNullOrWhiteSpace(term)) throw new Exception("Search term is required!");
 
-            var results = _db.Products
+            var results = _db.Products.AsNoTracking()
                 .Where(p => p.Name.ToLower().Contains(term) ||
                            p.Description.ToLower().Contains(term) ||
                            p.Category.ToLower().Contains(term))
@@ -152,7 +152,7 @@ namespace Entity_Project.Services.Product
 
         public void ViewCategories()
         {
-            var allCategories = _db.Products
+            var allCategories = _db.Products.AsNoTracking()
                 .GroupBy(p => p.Category)
                 .Select(g => new { Category = g.Key, Count = g.Count() })
                 .OrderBy(x => x.Category)
@@ -180,7 +180,7 @@ namespace Entity_Project.Services.Product
             if (string.IsNullOrWhiteSpace(categoryInput))
                 throw new Exception("Category is required!");
 
-            var products = _db.Products
+            var products = _db.Products.AsNoTracking()
                 .Where(p => p.Category.ToLower() == categoryInput.ToLower())
                 .ToList();
 
@@ -203,7 +203,7 @@ namespace Entity_Project.Services.Product
             if (!int.TryParse(Console.ReadLine(), out int id))
                 throw new Exception("Invalid ID format!");
 
-            var product = _db.Products.Find(id);
+            var product = _db.Products.AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (product == null)
                 throw new Exception("Product not found!");
            

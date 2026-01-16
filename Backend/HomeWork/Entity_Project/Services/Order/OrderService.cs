@@ -17,21 +17,22 @@ namespace Entity_Project.Services.Order
         {
             if (user == null) throw new Exception("You must be logged in to checkout!");
 
-            var cartItems = _db.CartItems
+            
+            var cartItemsFresh = _db.CartItems.AsNoTracking()
                 .Include(c => c.Product)
                 .Where(c => c.UserId == user.Id)
                 .ToList();
 
-            if (!cartItems.Any()) throw new Exception("Your cart is empty!");
+            if (!cartItemsFresh.Any()) throw new Exception("Your cart is empty!");
 
-            var missingProducts = cartItems.Where(c => c.Product == null).ToList();
+            var missingProducts = cartItemsFresh.Where(c => c.Product == null).ToList();
             if (missingProducts.Any())
             {
                 throw new Exception($"{missingProducts.Count} product(s) in your cart no longer exist. Please update your cart.");
             }
 
             double totalPrice = 0;
-            foreach (var item in cartItems)
+            foreach (var item in cartItemsFresh)
             {
                 double itemTotal = item.Product.Price * item.Quantity;
                 totalPrice += itemTotal;
@@ -49,8 +50,11 @@ namespace Entity_Project.Services.Order
             if (dbUser == null)
                 throw new Exception("User not found!");
 
-            foreach (var item in cartItems)
+            
+            foreach (var item in cartItemsFresh)
             {
+                if (item.Product == null)
+                    throw new Exception($"Product ID {item.ProductId} not found.");
                 if (item.Product.Stock < item.Quantity)
                     throw new Exception($"Product {item.Product.Name}. Insufficient quantity in stock | Stock: {item.Product.Stock}");
             }
@@ -60,7 +64,7 @@ namespace Entity_Project.Services.Order
                 UserId = user.Id,
                 TotalPrice = totalPrice,
                 Status = Enums.OrderStatus.PENDING,
-                Items = cartItems.Select(c => new Models.OrderItem
+                Items = cartItemsFresh.Select(c => new Models.OrderItem
                 {
                     ProductId = c.ProductId,
                     Quantity = c.Quantity,
@@ -73,13 +77,24 @@ namespace Entity_Project.Services.Order
             dbUser.Balance -= totalPrice;
             user.Balance = dbUser.Balance;
 
-            foreach (var item in cartItems)
+            
+            foreach (var item in cartItemsFresh)
             {
-                item.Product.Stock -= item.Quantity;
+                var prod = _db.Products.Find(item.ProductId);
+                if (prod == null) throw new Exception($"Product ID {item.ProductId} not found when updating stock.");
+                prod.Stock -= item.Quantity;
             }
 
-            _db.CartItems.RemoveRange(cartItems);
+            // Remove tracked cart items by ids
+            var cartItemIds = cartItemsFresh.Select(c => c.Id).ToList();
+            var trackedCartItemsToRemove = _db.CartItems.Where(c => cartItemIds.Contains(c.Id)).ToList();
+            _db.CartItems.RemoveRange(trackedCartItemsToRemove);
             _db.SaveChanges();
+            
+            if (AuthService.CurrentUser != null && AuthService.CurrentUser.Id == dbUser.Id)
+            {
+                AuthService.CurrentUser.Balance = dbUser.Balance;
+            }
             Console.WriteLine($"Order placed successfully! Total spent: {totalPrice}$");
             Console.WriteLine($"Remaining balance: {user.Balance}$");
             Console.WriteLine($"Order status: {order.Status}");
@@ -89,7 +104,7 @@ namespace Entity_Project.Services.Order
             if (user == null)
                 throw new Exception("You must be logged in!");
 
-            var orders = _db.Orders
+            var orders = _db.Orders.AsNoTracking()
                 .Where(o => o.UserId == user.Id)
                 .OrderByDescending(o => o.CreateAt)
                 .ToList();
@@ -152,6 +167,11 @@ namespace Entity_Project.Services.Order
                 }
             }
             _db.SaveChanges();
+            
+            if (AuthService.CurrentUser != null && AuthService.CurrentUser.Id == dbUser.Id)
+            {
+                AuthService.CurrentUser.Balance = dbUser.Balance;
+            }
             Console.WriteLine("Order cancelled and funds returned.");
             Console.WriteLine($"Refunded: {order.TotalPrice}$");
             Console.WriteLine($"New balance: {user.Balance}$");
@@ -160,7 +180,7 @@ namespace Entity_Project.Services.Order
         {
             if (AuthService.CurrentUser?.Role != UserRole.ADMIN) throw new Exception("Access Denied!");
 
-            var orders = _db.Orders
+            var orders = _db.Orders.AsNoTracking()
                 .Include(o => o.User)
                 .OrderByDescending(o => o.CreateAt)
                 .ToList();
@@ -202,6 +222,8 @@ namespace Entity_Project.Services.Order
 
             order.Status = OrderStatus.DELIVERED;
             _db.SaveChanges();
+
+
             Console.WriteLine("Order marked as Delivered.");
         }
 
@@ -245,6 +267,11 @@ namespace Entity_Project.Services.Order
             else
             {
                 user.Balance += order.TotalPrice;
+                
+                if (AuthService.CurrentUser != null && AuthService.CurrentUser.Id == user.Id)
+                {
+                    AuthService.CurrentUser.Balance = user.Balance;
+                }
                 Console.WriteLine($"Refunded {order.TotalPrice}$ to {user.Username}");
             }
 
@@ -264,6 +291,11 @@ namespace Entity_Project.Services.Order
 
             order.Status = OrderStatus.CANCELLED;
             _db.SaveChanges();
+            
+            if (AuthService.CurrentUser != null && AuthService.CurrentUser.Id == user?.Id)
+            {
+                AuthService.CurrentUser.Balance = user.Balance;
+            }
             Console.WriteLine($"Order #{orderId} cancelled by admin.");
             Console.WriteLine($"Restored {restoredItems} product(s) to stock.");
         }
@@ -277,7 +309,7 @@ namespace Entity_Project.Services.Order
             if (!int.TryParse(Console.ReadLine(), out int orderId))
                 throw new Exception("Invalid Order ID!");
 
-            var order = _db.Orders
+            var order = _db.Orders.AsNoTracking()
                 .Include(o => o.Items)
                 .ThenInclude(i => i.Product)
                 .Include(o => o.User)
