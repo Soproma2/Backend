@@ -43,7 +43,8 @@ namespace Entity_Project.Menus
                 Console.WriteLine("12. Cancel Order");
                 Console.WriteLine("13. Add Balance");
                 Console.WriteLine("14. My Profile (View & Update)");
-                Console.WriteLine("15. Logout");
+                Console.WriteLine("15. View Order Details");
+                Console.WriteLine("16. Logout");
 
                 Console.Write("\nChoose option: ");
                 string option = Console.ReadLine();
@@ -98,6 +99,9 @@ namespace Entity_Project.Menus
                                 _userService.UpdateProfile(user);
                             break;
                         case "15":
+                            _orderService.ViewOrderDetails();
+                            break;
+                        case "16":
                             _authService.Logout();
                             Console.WriteLine("Successfully logged out.");
                             return;

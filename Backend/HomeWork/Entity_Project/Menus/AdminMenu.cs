@@ -26,7 +26,8 @@ namespace Entity_Project.Menus
                 Console.WriteLine("5. Mark Order as Delivered");
                 Console.WriteLine("6. Cancel Order");
                 Console.WriteLine("7. View All Products");
-                Console.WriteLine("8. Logout");
+                Console.WriteLine("8. View Order Details");
+                Console.WriteLine("9. Logout");
                 Console.Write("\nChoose option: ");
 
                 string option = Console.ReadLine();
@@ -57,6 +58,9 @@ namespace Entity_Project.Menus
                             _productService.ViewAllProducts();
                             break;
                         case "8":
+                            _orderService.ViewOrderDetails();
+                            break;
+                        case "9":
                             Console.WriteLine("Logging out from Admin Panel...");
                             _authService.Logout();
                             return;
