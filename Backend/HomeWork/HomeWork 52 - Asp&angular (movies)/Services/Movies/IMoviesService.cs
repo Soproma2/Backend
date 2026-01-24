@@ -6,7 +6,7 @@ namespace HomeWork_52___Asp_angular__movies_.Services.Movies
 {
     public interface IMoviesService
     {
-        Result<MovieResponse> GetAllMovies();
+        Result<List<MovieResponse>> GetAllMovies();
         Result<MovieResponse> GetMoviesById();
         Result<string> CreateMovie(CreateMovieDto req);
         Result<string> UpdateMovie(UpdateMovieDto req);
