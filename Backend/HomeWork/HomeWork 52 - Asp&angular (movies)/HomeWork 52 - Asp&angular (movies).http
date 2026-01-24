@@ -1,0 +1,6 @@
+@HomeWork_52___Asp_angular__movies__HostAddress = http://localhost:5161
+
+GET {{HomeWork_52___Asp_angular__movies__HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

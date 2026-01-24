@@ -1,0 +1,16 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HomeWork_52___Asp_angular__movies_.Models
+{
+    public class Movie
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int Year { get; set; }
+        public string Genre { get; set; }
+        public string Director { get; set; }
+        public decimal? Rating { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+    }
+}
