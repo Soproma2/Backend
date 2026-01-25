@@ -62,7 +62,7 @@ namespace HomeWork_52___Asp_angular__movies_.Services.Movies
             return Result<string>.success("Movie added successfully.", null);
         }
 
-        public Result<string> DeleteMovie(string id)
+        public Result<string> DeleteMovie(int id)
         {
             var movie = _db.Movies.Find(id);
             if (movie == null)
@@ -97,14 +97,51 @@ namespace HomeWork_52___Asp_angular__movies_.Services.Movies
             return Result<List<MovieResponse>>.success(null, response);
         }
 
-        public Result<MovieResponse> GetMoviesById()
+        public Result<MovieResponse> GetMoviesById(int id)
         {
-            throw new NotImplementedException();
+            var movie = _db.Movies.Find(id);
+            if(movie == null)
+            {
+                return Result<MovieResponse>.NotFound("Movie not found");
+            }
+
+            var response = new MovieResponse()
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Description = movie.Description,
+                Genre = movie.Genre,
+                Year = movie.Year,
+                Director = movie.Director,
+                Rating = movie.Rating
+            };
+
+            return Result<MovieResponse>.success(null, response);
         }
 
-        public Result<string> UpdateMovie(UpdateMovieDto req)
+        public Result<string> UpdateMovie(UpdateMovieDto req, int id)
         {
-            throw new NotImplementedException();
+            var movie = _db.Movies.Find(id);
+            if (movie == null)
+            {
+                return Result<string>.NotFound("Movie not found");
+            }
+
+            if (!string.IsNullOrWhiteSpace(req.Title)) movie.Title = req.Title;
+
+            if (!string.IsNullOrWhiteSpace(req.Description)) movie.Description = req.Description;
+
+            if (!string.IsNullOrWhiteSpace(req.Genre)) movie.Genre = req.Genre;
+
+            if (req.Year.HasValue && req.Year.Value != default) movie.Year = req.Year.Value;
+
+            if (!string.IsNullOrWhiteSpace(req.Director)) movie.Director = req.Director;
+
+            if (req.Rating.HasValue) movie.Rating = req.Rating;
+
+            _db.SaveChanges();
+
+            return Result<string>.success("Movie Updated Successfully.", null);
         }
     }
 }
