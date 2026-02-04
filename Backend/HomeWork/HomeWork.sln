@@ -111,6 +111,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 51 - Asp JWT", "Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 52 - Asp&angular (movies)", "HomeWork 52 - Asp&angular (movies)\HomeWork 52 - Asp&angular (movies).csproj", "{E1174276-C1A1-4E34-A1D4-6B00E4EAA108}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 53 - Social System", "HomeWork 53 - Social System\HomeWork 53 - Social System.csproj", "{132BC595-9FC4-4A59-8041-2D28C5172D32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -333,6 +335,10 @@ Global
 		{E1174276-C1A1-4E34-A1D4-6B00E4EAA108}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1174276-C1A1-4E34-A1D4-6B00E4EAA108}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1174276-C1A1-4E34-A1D4-6B00E4EAA108}.Release|Any CPU.Build.0 = Release|Any CPU
+		{132BC595-9FC4-4A59-8041-2D28C5172D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{132BC595-9FC4-4A59-8041-2D28C5172D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{132BC595-9FC4-4A59-8041-2D28C5172D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{132BC595-9FC4-4A59-8041-2D28C5172D32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
