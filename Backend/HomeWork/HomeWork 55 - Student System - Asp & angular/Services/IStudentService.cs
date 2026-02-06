@@ -9,7 +9,7 @@ namespace HomeWork_55___Student_System___Asp___angular.Services
         Result<string> AddStudent(StudentRegisterRequest req);
         Result<string> UpdateStudent(StudentUpdateRequest req, int StudentId);
         Result<string> DeleteStudent(int StudentId);
-        Result <List<StudentResponse>> GetAllStudent();
+        Result <List<StudentResponse>> GetAllStudents();
         Result<StudentResponse> GetStudentById(int id);
     }
 }

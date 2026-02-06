@@ -74,7 +74,7 @@ namespace HomeWork_55___Student_System___Asp___angular.Services
             return Result<string>.success("Student Deleted Successfully.", null);
         }
 
-        public Result<List<StudentResponse>> GetAllStudent()
+        public Result<List<StudentResponse>> GetAllStudents()
         {
             var students = _db.Students.ToList();
 
