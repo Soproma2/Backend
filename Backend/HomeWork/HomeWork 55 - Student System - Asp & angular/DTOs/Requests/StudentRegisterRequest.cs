@@ -1,0 +1,12 @@
+﻿namespace HomeWork_55___Student_System___Asp___angular.DTOs.Requests
+{
+    public class StudentRegisterRequest
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Address { get; set; }
+    }
+}

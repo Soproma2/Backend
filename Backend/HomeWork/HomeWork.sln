@@ -113,6 +113,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 52 - Asp&angular (
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 53 - Social System", "HomeWork 53 - Social System\HomeWork 53 - Social System.csproj", "{132BC595-9FC4-4A59-8041-2D28C5172D32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 55 - Student System - Asp & angular", "HomeWork 55 - Student System - Asp & angular\HomeWork 55 - Student System - Asp & angular.csproj", "{B051B614-994F-4A56-838C-46082E5A4581}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -339,6 +341,10 @@ Global
 		{132BC595-9FC4-4A59-8041-2D28C5172D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{132BC595-9FC4-4A59-8041-2D28C5172D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{132BC595-9FC4-4A59-8041-2D28C5172D32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B051B614-994F-4A56-838C-46082E5A4581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B051B614-994F-4A56-838C-46082E5A4581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B051B614-994F-4A56-838C-46082E5A4581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B051B614-994F-4A56-838C-46082E5A4581}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

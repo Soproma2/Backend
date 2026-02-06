@@ -1,0 +1,6 @@
+@HomeWork_55___Student_System___Asp___angular_HostAddress = http://localhost:5017
+
+GET {{HomeWork_55___Student_System___Asp___angular_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
