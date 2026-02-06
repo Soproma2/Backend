@@ -10,6 +10,6 @@
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public DateTime EnrollmentDate { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }
