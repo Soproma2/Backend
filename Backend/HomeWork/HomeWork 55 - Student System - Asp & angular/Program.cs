@@ -15,6 +15,13 @@ builder.Services.AddDbContext<DataContext>(o=>o.UseSqlServer(@"Data Source=(loca
 
 builder.Services.AddScoped<IStudentService, StudentService>();
 
+builder.Services.AddCors(options
+    => options.AddDefaultPolicy(policy
+    => policy.AllowAnyOrigin()
+             .AllowAnyHeader()
+             .AllowAnyMethod()
+    ));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
