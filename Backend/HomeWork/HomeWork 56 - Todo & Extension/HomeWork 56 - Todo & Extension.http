@@ -1,0 +1,6 @@
+@HomeWork_56___Todo___Extension_HostAddress = http://localhost:5260
+
+GET {{HomeWork_56___Todo___Extension_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
