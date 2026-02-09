@@ -1,0 +1,13 @@
+﻿using HomeWork_57___Asp_E_Commerce.Common;
+
+namespace HomeWork_57___Asp_E_Commerce.Models
+{
+    public class CartItem : BaseEntity
+    {
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
+        public int Quantity { get; set; }
+    }
+}

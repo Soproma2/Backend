@@ -1,0 +1,31 @@
+﻿namespace HomeWork_57___Asp_E_Commerce.Enums
+{
+    public enum Category
+    {
+        Electronics,
+        Clothing,
+        Books,
+        HomeAndGarden,
+        SportsAndOutdoors,
+        ToysAndGames,
+        BeautyAndPersonalCare,
+        HealthAndWellness,
+        FoodAndBeverages,
+        Automotive,
+        JewelryAndAccessories,
+        ShoesAndFootwear,
+        BagsAndLuggage,
+        PetsSupplies,
+        OfficeSupplies,
+        BabyAndKids,
+        FurnitureAndDecor,
+        AppliancesAndKitchen,
+        MoviesAndMusic,
+        VideoGames,
+        PhoneAndTablet,
+        ComputersAndLaptops,
+        CamerasAndPhotography,
+        WatchesAndSmartwatch,
+        Other
+    }
+}

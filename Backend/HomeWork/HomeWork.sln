@@ -117,6 +117,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 55 - Student Syste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 56 - Todo & Extension", "HomeWork 56 - Todo & Extension\HomeWork 56 - Todo & Extension.csproj", "{7F03E35A-0356-4F5C-8592-7503167D1A24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork 57 - Asp E-Commerce", "HomeWork 57 - Asp E-Commerce\HomeWork 57 - Asp E-Commerce.csproj", "{8B5092EC-B362-46DA-80C6-0E640F5CBFEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -351,6 +353,10 @@ Global
 		{7F03E35A-0356-4F5C-8592-7503167D1A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F03E35A-0356-4F5C-8592-7503167D1A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F03E35A-0356-4F5C-8592-7503167D1A24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B5092EC-B362-46DA-80C6-0E640F5CBFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B5092EC-B362-46DA-80C6-0E640F5CBFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B5092EC-B362-46DA-80C6-0E640F5CBFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B5092EC-B362-46DA-80C6-0E640F5CBFEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
