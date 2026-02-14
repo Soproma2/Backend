@@ -49,11 +49,11 @@ namespace HomeWork_46___Asp.Controllers
             return Ok(ById);
         }
 
-        [HttpGet]
+        [HttpGet("search")]
         public IActionResult GetBytitleOrauthor(string search)
         {
-            var ragaca = _bookService.GetBytitleOrauthor(search);
-            return Ok(ragaca);
+            var searchG = _bookService.GetBytitleOrauthor(search);
+            return Ok(searchG);
         }
     }
 }
