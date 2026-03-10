@@ -6,7 +6,7 @@ using Homework_58_ASP___Library.Models;
 
 namespace Homework_58_ASP___Library.Services.BookService
 {
-    public class BookService
+    public class BookService : IBookService
     {
         private readonly DataContext _context;
 

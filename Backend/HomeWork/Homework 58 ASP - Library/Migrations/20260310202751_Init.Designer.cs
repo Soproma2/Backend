@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Homework_58_ASP___Library.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260310180230_Init")]
+    [Migration("20260310202751_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -69,9 +69,6 @@ namespace Homework_58_ASP___Library.Migrations
                     b.Property<DateTime>("LoanDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("ReturnDate")
                         .HasColumnType("datetime2");
 
@@ -109,6 +106,9 @@ namespace Homework_58_ASP___Library.Migrations
 
                     b.Property<DateTime>("RegisteredAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
