@@ -1,0 +1,14 @@
+﻿namespace Homework_58_ASP___Library.Models
+{
+    public class Loan
+    {
+        public int Id { get; set; }
+        public int BookId { get; set; }
+        public Book Book { get; set; }
+        public int MemberId { get; set; }
+        public User User { get; set; }
+        public DateTime LoanDate { get; set; } = DateTime.Now;
+        public DateTime? ReturnDate { get; set; }
+        public bool IsReturned { get; set; } = false;
+    }
+}

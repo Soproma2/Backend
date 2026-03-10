@@ -1,0 +1,6 @@
+@Homework_58_ASP___Library_HostAddress = http://localhost:5291
+
+GET {{Homework_58_ASP___Library_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
