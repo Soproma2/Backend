@@ -1,0 +1,6 @@
+@HomeWork_59_ASP_GetEndpoints_HostAddress = http://localhost:5155
+
+GET {{HomeWork_59_ASP_GetEndpoints_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
