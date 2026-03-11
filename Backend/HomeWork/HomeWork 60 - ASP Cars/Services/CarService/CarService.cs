@@ -62,27 +62,21 @@ namespace HomeWork_60___ASP_Cars.Services.CarService
             if (car.SellerId != sellerId)
                 return Result<CarResponse>.BadRequest("You can only edit your own listings");
 
-            if (string.IsNullOrWhiteSpace(req.Brand))
-                return Result<CarResponse>.BadRequest("Brand is required");
-
-            if (string.IsNullOrWhiteSpace(req.Model))
-                return Result<CarResponse>.BadRequest("Model is required");
-
-            if (req.Year < 1886 || req.Year > DateTime.Now.Year)
+            if (req.Year.HasValue && req.Year > DateTime.Now.Year)
                 return Result<CarResponse>.BadRequest("Invalid year");
 
-            if (req.Price <= 0)
+            if (req.Price.HasValue && req.Price <= 0)
                 return Result<CarResponse>.BadRequest("Price must be greater than 0");
 
-            if (req.Mileage < 0)
+            if (req.Mileage.HasValue && req.Mileage < 0)
                 return Result<CarResponse>.BadRequest("Mileage cannot be negative");
 
-            car.Brand = req.Brand;
-            car.Model = req.Model;
-            car.Year = req.Year.Value;
-            car.Price = req.Price.Value ;
-            car.FuelType = req.FuelType;
-            car.Mileage = req.Mileage.Value;
+            car.Brand = req.Brand ?? car.Brand;
+            car.Model = req.Model ?? car.Model;
+            car.Year = req.Year ?? car.Year;
+            car.Price = req.Price ?? car.Price;
+            car.FuelType = req.FuelType ?? car.FuelType;
+            car.Mileage = req.Mileage ?? car.Mileage;
 
             _context.SaveChanges();
             return Result<CarResponse>.success("Car updated successfully", ToResponse(car));
