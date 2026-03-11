@@ -120,7 +120,7 @@ namespace HomeWork_48___Asp.Services.Cars
 
             if(!string.IsNullOrWhiteSpace(req.Name)) car.Name = req.Name;
             if(!string.IsNullOrWhiteSpace(req.Description)) car.Description = req.Description;
-            if (car.Price != null) car.Price = req.Price.Value;
+            if (req.Price != null) car.Price = req.Price.Value;
 
             _db.SaveChanges();
 
