@@ -56,6 +56,13 @@ namespace HomeWork_53___Social_System.Services.PostServices
             if (post.UserId != userId)
                 return Result<PostResponse>.BadRequest("You can only delete your own posts");
 
+            var comments = _context.Comments.Where(c => c.PostId == postId);
+            _context.Comments.RemoveRange(comments);
+
+
+            var likes = _context.Likes.Where(l => l.PostId == postId);
+            _context.Likes.RemoveRange(likes);
+
             _context.Posts.Remove(post);
             _context.SaveChanges();
 
