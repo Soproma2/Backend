@@ -5,7 +5,7 @@ namespace HomeWork_53___Social_System.Services.AuthServices
 {
     public interface IAuthService
     {
-        Result<string> Register(UserRegisterRequest req);
-        Result<string> Login(UserLoginRequest req);
+        Result<string> Register(RegisterReq req);
+        Result<string> Login(LoginReq req);
     }
 }
