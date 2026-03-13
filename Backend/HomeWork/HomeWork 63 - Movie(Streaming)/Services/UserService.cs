@@ -41,6 +41,12 @@ namespace HomeWork_63___Movie_Streaming_.Services
         // ფილმის Watchlist-ში დამატება — Many-to-Many #3
         public async Task AddToWatchlistAsync(int userId, int movieId)
         {
+            var userExists = await _context.Users.AnyAsync(u => u.Id == userId);
+            if (!userExists) throw new ArgumentException($"მომხმარებელი ID-ით {userId} ვერ მოიძებნა.");
+
+            var movieExists = await _context.Movies.AnyAsync(m => m.Id == movieId);
+            if (!movieExists) throw new ArgumentException($"ფილმი ID-ით {movieId} ვერ მოიძებნა.");
+
             var exists = await _context.Watchlists
                 .AnyAsync(w => w.UserId == userId && w.MovieId == movieId);
             if (exists) throw new InvalidOperationException("ფილმი უკვე სიაშია.");
@@ -71,6 +77,12 @@ namespace HomeWork_63___Movie_Streaming_.Services
         public async Task AddSubscriptionAsync(
             int userId, int subscriptionId, DateTime startDate, DateTime endDate)
         {
+            var userExists = await _context.Users.AnyAsync(u => u.Id == userId);
+            if (!userExists) throw new ArgumentException($"მომხმარებელი ID-ით {userId} ვერ მოიძებნა.");
+
+            var subscriptionExists = await _context.Subscriptions.AnyAsync(s => s.Id == subscriptionId);
+            if (!subscriptionExists) throw new ArgumentException($"გამოწერა ID-ით {subscriptionId} ვერ მოიძებნა.");
+
             _context.UserSubscriptions.Add(new UserSubscription
             {
                 UserId = userId,

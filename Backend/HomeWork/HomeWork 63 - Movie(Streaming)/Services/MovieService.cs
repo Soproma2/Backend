@@ -46,6 +46,12 @@ namespace HomeWork_63___Movie_Streaming_.Services
         // მსახიობის დამატება ფილმში (Many-to-Many #1)
         public async Task AddActorToMovieAsync(int movieId, int actorId, string characterName, CastType castType)
         {
+            var movieExists = await _context.Movies.AnyAsync(m => m.Id == movieId);
+            if (!movieExists) throw new ArgumentException($"ფილმი ID-ით {movieId} ვერ მოიძებნა.");
+
+            var actorExists = await _context.Actors.AnyAsync(a => a.Id == actorId);
+            if (!actorExists) throw new ArgumentException($"მსახიობი ID-ით {actorId} ვერ მოიძებნა.");
+
             _context.MovieCasts.Add(new MovieCast
             {
                 MovieId = movieId,
@@ -59,6 +65,12 @@ namespace HomeWork_63___Movie_Streaming_.Services
         // ჟანრის მიბმა ფილმზე (Many-to-Many #2)
         public async Task AddGenreToMovieAsync(int movieId, int genreId, bool isPrimary)
         {
+            var movieExists = await _context.Movies.AnyAsync(m => m.Id == movieId);
+            if (!movieExists) throw new ArgumentException($"ფილმი ID-ით {movieId} ვერ მოიძებნა.");
+
+            var genreExists = await _context.Genres.AnyAsync(g => g.Id == genreId);
+            if (!genreExists) throw new ArgumentException($"ჟანრი ID-ით {genreId} ვერ მოიძებნა.");
+
             _context.MovieGenres.Add(new MovieGenre
             {
                 MovieId = movieId,
@@ -71,6 +83,12 @@ namespace HomeWork_63___Movie_Streaming_.Services
         // რეჟისორის მიბმა ფილმზე (Many-to-Many #4)
         public async Task AddDirectorToMovieAsync(int movieId, int directorId, DirectorRole directorRole)
         {
+            var movieExists = await _context.Movies.AnyAsync(m => m.Id == movieId);
+            if (!movieExists) throw new ArgumentException($"ფილმი ID-ით {movieId} ვერ მოიძებნა.");
+
+            var directorExists = await _context.Directors.AnyAsync(d => d.Id == directorId);
+            if (!directorExists) throw new ArgumentException($"რეჟისორი ID-ით {directorId} ვერ მოიძებნა.");
+
             _context.MovieDirectors.Add(new MovieDirector
             {
                 MovieId = movieId,
