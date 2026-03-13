@@ -3,6 +3,7 @@ using HomeWork_56___Todo___Extension.DTOs.Requests;
 using HomeWork_56___Todo___Extension.DTOs.Responses;
 using HomeWork_56___Todo___Extension.Enums;
 using HomeWork_56___Todo___Extension.Services.ToDo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,6 +12,7 @@ namespace HomeWork_56___Todo___Extension.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TodosController : ControllerBase
     {
         private readonly ITodoService _todoService;
