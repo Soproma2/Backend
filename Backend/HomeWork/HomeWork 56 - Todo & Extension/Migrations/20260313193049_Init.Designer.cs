@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeWork_56___Todo___Extension.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260208094628_Init")]
+    [Migration("20260313193049_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace HomeWork_56___Todo___Extension.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("HomeWork_56___Todo___Extension.Models.Todo", b =>
+            modelBuilder.Entity("HomeWork_56___Todo___Extension.Models.TodoItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,24 +33,26 @@ namespace HomeWork_56___Todo___Extension.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DueDate")
+                    b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -60,7 +62,7 @@ namespace HomeWork_56___Todo___Extension.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("todos");
+                    b.ToTable("Todos");
                 });
 
             modelBuilder.Entity("HomeWork_56___Todo___Extension.Models.User", b =>
@@ -71,24 +73,38 @@ namespace HomeWork_56___Todo___Extension.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("HomeWork_56___Todo___Extension.Models.Todo", b =>
+            modelBuilder.Entity("HomeWork_56___Todo___Extension.Models.TodoItem", b =>
                 {
-                    b.HasOne("HomeWork_56___Todo___Extension.Models.User", "user")
+                    b.HasOne("HomeWork_56___Todo___Extension.Models.User", "User")
                         .WithMany("Todos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HomeWork_56___Todo___Extension.Models.User", b =>
