@@ -73,7 +73,7 @@ namespace HomeWork_56___Todo___Extension.Services.Auth
 
         private string GenerateToken(User user)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("askljdfhnalksjdfhlauweryfhdjkfbcklvjhbcxlkjzhbvzlkjhgfgsadfasf"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
@@ -84,8 +84,8 @@ namespace HomeWork_56___Todo___Extension.Services.Auth
         };
 
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Issuer"],
+                issuer: "TodoAPI",
+                audience: "TodoAPI",
                 claims: claims,
                 expires: DateTime.Now.AddDays(7),
                 signingCredentials: creds
