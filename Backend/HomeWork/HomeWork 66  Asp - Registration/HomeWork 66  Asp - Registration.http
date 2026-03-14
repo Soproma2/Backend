@@ -1,0 +1,6 @@
+@HomeWork_66__Asp___Registration_HostAddress = http://localhost:5266
+
+GET {{HomeWork_66__Asp___Registration_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
