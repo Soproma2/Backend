@@ -1,0 +1,6 @@
+@HomeWork_65_Asp___GameShop_HostAddress = http://localhost:5089
+
+GET {{HomeWork_65_Asp___GameShop_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
