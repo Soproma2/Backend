@@ -8,7 +8,7 @@ namespace HomeWork_66__Asp___Registration.Services.Email
         private string _email = "stepnika4@gmail.com";
         private string _password = "eloi ltyd llxg mswa";
 
-        public void SendAsync(string subject, string email, string body)
+        public void SendAsync(string email, string subject, string body)
         {
             var mail = new MailMessage();
 
@@ -16,7 +16,7 @@ namespace HomeWork_66__Asp___Registration.Services.Email
             mail.Subject = subject;
             mail.Body = body;
             mail.To.Add(email);
-            mail.IsBodyHtml = false;
+            mail.IsBodyHtml = true;
 
             var smtp = new SmtpClient("smtp.gmail.com")
             {
