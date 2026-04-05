@@ -13,18 +13,18 @@ namespace Homework_67_Asp___CompanyEvents.Services.Auth
 {
     public class AuthService : IAuthService
     {
-        private readonly AppDbContext db;
+        private readonly AppDbContext _db;
         private readonly IConfiguration _config;
 
         public AuthService(AppDbContext db, IConfiguration config)
         {
-            db = db;
+            _db = db;
             _config = config;
         }
 
         public Result<AuthResponse> Register(RegisterRequest request)
         {
-            if (db.Users.Any(u => u.Email == request.Email))
+            if (_db.Users.Any(u => u.Email == request.Email))
                 return Result.Failure<AuthResponse>("Email უკვე გამოყენებულია.");
 
             var user = new User
@@ -35,8 +35,8 @@ namespace Homework_67_Asp___CompanyEvents.Services.Auth
                 Role = UserRole.User
             };
 
-            db.Users.Add(user);
-            db.SaveChanges();
+            _db.Users.Add(user);
+            _db.SaveChanges();
 
             var token = GenerateToken(user);
             return Result.Success(new AuthResponse(token, user.FullName, user.Email, user.Role.ToString()));
@@ -44,7 +44,7 @@ namespace Homework_67_Asp___CompanyEvents.Services.Auth
 
         public Result<AuthResponse> Login(LoginRequest request)
         {
-            var user = db.Users.FirstOrDefault(u => u.Email == request.Email);
+            var user = _db.Users.FirstOrDefault(u => u.Email == request.Email);
             if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 return Result.Failure<AuthResponse>("Email ან პაროლი არასწორია.");
 
