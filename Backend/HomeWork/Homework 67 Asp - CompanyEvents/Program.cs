@@ -45,7 +45,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
-builder.Services.AddScoped<IDonationService, IDonationService>();
+builder.Services.AddScoped<IDonationService, DonationService>();
 
 
 builder.Services.AddSwaggerGen(c =>
