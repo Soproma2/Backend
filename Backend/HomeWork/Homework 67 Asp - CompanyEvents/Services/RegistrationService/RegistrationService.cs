@@ -60,20 +60,19 @@ namespace Homework_67_Asp___CompanyEvents.Services.RegistrationService
             _db.Registrations.Add(reg);
             _db.SaveChanges();
 
-            var result = _db.Registrations
-                .Include(r => r.User)
-                .Include(r => r.Activity)
-                .Include(r => r.Team)
-                .Select(r => new RegistrationResponse(
-                    r.Id, r.UserId, r.User.FullName,
-                    r.ActivityId, r.Activity.Title,
-                    r.RegistrationType.ToString(),
-                    r.Team != null ? r.Team.Name : null,
-                    r.RegisteredAt
-                ))
-                .First(r => r.Id == reg.Id);
+            var saved = _db.Registrations
+            .Include(r => r.User)
+            .Include(r => r.Activity)
+            .Include(r => r.Team)
+            .First(r => r.Id == reg.Id);
 
-            return Result.Success(result);
+            return Result.Success(new RegistrationResponse(
+                saved.Id, saved.UserId, saved.User.FullName,
+                saved.ActivityId, saved.Activity.Title,
+                saved.RegistrationType.ToString(),
+                saved.Team?.Name,
+                saved.RegisteredAt
+            ));
         }
 
         public Result Unregister(int userId, int activityId)

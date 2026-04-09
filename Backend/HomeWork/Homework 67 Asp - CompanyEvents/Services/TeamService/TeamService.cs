@@ -133,6 +133,10 @@ namespace Homework_67_Asp___CompanyEvents.Services.TeamService
             if (team.CaptainUserId != requestingUserId)
                 return Result.Failure("მხოლოდ კაპიტანს შეუძლია გუნდის წაშლა.");
 
+            var registrations = _db.Registrations.Where(r => r.TeamId == teamId).ToList();
+            foreach (var r in registrations)
+                r.TeamId = null;
+
             _db.Teams.Remove(team);
             _db.SaveChanges();
             return Result.Success();
